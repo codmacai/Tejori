@@ -34,7 +34,7 @@ export function CustomerResults() {
   const go = (k: number) => setActive((k + n) % n);
 
   return (
-    <section id="results" className="scroll-mt-24 overflow-hidden py-16 md:py-20">
+    <section id="results" className="scroll-mt-24 overflow-hidden py-20 md:py-28">
       <div className="container-x">
         <SectionHeading title="Real Customer Results" />
 

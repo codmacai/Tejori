@@ -13,7 +13,7 @@ const concerns = [
 
 export function Concerns() {
   return (
-    <section id="concerns" className="scroll-mt-24 py-16 md:py-20">
+    <section id="concerns" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-x">
         <SectionHeading title="Shop by concern" />
         <div className="mt-12 grid gap-4 md:mt-16 md:grid-cols-3 md:gap-6">

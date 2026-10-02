@@ -7,7 +7,7 @@ import { Logo } from "./Logo";
 const promises = [
   { icon: IconLeaf, t: "100% natural", s: "Ayurveda-inspired formulas" },
   { icon: IconTruck, t: "Fast delivery", s: "Shipped across India" },
-  { icon: IconShield, t: "Secure checkout", s: "UPI, cards & COD" },
+  { icon: IconShield, t: "Secure checkout", s: "Safe & encrypted payments" },
   { icon: IconRefresh, t: "Easy support", s: "We’re here to help" },
 ];
 

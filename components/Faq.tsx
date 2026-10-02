@@ -32,7 +32,7 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="py-16 md:py-20">
+    <section className="py-20 md:py-28">
       <div className="container-x">
         <SectionHeading eyebrow="Questions" title="Good to know" />
         <div className="mx-auto mt-12 max-w-3xl space-y-3 md:mt-16">

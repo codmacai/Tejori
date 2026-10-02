@@ -39,7 +39,7 @@ export function Testimonials() {
   const go = (k: number) => setI((k + reviews.length) % reviews.length);
 
   return (
-    <section className="overflow-hidden py-16 md:py-20">
+    <section className="overflow-hidden py-20 md:py-28">
       <div className="container-x">
         <SectionHeading eyebrow="What they say" title="Loved by our community" />
         <p className="mt-6 text-center text-[13px] font-semibold tracking-[0.25em] text-ink">

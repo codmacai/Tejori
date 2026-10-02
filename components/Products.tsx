@@ -9,7 +9,7 @@ const tabs: Record<string, string | undefined> = {
 
 export function Products() {
   return (
-    <section id="shop" className="scroll-mt-24 py-16 md:py-20">
+    <section id="shop" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-x">
         <SectionHeading eyebrow="Bestsellers" title="Our Products" />
         <div className="no-scrollbar -mx-4 mt-12 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-6 md:mx-auto md:mt-16 md:grid md:max-w-[1240px] md:grid-cols-3 md:gap-7 md:overflow-visible md:px-0">

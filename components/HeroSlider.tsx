@@ -3,63 +3,64 @@
 import Image, { type StaticImageData } from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import comboImg from "@/public/images/hero-combo.jpg";
+import hairImg from "@/public/images/concern-growth.jpg";
 import duoImg from "@/public/images/duo-packshot.jpg";
-import ugcImg from "@/public/images/ugc-1.jpg";
-import { useCart } from "@/lib/cart";
-import { formatPrice, getProduct } from "@/lib/products";
-import { IconArrow, IconPlus } from "./Icons";
+import { IconArrow } from "./Icons";
 
 type Slide = {
   eyebrow: string;
   title: string[];
-  copy: string;
   cta: { label: string; href: string };
+  tone: "light" | "dark";
   bg: string;
-  dark?: boolean;
   image: StaticImageData;
-  layout: "cover" | "packshot" | "portrait";
+  alt: string;
+  /** cover = full-bleed photo, stage = product floating on a colour field */
+  layout: "cover" | "stage";
+  focus?: string;
 };
 
 const slides: Slide[] = [
   {
-    eyebrow: "The Neelayamari ritual",
-    title: ["Complete Hair", "Care Combo"],
-    copy: "Hair oil + anti-dandruff shampoo. Nourish the roots and clear the flakes — together.",
-    cta: { label: "Shop the combo", href: "#shop" },
-    bg: "#f5f3ed",
+    eyebrow: "Neelayamari hair care",
+    title: ["Rooted in", "nature."],
+    cta: { label: "Shop the combo", href: "#combo" },
+    tone: "light",
+    bg: "#f3f1ea",
     image: comboImg,
+    alt: "Tejori Neelayamari shampoo and hair oil in soft morning light",
     layout: "cover",
+    focus: "70% 60%",
+  },
+  {
+    eyebrow: "Neelayamari Hair Oil",
+    title: ["Every strand,", "nourished."],
+    cta: { label: "Shop hair oil", href: "#neelayamari-hair-oil" },
+    tone: "dark",
+    bg: "#14100d",
+    image: hairImg,
+    alt: "Close-up of healthy hair roots",
+    layout: "cover",
+    focus: "50% 50%",
   },
   {
     eyebrow: "For all hair types",
-    title: ["Stronger roots,", "naturally."],
-    copy: "Neelayamari and coconut, the way Kerala has cared for hair for generations.",
-    cta: { label: "Shop hair oil", href: "#shop" },
+    title: ["Pure. Simple.", "Effective."],
+    cta: { label: "Shop bestsellers", href: "#shop" },
+    tone: "light",
     bg: "#dce0c5",
     image: duoImg,
-    layout: "packshot",
-  },
-  {
-    eyebrow: "Real customer results",
-    title: ["Real people.", "Real results."],
-    copy: "See how our community uses Tejori in their everyday hair ritual.",
-    cta: { label: "See results", href: "#results" },
-    bg: "#2e4345",
-    dark: true,
-    image: ugcImg,
-    layout: "portrait",
+    alt: "Tejori Neelayamari hair oil and anti-dandruff shampoo",
+    layout: "stage",
   },
 ];
 
-const DURATION = 6500;
+const DURATION = 7000;
 
 export function HeroSlider() {
-  const { add } = useCart();
-  const combo = getProduct("anti-dandruff-combo")!;
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
   const touchX = useRef<number | null>(null);
-
   const go = useCallback((n: number) => setI((n + slides.length) % slides.length), []);
 
   useEffect(() => {
@@ -68,196 +69,174 @@ export function HeroSlider() {
     return () => clearTimeout(t);
   }, [i, paused, go]);
 
+  // Let the transparent header match the slide underneath it
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent("hero-tone", { detail: slides[i].tone }));
+  }, [i]);
+
   const s = slides[i];
+  const light = s.tone === "dark"; // light text on dark slides
 
   return (
-    <section id="top" className="container-x pt-4 md:pt-8" aria-roledescription="carousel" aria-label="Featured">
-      <div
-        className="relative h-[640px] overflow-hidden rounded-[28px] transition-colors duration-700 md:h-[min(78vh,720px)] md:min-h-[560px] md:rounded-[36px]"
-        style={{ background: s.bg }}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
-        onTouchEnd={(e) => {
-          if (touchX.current === null) return;
-          const dx = e.changedTouches[0].clientX - touchX.current;
-          if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1));
-          touchX.current = null;
-        }}
-      >
-        {slides.map((sl, n) => {
-          const active = n === i;
-          return (
-            <div
-              key={sl.title.join()}
-              className={`absolute inset-0 transition-opacity duration-[900ms] ease-out ${
-                active ? "opacity-100" : "pointer-events-none opacity-0"
-              }`}
-              aria-hidden={!active}
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${n + 1} of ${slides.length}`}
-            >
-              {/* imagery */}
-              {sl.layout === "cover" && (
-                <div className="absolute inset-x-0 bottom-0 h-[50%] overflow-hidden md:inset-y-0 md:left-auto md:right-0 md:h-full md:w-[66%]">
-                  <Image
-                    src={sl.image}
-                    alt="Tejori Neelayamari anti-dandruff shampoo and hair oil in soft sunlight"
-                    fill
-                    priority
-                    sizes="(min-width: 768px) 70vw, 100vw"
-                    className={`object-cover object-[62%_70%] ${active ? "animate-[kenburns_7s_ease-out_both]" : ""}`}
-                    placeholder="blur"
-                  />
-                  <div
-                    className="absolute inset-0 hidden md:block"
-                    style={{ background: `linear-gradient(90deg, ${sl.bg} 0%, ${sl.bg} 8%, ${sl.bg}b3 20%, transparent 46%)` }}
-                  />
-                  <div
-                    className="absolute inset-0 md:hidden"
-                    style={{ background: `linear-gradient(180deg, ${sl.bg} 0%, transparent 35%)` }}
-                  />
-                </div>
-              )}
-
-              {sl.layout === "packshot" && (
-                <div className="absolute inset-x-0 bottom-0 flex h-[50%] items-end justify-center md:inset-y-0 md:left-auto md:right-[4%] md:h-full md:w-[56%] md:items-center">
-                  <div className={`relative aspect-[482/345] w-[92%] max-w-[640px] ${active ? "animate-[kenburns_7s_ease-out_both]" : ""}`}>
-                    <Image
-                      src={sl.image}
-                      alt="Tejori Neelayamari hair oil and anti-dandruff shampoo"
-                      fill
-                      sizes="(min-width: 768px) 640px, 92vw"
-                      className="object-contain"
-                      placeholder="blur"
-                    />
-                  </div>
-                </div>
-              )}
-
-              {sl.layout === "portrait" && (
-                <div className="absolute inset-x-0 bottom-0 flex h-[50%] items-end justify-center md:inset-y-0 md:left-auto md:right-[8%] md:h-full md:w-auto md:items-center">
-                  <div className="relative h-[92%] md:h-[84%]">
-                    <div className="relative aspect-[350/535] h-full overflow-hidden rounded-t-[26px] md:rounded-[28px]">
-                      <Image
-                        src={sl.image}
-                        alt="Tejori customer holding the shampoo and hair oil"
-                        fill
-                        sizes="(min-width: 768px) 30vw, 60vw"
-                        className={`object-cover ${active ? "animate-[kenburns_7s_ease-out_both]" : ""}`}
-                        placeholder="blur"
-                      />
-                    </div>
-                    {/* shoppable chip */}
-                    <div className="absolute -left-14 bottom-8 hidden w-[330px] items-center gap-3 rounded-[18px] bg-white p-2.5 pr-3 shadow-[0_24px_50px_-20px_rgba(0,0,0,.5)] md:flex">
-                      <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl" style={{ background: combo.tint }}>
-                        <Image src={combo.image} alt="" fill sizes="56px" className="object-cover" style={{ objectPosition: combo.focus }} />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-[14px] text-ink">{combo.short}</p>
-                        <p className="whitespace-nowrap text-[15px] font-bold text-ink">
-                          {formatPrice(combo.price)}{" "}
-                          <s className="text-[12px] font-normal text-muted">{formatPrice(combo.compareAt!)}</s>
-                        </p>
-                      </div>
-                      <button
-                        onClick={() => add(combo.id)}
-                        aria-label={`Add ${combo.short} to bag`}
-                        className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-ink text-white transition hover:scale-105"
-                      >
-                        <IconPlus className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* copy */}
-              <div className="relative z-10 flex h-full flex-col justify-start px-6 pt-10 md:justify-center md:px-[7%] md:pt-0">
-                <div className={`max-w-[560px] ${sl.dark ? "text-white" : "text-ink"}`}>
-                  {active && (
-                    <>
-                      <p className="eyebrow animate-[fadeUp_.8s_var(--ease-out-expo)_both] opacity-80">{sl.eyebrow}</p>
-                      <h1 className="heading mt-4 text-[2.6rem] animate-[fadeUp_.9s_var(--ease-out-expo)_.08s_both] md:mt-6 md:text-[5.2rem]">
-                        {sl.title.map((t) => (
-                          <span key={t} className="block">{t}</span>
-                        ))}
-                      </h1>
-                      <p className={`mt-4 max-w-[420px] text-[15px] leading-relaxed animate-[fadeUp_.9s_var(--ease-out-expo)_.16s_both] md:mt-6 md:text-[17px] ${sl.dark ? "text-white/75" : "text-muted"}`}>
-                        {sl.copy}
-                      </p>
-                      <div className="mt-6 flex flex-wrap items-center gap-4 animate-[fadeUp_.9s_var(--ease-out-expo)_.24s_both] md:mt-10">
-                        <a href={sl.cta.href} className={`btn ${sl.dark ? "btn-white" : "btn-white"} h-12 px-7 md:h-[3.6rem] md:px-12`}>
-                          {sl.cta.label}
-                        </a>
-                        {sl.layout === "cover" && (
-                          <span className="hidden text-[15px] sm:inline">
-                            <strong className="font-bold">{formatPrice(combo.price)}</strong>{" "}
-                            <s className="text-muted">{formatPrice(combo.compareAt!)}</s>
-                          </span>
-                        )}
-                      </div>
-                    </>
-                  )}
+    <section
+      id="top"
+      className="film-grain relative h-[100svh] min-h-[620px] overflow-hidden transition-colors duration-1000"
+      style={{ background: s.bg }}
+      aria-roledescription="carousel"
+      aria-label="Featured"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
+      onTouchEnd={(e) => {
+        if (touchX.current === null) return;
+        const dx = e.changedTouches[0].clientX - touchX.current;
+        if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1));
+        touchX.current = null;
+      }}
+    >
+      {slides.map((sl, n) => {
+        const active = n === i;
+        return (
+          <div
+            key={sl.eyebrow}
+            className={`absolute inset-0 transition-opacity duration-[1400ms] ease-in-out ${active ? "opacity-100" : "opacity-0"}`}
+            style={{ background: sl.bg }}
+            aria-hidden={!active}
+          >
+            {sl.layout === "cover" ? (
+              <div
+                className={`absolute overflow-hidden ${
+                  sl.tone === "light" ? "inset-x-0 top-0 h-[64%] md:inset-y-0 md:left-[26%] md:h-full" : "inset-0"
+                }`}
+              >
+              <Image
+                src={sl.image}
+                alt={sl.alt}
+                fill
+                priority={n === 0}
+                sizes="100vw"
+                className="object-cover"
+                style={{
+                  objectPosition: sl.focus,
+                  animation: active ? `pushin ${DURATION + 1600}ms linear both` : undefined,
+                }}
+              />
+              </div>
+            ) : (
+              <div className="absolute inset-0 flex items-start justify-center pt-[15svh] md:items-center md:justify-end md:pr-[9%] md:pt-0">
+                <div
+                  className="relative aspect-[482/345] w-[92vw] max-w-[640px] md:w-[46vw]"
+                  style={{ animation: active ? `pushin ${DURATION + 1600}ms linear both` : undefined }}
+                >
+                  <Image src={sl.image} alt={sl.alt} fill sizes="(min-width: 768px) 44vw, 86vw" className="object-contain" />
                 </div>
               </div>
-            </div>
-          );
-        })}
+            )}
 
-        {/* controls */}
-        <div className="absolute inset-x-0 bottom-0 z-20 hidden items-center justify-between px-[7%] pb-8 md:flex">
-          <div className={`flex items-center gap-4 ${s.dark ? "text-white" : "text-ink"}`}>
-            <span className="text-[13px] font-semibold tracking-[0.2em]">
-              0{i + 1} <span className="opacity-40">/ 0{slides.length}</span>
-            </span>
-            <div className="flex gap-1.5">
-              {slides.map((_, n) => (
-                <button
-                  key={n}
-                  onClick={() => go(n)}
-                  aria-label={`Go to slide ${n + 1}`}
-                  className={`relative h-[3px] overflow-hidden rounded-full transition-all duration-500 ${
-                    n === i ? "w-14" : "w-6"
-                  } ${s.dark ? "bg-white/25" : "bg-ink/15"}`}
-                >
-                  {n === i && (
-                    <span
-                      key={`${i}-${paused}`}
-                      className={`absolute inset-0 origin-left rounded-full ${s.dark ? "bg-white" : "bg-ink"}`}
-                      style={{
-                        animation: paused ? "none" : `progress ${DURATION}ms linear both`,
-                        transform: paused ? "scaleX(1)" : undefined,
-                      }}
-                    />
-                  )}
-                </button>
+            {/* legibility scrims */}
+            {sl.tone === "dark" ? (
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.35)_0%,rgba(0,0,0,.15)_40%,rgba(0,0,0,.6)_100%)]" />
+            ) : sl.layout === "cover" ? (
+              <div
+                className="absolute inset-0"
+                style={{ ["--bg" as string]: sl.bg }}
+              >
+                <div className="absolute inset-x-0 top-[38%] h-[26%] bg-[linear-gradient(0deg,var(--bg)_0%,transparent_100%)] md:hidden" />
+                <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,var(--bg)_0%,var(--bg)_22%,transparent_46%),linear-gradient(0deg,var(--bg)_0%,transparent_22%)] md:block" />
+              </div>
+            ) : null}
+          </div>
+        );
+      })}
+
+      {/* copy */}
+      <div className={`relative z-10 flex h-full flex-col justify-end ${light ? "text-white" : "text-ink"}`}>
+        <div className="container-x pb-28 md:pb-[14vh]">
+          <div key={i} className="max-w-[900px]">
+            <p className="eyebrow overflow-hidden">
+              <span className="block animate-[rise_1s_var(--ease-out-expo)_.2s_both]">{s.eyebrow}</span>
+            </p>
+            <h1 className="mt-5 text-[3.2rem] font-light leading-[0.98] tracking-[-0.045em] sm:text-[4.5rem] md:mt-7 md:text-[6.2rem] lg:text-[7.2rem]">
+              {s.title.map((t, k) => (
+                <span key={t} className="block overflow-hidden pb-[0.06em]">
+                  <span
+                    className="block animate-[rise_1.3s_var(--ease-out-expo)_both]"
+                    style={{ animationDelay: `${350 + k * 120}ms` }}
+                  >
+                    {t}
+                  </span>
+                </span>
               ))}
+            </h1>
+            <div className="mt-8 animate-[fadeUp_1s_var(--ease-out-expo)_.8s_both] md:mt-12">
+              <a
+                href={s.cta.href}
+                className={`group inline-flex items-center gap-4 text-[13px] font-semibold uppercase tracking-[0.22em]`}
+              >
+                <span className={`grid h-14 w-14 place-items-center rounded-full border transition-all duration-500 group-hover:scale-110 ${
+                  light ? "border-white/50 group-hover:border-white group-hover:bg-white group-hover:text-ink" : "border-ink/30 group-hover:border-ink group-hover:bg-ink group-hover:text-white"
+                }`}>
+                  <IconArrow className="h-5 w-5" />
+                </span>
+                <span className="relative">
+                  {s.cta.label}
+                  <span className={`absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100 ${light ? "bg-white" : "bg-ink"}`} />
+                </span>
+              </a>
             </div>
           </div>
         </div>
-        <div className="absolute bottom-5 right-5 z-20 flex gap-2 md:bottom-7 md:right-8">
-          <button
-            onClick={() => go(i - 1)}
-            aria-label="Previous slide"
-            className="grid h-12 w-12 place-items-center rounded-full bg-white text-ink shadow-[0_10px_30px_-12px_rgba(0,0,0,.35)] transition hover:bg-ink hover:text-white md:h-14 md:w-14"
-          >
-            <IconArrow className="h-5 w-5 rotate-180" />
-          </button>
-          <button
-            onClick={() => go(i + 1)}
-            aria-label="Next slide"
-            className="grid h-12 w-12 place-items-center rounded-full bg-white text-ink shadow-[0_10px_30px_-12px_rgba(0,0,0,.35)] transition hover:bg-ink hover:text-white md:h-14 md:w-14"
-          >
-            <IconArrow className="h-5 w-5" />
-          </button>
-        </div>
-        {/* mobile dots */}
-        <div className="absolute bottom-9 left-6 z-20 flex gap-1.5 md:hidden">
-          {slides.map((_, n) => (
-            <span key={n} className={`h-1.5 rounded-full transition-all ${n === i ? "w-6 bg-white" : "w-1.5 bg-white/60"}`} />
-          ))}
+
+        {/* bottom rail */}
+        <div className={`absolute inset-x-0 bottom-0 ${light ? "text-white" : "text-ink"}`}>
+          <div className="container-x flex items-end justify-between pb-8">
+            <div className="hidden items-center gap-3 md:flex">
+              <span className={`relative h-12 w-px overflow-hidden ${light ? "bg-white/25" : "bg-ink/20"}`}>
+                <span className={`absolute inset-0 animate-[scrollcue_2.4s_ease-in-out_infinite] ${light ? "bg-white" : "bg-ink"}`} />
+              </span>
+              <span className="text-[11px] uppercase tracking-[0.3em] opacity-70">Scroll</span>
+            </div>
+
+            <div className="flex w-full items-center justify-between gap-6 md:w-auto md:justify-end">
+              <div className="flex items-center gap-2">
+                {slides.map((_, n) => (
+                  <button
+                    key={n}
+                    onClick={() => go(n)}
+                    aria-label={`Go to slide ${n + 1}`}
+                    className="group flex items-center gap-2 py-3"
+                  >
+                    <span className={`text-[12px] font-medium tabular-nums tracking-[0.1em] transition-opacity ${n === i ? "opacity-100" : "opacity-40 group-hover:opacity-80"}`}>
+                      0{n + 1}
+                    </span>
+                    <span className={`relative h-px overflow-hidden transition-all duration-700 ${n === i ? "w-16 md:w-24" : "w-6"} ${light ? "bg-white/30" : "bg-ink/20"}`}>
+                      {n === i && (
+                        <span
+                          key={`${i}-${paused}`}
+                          className={`absolute inset-0 origin-left ${light ? "bg-white" : "bg-ink"}`}
+                          style={{ animation: paused ? "none" : `progress ${DURATION}ms linear both`, transform: paused ? "scaleX(1)" : undefined }}
+                        />
+                      )}
+                    </span>
+                  </button>
+                ))}
+              </div>
+              <div className="flex gap-2">
+                {[-1, 1].map((d) => (
+                  <button
+                    key={d}
+                    onClick={() => go(i + d)}
+                    aria-label={d < 0 ? "Previous slide" : "Next slide"}
+                    className={`grid h-11 w-11 place-items-center rounded-full border transition-colors duration-500 ${
+                      light ? "border-white/40 hover:bg-white hover:text-ink" : "border-ink/25 hover:bg-ink hover:text-white"
+                    }`}
+                  >
+                    <IconArrow className={`h-4 w-4 ${d < 0 ? "rotate-180" : ""}`} />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

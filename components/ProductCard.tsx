@@ -85,7 +85,7 @@ export function ProductCard({ product: p, tab }: { product: Product; tab?: strin
               {p.compareAt && <s className="text-[14px] text-muted">{formatPrice(p.compareAt)}</s>}
             </div>
           </div>
-          <p className="mt-2 text-[15px] leading-relaxed text-muted">{p.size} · {p.description}</p>
+          <p className="mt-2 line-clamp-2 text-[15px] leading-relaxed text-muted">{p.size} · {p.description}</p>
 
           <div className="min-h-5 flex-1" />
           <button

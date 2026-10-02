@@ -133,7 +133,7 @@ export function CartDrawer() {
             <p className="mt-1 text-[12px] text-muted">Taxes included. Shipping calculated at checkout.</p>
             <button className="btn btn-ink mt-5 h-14 w-full">Checkout</button>
             <p className="mt-3 flex items-center justify-center gap-2 text-[12px] text-muted">
-              <IconShield className="h-4 w-4" /> Secure checkout · UPI · Cards · COD
+              <IconShield className="h-4 w-4" /> Secure checkout
             </p>
           </div>
         )}
