@@ -14,7 +14,7 @@ const concerns = [
 
 export function Concerns() {
   return (
-    <section id="concerns" className="scroll-mt-20 pt-20 md:pt-28">
+    <section id="concerns" className="scroll-mt-20 py-20 md:py-28">
       <div className="container-x">
         <SectionHeading eyebrow="Find your fit" title="Shop by concern" />
         <div className="mt-10 grid gap-4 md:mt-14 md:grid-cols-3 md:gap-6">
