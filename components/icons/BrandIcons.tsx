@@ -113,9 +113,9 @@ export const IconScience = (p: P) => (
     <ellipse {...ns} cx="48" cy="48" rx="9" ry="23" />
     <ellipse {...ns} cx="48" cy="48" rx="23" ry="9" transform="rotate(30 48 48)" />
     <ellipse {...ns} cx="48" cy="48" rx="23" ry="9" transform="rotate(-30 48 48)" />
-    <circle {...ns} cx="42.6" cy="30" r="2.2" fill="var(--color-paper, #fff)" />
-    <circle {...ns} cx="67.9" cy="59.5" r="2.2" fill="var(--color-paper, #fff)" />
-    <circle {...ns} cx="28.1" cy="59.5" r="2.2" fill="var(--color-paper, #fff)" />
+    <circle {...ns} cx="42.6" cy="30" r="2.2" fill="currentColor" />
+    <circle {...ns} cx="67.9" cy="59.5" r="2.2" fill="currentColor" />
+    <circle {...ns} cx="28.1" cy="59.5" r="2.2" fill="currentColor" />
   </Base>
 );
 
