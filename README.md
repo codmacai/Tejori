@@ -18,7 +18,7 @@ Deploy: import the repo on vercel.com — no configuration needed.
 | --- | --- |
 | Announcement + header | Offer bar collapses on scroll; header is transparent over the hero, solid on scroll |
 | Hero | Full-screen slideshow — slow push-in zoom, crossfades, line-by-line headline reveal, progress rail, swipe on mobile |
-| Feature box | Brand-gradient box with four keyword features and hand-drawn accents, products rising from a sage dome |
+| Feature box | Brand-gradient box with four icon features, products rising from a sage dome |
 | Shop by concern | Hair growth / Anti dandruff / Dry hair — routes visitors to the right product first |
 | Our products | Apple-style product cards (label, name, tagline, benefit icons, price, Add to bag / Learn more) with a quick-look product sheet |
 | The combo | "Better together" bundle: oil + shampoo breakdown, bought-separately vs combo price, quantity + add to bag |
