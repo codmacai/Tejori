@@ -37,7 +37,7 @@ Deploy: import the repo on vercel.com — no configuration needed.
 
 ## Icons
 
-Feature and benefit icons use [Phosphor](https://phosphoricons.com) at light weight (`components/FeatureIcon.tsx`). Map new features to an icon key in `lib/products.ts`.
+Custom hairline brand icons (`components/icons/BrandIcons.tsx`) — 96×96 grid, 1.25px non-scaling strokes, `currentColor`, each combining two ideas (drop + leaf, sprout + roots, shield + check…). Feature labels use DM Mono uppercase (`.label-mono`). Map features to icons in `components/FeatureIcon.tsx`. To swap in designer-made icons, replace the paths in `BrandIcons.tsx` keeping the same component names.
 
 ## Editing content
 

@@ -25,13 +25,13 @@ export function FeatureBox({ product: p }: { product: Product }) {
               {p.details.why.map((w, i) => (
                 <li
                   key={w.title}
-                  className={`flex flex-col items-center px-3 text-center md:px-7 ${i % 2 ? "border-l border-white/10" : ""} ${
+                  className={`flex flex-col items-center px-3 text-center md:px-7 md:py-2 ${i % 2 ? "border-l border-white/10" : ""} ${
                     i === 2 ? "md:border-l md:border-white/10" : ""
                   }`}
                 >
-                  <FeatureIcon name={w.icon} className="h-10 w-10 text-card md:h-11 md:w-11" />
-                  <h3 className="mt-5 text-[17px] font-normal tracking-[-0.01em] text-white md:text-[20px]">{w.title}</h3>
-                  <p className="mt-2 max-w-[230px] text-[13.5px] leading-relaxed text-white/60 md:text-[14.5px]">{w.copy}</p>
+                  <FeatureIcon name={w.icon} className="h-16 w-16 text-card md:h-[88px] md:w-[88px]" />
+                  <h3 className="label-mono mt-6 max-w-[200px] text-[13px] text-white md:mt-8 md:text-[15px]">{w.title}</h3>
+                  <p className="mt-3 max-w-[230px] text-[13.5px] leading-relaxed text-white/55 md:text-[14.5px]">{w.copy}</p>
                 </li>
               ))}
             </ul>

@@ -56,7 +56,7 @@ function BuyPanel({ p }: { p: Product }) {
         {p.benefits.map((b) => {
           return (
             <li key={b} className="flex items-center gap-3 rounded-[18px] bg-paper px-4 py-3.5 text-[14px] text-ink md:bg-white">
-              <FeatureIcon name={benefitKey(b)} className="h-[22px] w-[22px] shrink-0" />
+              <FeatureIcon name={benefitKey(b)} className="h-8 w-8 shrink-0" />
               {b}
             </li>
           );
@@ -103,9 +103,9 @@ function BuyPanel({ p }: { p: Product }) {
       )}
 
       <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-6 text-[13px] text-muted">
-        <li className="flex items-center gap-2"><FeatureIcon name="leaf" className="h-[18px] w-[18px] text-ink" /> 100% natural</li>
-        <li className="flex items-center gap-2"><FeatureIcon name="hair" className="h-[18px] w-[18px] text-ink" /> All hair types</li>
-        <li className="flex items-center gap-2"><FeatureIcon name="shield" className="h-[18px] w-[18px] text-ink" /> Secure checkout</li>
+        <li className="flex items-center gap-2"><FeatureIcon name="leaf" className="h-6 w-6 text-ink" /> 100% natural</li>
+        <li className="flex items-center gap-2"><FeatureIcon name="hair" className="h-6 w-6 text-ink" /> All hair types</li>
+        <li className="flex items-center gap-2"><FeatureIcon name="shield" className="h-6 w-6 text-ink" /> Secure checkout</li>
       </ul>
     </div>
   );
@@ -227,7 +227,7 @@ export function ProductDetail({ product: p }: { product: Product }) {
               <div className="relative mt-10 grid gap-4 md:mt-14 md:grid-cols-3 md:gap-5">
                 {d.ingredients.map((ing, i) => (
                   <Reveal key={ing.name} delay={i * 80} className="rounded-[28px] bg-white/[0.07] p-7 ring-1 ring-white/10 backdrop-blur-sm md:p-8">
-                    <FeatureIcon name="leaf" className="h-9 w-9 text-card" />
+                    <FeatureIcon name="leaf" className="h-14 w-14 text-card" />
                     <h3 className="mt-7 text-[24px] font-normal tracking-[-0.015em]">{ing.name}</h3>
                     {ing.latin && <p className="mt-0.5 text-[14px] text-white/55">{ing.latin}</p>}
                     <p className="mt-4 text-[15px] leading-relaxed text-white/75">{ing.copy}</p>

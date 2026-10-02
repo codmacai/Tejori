@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter_Tight, Outfit } from "next/font/google";
+import { DM_Mono, Inter_Tight, Outfit } from "next/font/google";
 import { CartProvider } from "@/lib/cart";
 import "./globals.css";
 
@@ -8,6 +8,14 @@ const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
   weight: ["300", "400", "500", "600"],
+  display: "swap",
+});
+
+// Feature labels — uppercase monospace
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  variable: "--font-dm-mono",
+  weight: "500",
   display: "swap",
 });
 
@@ -38,7 +46,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${outfit.variable} ${interTight.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${interTight.variable} ${dmMono.variable}`}>
       <body>
         <CartProvider>{children}</CartProvider>
       </body>

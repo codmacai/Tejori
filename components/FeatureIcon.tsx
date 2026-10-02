@@ -1,29 +1,28 @@
-import type { Icon } from "@phosphor-icons/react";
-import {
-  Drop,
-  Leaf,
-  Plant,
-  ShieldCheck,
-  Sparkle,
-  Tag,
-  Waves,
-} from "@phosphor-icons/react/dist/ssr";
 import type { IconKey } from "@/lib/products";
+import {
+  IconClearScalp,
+  IconHairTypes,
+  IconNatural,
+  IconRitual,
+  IconRoots,
+  IconShine,
+  IconValue,
+} from "./icons/BrandIcons";
 
-/** Refined light-weight line icons used for product features and benefits. */
-const map: Record<IconKey, Icon> = {
-  leaf: Leaf,
-  roots: Plant,
-  shine: Sparkle,
-  shield: ShieldCheck,
-  hair: Waves,
-  drop: Drop,
-  tag: Tag,
+/** Tejori hairline brand icons, keyed by feature. */
+const map: Record<IconKey, typeof IconNatural> = {
+  leaf: IconNatural,
+  roots: IconRoots,
+  shine: IconShine,
+  shield: IconClearScalp,
+  hair: IconHairTypes,
+  drop: IconRitual,
+  tag: IconValue,
 };
 
 export function FeatureIcon({ name, className = "h-6 w-6" }: { name: IconKey; className?: string }) {
   const I = map[name];
-  return <I weight="light" className={className} aria-hidden />;
+  return <I className={className} />;
 }
 
 /** Picks an icon for a free-text benefit label. */
