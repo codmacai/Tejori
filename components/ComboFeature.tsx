@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import duoImg from "@/public/images/duo-packshot.jpg";
 import { useCart } from "@/lib/cart";
@@ -112,7 +113,10 @@ export function ComboFeature() {
                 )}
               </button>
             </div>
-            <p className="mt-4 text-center text-[13px] text-muted">200 ml each · Suitable for all hair types</p>
+            <p className="mt-4 text-center text-[13px] text-muted">
+              200 ml each · Suitable for all hair types ·{" "}
+              <Link href="/products/anti-dandruff-combo" className="text-ink underline underline-offset-4">View details</Link>
+            </p>
           </Reveal>
         </div>
       </div>

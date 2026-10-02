@@ -27,6 +27,15 @@ Deploy: import the repo on vercel.com — no configuration needed.
 | FAQ, newsletter, footer | Objection handling and email capture |
 | Bag drawer + mobile buy bar | Free-shipping progress, savings, upsell; bag persists in localStorage |
 
+## Product pages
+
+`/products/[id]` — one static page per product (`app/products/[id]/page.tsx`, `components/pdp/`).
+
+- **Desktop:** gallery (swipe + thumbnails) sticky on the left, details on the right.
+- **Mobile:** gallery first; the details sheet slides up over it as you scroll, with a sticky buy bar once the main button scrolls away.
+- **Sections:** Why you'll love it · How to use · Ingredients · People usually pair it with (split card + combo strip; the combo page shows "What's inside").
+- **Content** lives in `lib/products.ts` under `details` (gallery, why, howTo, ingredients, pair copy, pairWith). Ingredient lists are partial — add the full list from the pack.
+
 ## Editing content
 
 - **Products & prices:** `lib/products.ts` (prices use the store's `Rs. 499.00` format).

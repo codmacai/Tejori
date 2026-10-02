@@ -49,7 +49,7 @@ export function Testimonials() {
                         <IconCheck className="h-3.5 w-3.5" /> Verified buyer
                       </span>
                     </span>
-                    <a href={`#${p.id}`} className="flex items-center gap-2.5" aria-label={`View ${p.name}`}>
+                    <a href={`/products/${p.id}`} className="flex items-center gap-2.5" aria-label={`View ${p.name}`}>
                       <span className="hidden text-right text-[12.5px] leading-tight text-muted sm:block">{p.short}</span>
                       <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-[10px]" style={{ background: p.tint }}>
                         <Image src={p.image} alt="" fill sizes="44px" className="object-contain p-1" />

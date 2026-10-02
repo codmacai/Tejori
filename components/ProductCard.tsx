@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
 import { formatPrice, savePct, type Product } from "@/lib/products";
 import { IconCheck, IconPlus } from "./Icons";
 
 /** Minimal floating-product card: soft panel, centred product, big price, round add button. */
-export function ProductCard({ product: p, onLearnMore }: { product: Product; onLearnMore: (p: Product) => void }) {
+export function ProductCard({ product: p }: { product: Product }) {
   const { add } = useCart();
   const [added, setAdded] = useState(false);
   const save = savePct(p);
@@ -30,7 +31,7 @@ export function ProductCard({ product: p, onLearnMore }: { product: Product; onL
       )}
 
       {/* product */}
-      <button onClick={() => onLearnMore(p)} aria-label={`Quick look: ${p.name}`} className="relative mx-auto block aspect-[4/5] w-full max-w-[300px]">
+      <Link href={`/products/${p.id}`} aria-label={`View ${p.name}`} className="relative mx-auto block aspect-[4/5] w-full max-w-[300px]">
         <span className="absolute inset-x-[22%] bottom-[6%] h-6 rounded-[50%] bg-ink-deep/25 blur-xl transition-all duration-700 group-hover:inset-x-[28%] group-hover:opacity-60" />
         <Image
           src={p.image}
@@ -40,10 +41,10 @@ export function ProductCard({ product: p, onLearnMore }: { product: Product; onL
           className="object-contain transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-translate-y-3 group-hover:scale-[1.04]"
           placeholder="blur"
         />
-      </button>
+      </Link>
 
       {/* details */}
-      <h3 className="mt-2 text-[22px] font-normal tracking-[-0.01em] text-ink md:text-[24px]">{p.short}</h3>
+      <h3 className="mt-2 text-[22px] font-normal tracking-[-0.01em] text-ink md:text-[24px]"><Link href={`/products/${p.id}`} className="hover:underline hover:underline-offset-4">{p.short}</Link></h3>
       <p className="mt-1 text-[15px] text-muted">{p.size}</p>
 
       <div className="relative mt-6 flex items-center justify-center">

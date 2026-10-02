@@ -7,9 +7,9 @@ import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
 const concerns = [
-  { title: "Hair growth", copy: "Neelayamari Hair Oil", image: growth, href: "#neelayamari-hair-oil" },
-  { title: "Anti dandruff", copy: "Anti-Dandruff Combo", image: dandruff, href: "#combo" },
-  { title: "Dry hair", copy: "Neelayamari Hair Oil", image: dry, href: "#neelayamari-hair-oil" },
+  { title: "Hair growth", copy: "Neelayamari Hair Oil", image: growth, href: "/products/neelayamari-hair-oil" },
+  { title: "Anti dandruff", copy: "Anti-Dandruff Combo", image: dandruff, href: "/products/anti-dandruff-combo" },
+  { title: "Dry hair", copy: "Neelayamari Hair Oil", image: dry, href: "/products/neelayamari-hair-oil" },
 ];
 
 export function Concerns() {

@@ -65,7 +65,7 @@ export function CartDrawer() {
               <div>
                 <p className="heading text-3xl text-ink">Your bag is empty</p>
                 <p className="mt-3 text-muted">Start your Neelayamari ritual today.</p>
-                <a href="#shop" onClick={close} className="btn btn-ink mt-8">Shop bestsellers</a>
+                <a href="/#shop" onClick={close} className="btn btn-ink mt-8">Shop bestsellers</a>
               </div>
             </div>
           ) : (

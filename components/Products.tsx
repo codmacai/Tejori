@@ -1,15 +1,8 @@
-"use client";
-
-import { useCallback, useState } from "react";
-import { products, type Product } from "@/lib/products";
+import { products } from "@/lib/products";
 import { ProductCard } from "./ProductCard";
-import { QuickView } from "./QuickView";
 import { Reveal } from "./Reveal";
 
 export function Products() {
-  const [quick, setQuick] = useState<Product | null>(null);
-  const close = useCallback(() => setQuick(null), []);
-
   return (
     <section id="shop" className="stage relative scroll-mt-20 overflow-hidden py-24 md:py-32">
       {/* oversized faded wordmark */}
@@ -29,12 +22,11 @@ export function Products() {
         <div className="no-scrollbar -mx-4 mt-12 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 pb-10 pt-4 md:mx-auto md:mt-16 md:grid md:max-w-[1200px] md:grid-cols-3 md:gap-7 md:overflow-visible md:px-0">
           {products.map((p, i) => (
             <Reveal key={p.id} delay={i * 90} className="flex w-[80%] shrink-0 snap-center sm:w-[55%] md:w-auto">
-              <ProductCard product={p} onLearnMore={setQuick} />
+              <ProductCard product={p} />
             </Reveal>
           ))}
         </div>
       </div>
-      <QuickView product={quick} onClose={close} />
     </section>
   );
 }

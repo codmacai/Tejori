@@ -1,14 +1,29 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { IconArrow, IconCheck } from "./Icons";
 import { Logo } from "./Logo";
 
 
 const cols = [
-  { h: "Shop", l: ["Neelayamari Hair Oil", "Anti-Dandruff Shampoo", "Anti-Dandruff Combo"] },
-  { h: "Concerns", l: ["Hair growth", "Anti dandruff", "Dry hair"] },
-  { h: "Help", l: ["Track order", "Shipping", "Returns", "Contact us"] },
+  {
+    h: "Shop",
+    l: [
+      { t: "Neelayamari Hair Oil", href: "/products/neelayamari-hair-oil" },
+      { t: "Anti-Dandruff Shampoo", href: "/products/neelayamari-anti-dandruff-shampoo" },
+      { t: "Anti-Dandruff Combo", href: "/products/anti-dandruff-combo" },
+    ],
+  },
+  {
+    h: "Concerns",
+    l: [
+      { t: "Hair growth", href: "/products/neelayamari-hair-oil" },
+      { t: "Anti dandruff", href: "/products/anti-dandruff-combo" },
+      { t: "Dry hair", href: "/products/neelayamari-hair-oil" },
+    ],
+  },
+  { h: "Help", l: ["Track order", "Shipping", "Returns", "Contact us"].map((t) => ({ t, href: "#" })) },
 ];
 
 export function Footer() {
@@ -71,8 +86,8 @@ export function Footer() {
               <p className="eyebrow text-[11px] text-white/45">{c.h}</p>
               <ul className="mt-5 space-y-3">
                 {c.l.map((l) => (
-                  <li key={l}>
-                    <a href="#shop" className="text-[14px] text-white/80 transition hover:text-white">{l}</a>
+                  <li key={l.t}>
+                    <Link href={l.href} className="text-[14px] text-white/80 transition hover:text-white">{l.t}</Link>
                   </li>
                 ))}
               </ul>

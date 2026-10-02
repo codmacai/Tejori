@@ -1,15 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useCart } from "@/lib/cart";
 import { Logo } from "./Logo";
 import { IconBag, IconClose, IconMenu, IconSearch, IconUser } from "./Icons";
 
 const nav = [
-  { href: "#shop", label: "Shop" },
-  { href: "#concerns", label: "Concerns" },
-  { href: "#combo", label: "Combo" },
-  { href: "#reviews", label: "Reviews" },
+  { href: "/#shop", label: "Shop" },
+  { href: "/#concerns", label: "Concerns" },
+  { href: "/#combo", label: "Combo" },
+  { href: "/#reviews", label: "Reviews" },
 ];
 
 export function Header() {
@@ -58,17 +59,17 @@ export function Header() {
               </button>
               <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
                 {nav.map((n) => (
-                  <a key={n.label} href={n.href} className="group relative text-[15px] font-medium text-ink">
+                  <Link key={n.label} href={n.href} className="group relative text-[15px] font-medium text-ink">
                     {n.label}
                     <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-x-100" />
-                  </a>
+                  </Link>
                 ))}
               </nav>
             </div>
 
-            <a href="#top" aria-label="Tejori home" className="justify-self-center">
+            <Link href="/" aria-label="Tejori home" className="justify-self-center">
               <Logo className="text-[1.9rem] md:text-[2.4rem]" />
-            </a>
+            </Link>
 
             <div className="flex items-center justify-end gap-2 text-ink md:gap-5">
               <button className="hidden p-1 md:block" aria-label="Search">
@@ -113,14 +114,14 @@ export function Header() {
           </div>
           <nav className="mt-12 flex flex-col">
             {nav.map((n) => (
-              <a key={n.label} href={n.href} onClick={() => setMenu(false)} className="heading border-b border-line py-5 text-[2rem] text-ink">
+              <Link key={n.label} href={n.href} onClick={() => setMenu(false)} className="heading border-b border-line py-5 text-[2rem] text-ink">
                 {n.label}
-              </a>
+              </Link>
             ))}
           </nav>
-          <a href="#combo" onClick={() => setMenu(false)} className="btn btn-ink mt-auto">
+          <Link href="/#combo" onClick={() => setMenu(false)} className="btn btn-ink mt-auto">
             Shop the combo
-          </a>
+          </Link>
         </div>
       </div>
     </>
