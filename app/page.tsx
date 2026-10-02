@@ -6,10 +6,10 @@ import { Faq } from "@/components/Faq";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { HeroSlider } from "@/components/HeroSlider";
-import { Manifesto } from "@/components/Manifesto";
 import { Products } from "@/components/Products";
 import { StickyCta } from "@/components/StickyCta";
 import { Testimonials } from "@/components/Testimonials";
+import { TrustBar } from "@/components/TrustBar";
 
 export default function Home() {
   return (
@@ -17,10 +17,10 @@ export default function Home() {
       <Header />
       <main>
         <HeroSlider />
-        <Manifesto />
+        <TrustBar />
+        <Concerns />
         <Products />
         <ComboFeature />
-        <Concerns />
         <CustomerResults />
         <Testimonials />
         <Faq />

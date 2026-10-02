@@ -23,7 +23,7 @@ export function ComboFeature() {
   };
 
   return (
-    <section id="combo" className="scroll-mt-20 bg-white py-20 md:py-32">
+    <section id="combo" className="scroll-mt-20 bg-white py-20 md:py-28">
       <div className="container-x grid items-center gap-12 md:grid-cols-12 md:gap-10 lg:gap-20">
         {/* image */}
         <Reveal className="md:col-span-7">
@@ -36,7 +36,7 @@ export function ComboFeature() {
               className="object-contain p-6 transition-transform duration-[2s] ease-[var(--ease-out-expo)] group-hover:scale-[1.04] md:p-10"
               placeholder="blur"
             />
-            <span className="absolute left-5 top-5 rounded-full bg-white px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-ink">
+            <span className="absolute left-5 top-5 rounded-full bg-ink px-3.5 py-1.5 text-[13px] font-medium text-white">
               Save {savePct(combo)}%
             </span>
           </div>
@@ -46,7 +46,7 @@ export function ComboFeature() {
         <div className="md:col-span-5">
           <Reveal>
             <p className="eyebrow text-muted">The combo</p>
-            <h2 className="mt-6 text-[3rem] font-light leading-[0.98] tracking-[-0.045em] text-ink md:text-[4.6rem]">
+            <h2 className="heading mt-4 text-[2.75rem] text-ink md:text-[4.25rem]">
               Better
               <br />
               together.
@@ -87,7 +87,7 @@ export function ComboFeature() {
               </div>
               <div className="mt-3 flex items-baseline justify-between">
                 <span className="text-[15px] text-ink">Combo price</span>
-                <span className="text-[2.2rem] font-semibold tracking-[-0.02em] tabular-nums text-ink">{formatPrice(combo.price)}</span>
+                <span className="font-display text-[2.2rem] font-semibold tracking-[-0.02em] tabular-nums text-ink">{formatPrice(combo.price)}</span>
               </div>
               <p className="mt-1 text-right text-[13px] font-medium text-ink">You save {formatPrice(separately - combo.price)}</p>
             </div>
@@ -112,7 +112,7 @@ export function ComboFeature() {
                 )}
               </button>
             </div>
-            <p className="mt-4 text-center text-[12px] tracking-[0.04em] text-muted">200 ml each · Suitable for all hair types</p>
+            <p className="mt-4 text-center text-[13px] text-muted">200 ml each · Suitable for all hair types</p>
           </Reveal>
         </div>
       </div>

@@ -1,6 +1,6 @@
 # Tejori — home page
 
-Conversion-focused home page for Tejori, built with **Next.js 16 (App Router)**, **React 19**, **TypeScript** and **Tailwind CSS v4**. The design follows the Tejori Shopify store aesthetic: soft whites, sage and mint, dark-teal accents, light Manrope headings and spaced uppercase labels.
+Conversion-focused home page for Tejori, built with **Next.js 16 (App Router)**, **React 19**, **TypeScript** and **Tailwind CSS v4**. The design follows the Tejori Shopify store aesthetic: soft whites, sage and mint, dark-teal accents. Typography is Inter Tight (headings, same grotesk family as the wordmark) at medium weight with Inter for body copy.
 
 ## Run it
 
@@ -16,14 +16,14 @@ Deploy: import the repo on vercel.com — no configuration needed.
 
 | Section | What it does |
 | --- | --- |
-| Header | Transparent over the hero (adapts to light/dark slides), turns solid white on scroll |
-| Cinematic hero | Full-screen slideshow — slow push-in zoom, crossfades, film grain, line-by-line headline reveal, progress rail, swipe on mobile |
-| Manifesto | One quiet brand statement + four product truths |
-| Our Products | Cards with savings tab, badges, quick add, hover benefit chips |
+| Announcement + header | Offer bar collapses on scroll; header is transparent over the hero, solid on scroll |
+| Hero | Full-screen slideshow — slow push-in zoom, crossfades, line-by-line headline reveal, progress rail, swipe on mobile |
+| Trust bar | Four product truths from the packaging |
+| Shop by concern | Hair growth / Anti dandruff / Dry hair — routes visitors to the right product first |
+| Our products | Clean product cards: badge, discount, hover quick add, add to bag |
 | The combo | "Better together" bundle: oil + shampoo breakdown, bought-separately vs combo price, quantity + add to bag |
-| Shop by concern | Hair growth / Anti dandruff / Dry hair image tiles |
-| Real Customer Results | Phone-frame shoppable stories carousel (supports video) |
-| Loved by our community | Review slider with linked product |
+| Tejori, every day | Shoppable photo/video cards with product tags |
+| Reviews | Three review cards linked to products |
 | FAQ, newsletter, footer | Objection handling and email capture |
 | Bag drawer + mobile buy bar | Free-shipping progress, savings, upsell; bag persists in localStorage |
 

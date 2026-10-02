@@ -1,15 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { IconArrow, IconCheck, IconLeaf, IconRefresh, IconShield, IconTruck } from "./Icons";
+import { IconArrow, IconCheck } from "./Icons";
 import { Logo } from "./Logo";
 
-const promises = [
-  { icon: IconLeaf, t: "100% natural", s: "Ayurveda-inspired formulas" },
-  { icon: IconTruck, t: "Fast delivery", s: "Shipped across India" },
-  { icon: IconShield, t: "Secure checkout", s: "Safe & encrypted payments" },
-  { icon: IconRefresh, t: "Easy support", s: "We’re here to help" },
-];
 
 const cols = [
   { h: "Shop", l: ["Neelayamari Hair Oil", "Anti-Dandruff Shampoo", "Anti-Dandruff Combo"] },
@@ -22,24 +16,7 @@ export function Footer() {
   const [sent, setSent] = useState(false);
 
   return (
-    <footer className="mt-10">
-      {/* promises */}
-      <div className="container-x">
-        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-[28px] bg-line md:grid-cols-4">
-          {promises.map(({ icon: I, t, s }) => (
-            <div key={t} className="flex flex-col items-center gap-3 bg-white px-4 py-8 text-center">
-              <span className="grid h-12 w-12 place-items-center rounded-full bg-mint text-ink">
-                <I className="h-5 w-5" />
-              </span>
-              <span>
-                <span className="block text-[16px] text-ink">{t}</span>
-                <span className="block text-[13px] text-muted">{s}</span>
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
+    <footer className="border-t border-line">
       {/* newsletter */}
       <div className="container-x py-16 md:py-24">
         <div className="mx-auto max-w-2xl text-center">

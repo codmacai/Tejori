@@ -3,55 +3,56 @@
 import Image, { type StaticImageData } from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import comboImg from "@/public/images/hero-combo.jpg";
-import hairImg from "@/public/images/concern-growth.jpg";
 import duoImg from "@/public/images/duo-packshot.jpg";
+import ugcImg from "@/public/images/ugc-1.jpg";
 import { IconArrow } from "./Icons";
 
 type Slide = {
   eyebrow: string;
   title: string[];
-  cta: { label: string; href: string };
-  tone: "light" | "dark";
+  copy: string;
+  primary: { label: string; href: string };
+  secondary: { label: string; href: string };
   bg: string;
   image: StaticImageData;
   alt: string;
-  /** cover = full-bleed photo, stage = product floating on a colour field */
-  layout: "cover" | "stage";
-  focus?: string;
+  /** cover = photo bleeding off the right edge, stage = packshot on colour, portrait = framed photo */
+  layout: "cover" | "stage" | "portrait";
 };
 
 const slides: Slide[] = [
   {
     eyebrow: "Neelayamari hair care",
     title: ["Rooted in", "nature."],
-    cta: { label: "Shop the combo", href: "#combo" },
-    tone: "light",
+    copy: "Hair oil and anti-dandruff shampoo made with Neelayamari and coconut — for every hair type.",
+    primary: { label: "Shop the combo", href: "#combo" },
+    secondary: { label: "Explore products", href: "#shop" },
     bg: "#f3f1ea",
     image: comboImg,
     alt: "Tejori Neelayamari shampoo and hair oil in soft morning light",
     layout: "cover",
-    focus: "70% 60%",
   },
   {
     eyebrow: "Neelayamari Hair Oil",
-    title: ["Every strand,", "nourished."],
-    cta: { label: "Shop hair oil", href: "#neelayamari-hair-oil" },
-    tone: "dark",
-    bg: "#14100d",
-    image: hairImg,
-    alt: "Close-up of healthy hair roots",
-    layout: "cover",
-    focus: "50% 50%",
-  },
-  {
-    eyebrow: "For all hair types",
-    title: ["Pure. Simple.", "Effective."],
-    cta: { label: "Shop bestsellers", href: "#shop" },
-    tone: "light",
+    title: ["Stronger roots,", "naturally."],
+    copy: "Nourishes from the root for stronger, shinier hair. 100% natural ingredients.",
+    primary: { label: "Shop hair oil", href: "#neelayamari-hair-oil" },
+    secondary: { label: "Shop by concern", href: "#concerns" },
     bg: "#dce0c5",
     image: duoImg,
     alt: "Tejori Neelayamari hair oil and anti-dandruff shampoo",
     layout: "stage",
+  },
+  {
+    eyebrow: "Real customers",
+    title: ["Loved by", "real people."],
+    copy: "See how our community makes Tejori part of their everyday hair ritual.",
+    primary: { label: "Read reviews", href: "#reviews" },
+    secondary: { label: "Shop bestsellers", href: "#shop" },
+    bg: "#dde9e5",
+    image: ugcImg,
+    alt: "Tejori customer holding the shampoo and hair oil",
+    layout: "portrait",
   },
 ];
 
@@ -69,18 +70,13 @@ export function HeroSlider() {
     return () => clearTimeout(t);
   }, [i, paused, go]);
 
-  // Let the transparent header match the slide underneath it
-  useEffect(() => {
-    window.dispatchEvent(new CustomEvent("hero-tone", { detail: slides[i].tone }));
-  }, [i]);
-
   const s = slides[i];
-  const light = s.tone === "dark"; // light text on dark slides
+  const zoom = (active: boolean) => (active ? `pushin ${DURATION + 1500}ms linear both` : undefined);
 
   return (
     <section
       id="top"
-      className="film-grain relative h-[100svh] min-h-[620px] overflow-hidden transition-colors duration-1000"
+      className="relative h-[100svh] min-h-[640px] overflow-hidden transition-colors duration-1000"
       style={{ background: s.bg }}
       aria-roledescription="carousel"
       aria-label="Featured"
@@ -99,143 +95,107 @@ export function HeroSlider() {
         return (
           <div
             key={sl.eyebrow}
-            className={`absolute inset-0 transition-opacity duration-[1400ms] ease-in-out ${active ? "opacity-100" : "opacity-0"}`}
-            style={{ background: sl.bg }}
+            className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out ${active ? "opacity-100" : "opacity-0"}`}
+            style={{ background: sl.bg, ["--bg" as string]: sl.bg }}
             aria-hidden={!active}
           >
-            {sl.layout === "cover" ? (
-              <div
-                className={`absolute overflow-hidden ${
-                  sl.tone === "light" ? "inset-x-0 top-0 h-[64%] md:inset-y-0 md:left-[26%] md:h-full" : "inset-0"
-                }`}
-              >
-              <Image
-                src={sl.image}
-                alt={sl.alt}
-                fill
-                priority={n === 0}
-                sizes="100vw"
-                className="object-cover"
-                style={{
-                  objectPosition: sl.focus,
-                  animation: active ? `pushin ${DURATION + 1600}ms linear both` : undefined,
-                }}
-              />
+            {sl.layout === "cover" && (
+              <div className="absolute inset-x-0 top-0 h-[58%] overflow-hidden md:inset-y-0 md:left-[34%] md:h-full">
+                <Image
+                  src={sl.image}
+                  alt={sl.alt}
+                  fill
+                  priority
+                  sizes="(min-width: 768px) 66vw, 100vw"
+                  className="object-cover object-[60%_60%]"
+                  style={{ animation: zoom(active) }}
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(0deg,var(--bg)_0%,transparent_40%)] md:bg-[linear-gradient(90deg,var(--bg)_0%,transparent_30%)]" />
               </div>
-            ) : (
-              <div className="absolute inset-0 flex items-start justify-center pt-[15svh] md:items-center md:justify-end md:pr-[9%] md:pt-0">
-                <div
-                  className="relative aspect-[482/345] w-[92vw] max-w-[640px] md:w-[46vw]"
-                  style={{ animation: active ? `pushin ${DURATION + 1600}ms linear both` : undefined }}
-                >
-                  <Image src={sl.image} alt={sl.alt} fill sizes="(min-width: 768px) 44vw, 86vw" className="object-contain" />
+            )}
+
+            {sl.layout === "stage" && (
+              <div className="absolute inset-x-0 top-0 flex h-[60%] items-end justify-center md:inset-y-0 md:left-[42%] md:right-[4%] md:h-full md:items-center">
+                <div className="relative aspect-[482/345] w-[90%] max-w-[680px]" style={{ animation: zoom(active) }}>
+                  <Image src={sl.image} alt={sl.alt} fill sizes="(min-width: 768px) 50vw, 90vw" className="object-contain" />
                 </div>
               </div>
             )}
 
-            {/* legibility scrims */}
-            {sl.tone === "dark" ? (
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.35)_0%,rgba(0,0,0,.15)_40%,rgba(0,0,0,.6)_100%)]" />
-            ) : sl.layout === "cover" ? (
-              <div
-                className="absolute inset-0"
-                style={{ ["--bg" as string]: sl.bg }}
-              >
-                <div className="absolute inset-x-0 top-[38%] h-[26%] bg-[linear-gradient(0deg,var(--bg)_0%,transparent_100%)] md:hidden" />
-                <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,var(--bg)_0%,var(--bg)_22%,transparent_46%),linear-gradient(0deg,var(--bg)_0%,transparent_22%)] md:block" />
+            {sl.layout === "portrait" && (
+              <div className="absolute inset-x-0 top-0 flex h-[58%] items-end justify-center pt-24 md:inset-y-0 md:left-auto md:right-[10%] md:h-full md:items-center md:pt-20">
+                <div className="relative aspect-[350/535] h-full overflow-hidden rounded-[24px] md:h-[72%]">
+                  <Image src={sl.image} alt={sl.alt} fill sizes="(min-width: 768px) 30vw, 50vw" className="object-cover" style={{ animation: zoom(active) }} />
+                </div>
               </div>
-            ) : null}
+            )}
           </div>
         );
       })}
 
       {/* copy */}
-      <div className={`relative z-10 flex h-full flex-col justify-end ${light ? "text-white" : "text-ink"}`}>
-        <div className="container-x pb-28 md:pb-[14vh]">
-          <div key={i} className="max-w-[900px]">
-            <p className="eyebrow overflow-hidden">
-              <span className="block animate-[rise_1s_var(--ease-out-expo)_.2s_both]">{s.eyebrow}</span>
+      <div className="relative z-10 flex h-full flex-col justify-end md:justify-center">
+        <div className="container-x pb-28 md:pb-0 md:pt-24">
+          <div key={i} className="max-w-[640px] text-ink">
+            <p className="eyebrow overflow-hidden text-muted">
+              <span className="block animate-[rise_1s_var(--ease-out-expo)_.15s_both]">{s.eyebrow}</span>
             </p>
-            <h1 className="mt-5 text-[3.2rem] font-light leading-[0.98] tracking-[-0.045em] sm:text-[4.5rem] md:mt-7 md:text-[6.2rem] lg:text-[7.2rem]">
+            <h1 className="heading mt-4 !leading-[0.96] text-[3rem] sm:text-[4rem] md:mt-6 md:text-[5rem] lg:text-[6rem]">
               {s.title.map((t, k) => (
-                <span key={t} className="block overflow-hidden pb-[0.06em]">
-                  <span
-                    className="block animate-[rise_1.3s_var(--ease-out-expo)_both]"
-                    style={{ animationDelay: `${350 + k * 120}ms` }}
-                  >
+                <span key={t} className="block overflow-hidden pb-[0.08em]">
+                  <span className="block animate-[rise_1.2s_var(--ease-out-expo)_both]" style={{ animationDelay: `${280 + k * 110}ms` }}>
                     {t}
                   </span>
                 </span>
               ))}
             </h1>
-            <div className="mt-8 animate-[fadeUp_1s_var(--ease-out-expo)_.8s_both] md:mt-12">
-              <a
-                href={s.cta.href}
-                className={`group inline-flex items-center gap-4 text-[13px] font-semibold uppercase tracking-[0.22em]`}
-              >
-                <span className={`grid h-14 w-14 place-items-center rounded-full border transition-all duration-500 group-hover:scale-110 ${
-                  light ? "border-white/50 group-hover:border-white group-hover:bg-white group-hover:text-ink" : "border-ink/30 group-hover:border-ink group-hover:bg-ink group-hover:text-white"
-                }`}>
-                  <IconArrow className="h-5 w-5" />
-                </span>
-                <span className="relative">
-                  {s.cta.label}
-                  <span className={`absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100 ${light ? "bg-white" : "bg-ink"}`} />
-                </span>
+            <p className="mt-4 max-w-[440px] text-[16px] leading-relaxed text-muted animate-[fadeUp_1s_var(--ease-out-expo)_.55s_both] md:mt-6 md:text-[17px]">
+              {s.copy}
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3 animate-[fadeUp_1s_var(--ease-out-expo)_.7s_both] md:mt-9">
+              <a href={s.primary.href} className="btn btn-ink">
+                {s.primary.label}
+              </a>
+              <a href={s.secondary.href} className="btn btn-outline hidden sm:inline-flex">
+                {s.secondary.label}
               </a>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* bottom rail */}
-        <div className={`absolute inset-x-0 bottom-0 ${light ? "text-white" : "text-ink"}`}>
-          <div className="container-x flex items-end justify-between pb-8">
-            <div className="hidden items-center gap-3 md:flex">
-              <span className={`relative h-12 w-px overflow-hidden ${light ? "bg-white/25" : "bg-ink/20"}`}>
-                <span className={`absolute inset-0 animate-[scrollcue_2.4s_ease-in-out_infinite] ${light ? "bg-white" : "bg-ink"}`} />
-              </span>
-              <span className="text-[11px] uppercase tracking-[0.3em] opacity-70">Scroll</span>
-            </div>
-
-            <div className="flex w-full items-center justify-between gap-6 md:w-auto md:justify-end">
-              <div className="flex items-center gap-2">
-                {slides.map((_, n) => (
-                  <button
-                    key={n}
-                    onClick={() => go(n)}
-                    aria-label={`Go to slide ${n + 1}`}
-                    className="group flex items-center gap-2 py-3"
-                  >
-                    <span className={`text-[12px] font-medium tabular-nums tracking-[0.1em] transition-opacity ${n === i ? "opacity-100" : "opacity-40 group-hover:opacity-80"}`}>
-                      0{n + 1}
-                    </span>
-                    <span className={`relative h-px overflow-hidden transition-all duration-700 ${n === i ? "w-16 md:w-24" : "w-6"} ${light ? "bg-white/30" : "bg-ink/20"}`}>
-                      {n === i && (
-                        <span
-                          key={`${i}-${paused}`}
-                          className={`absolute inset-0 origin-left ${light ? "bg-white" : "bg-ink"}`}
-                          style={{ animation: paused ? "none" : `progress ${DURATION}ms linear both`, transform: paused ? "scaleX(1)" : undefined }}
-                        />
-                      )}
-                    </span>
-                  </button>
-                ))}
-              </div>
-              <div className="flex gap-2">
-                {[-1, 1].map((d) => (
-                  <button
-                    key={d}
-                    onClick={() => go(i + d)}
-                    aria-label={d < 0 ? "Previous slide" : "Next slide"}
-                    className={`grid h-11 w-11 place-items-center rounded-full border transition-colors duration-500 ${
-                      light ? "border-white/40 hover:bg-white hover:text-ink" : "border-ink/25 hover:bg-ink hover:text-white"
-                    }`}
-                  >
-                    <IconArrow className={`h-4 w-4 ${d < 0 ? "rotate-180" : ""}`} />
-                  </button>
-                ))}
-              </div>
-            </div>
+      {/* controls */}
+      <div className="absolute inset-x-0 bottom-0 z-20 text-ink">
+        <div className="container-x flex items-center justify-between pb-7 md:pb-9">
+          <div className="flex items-center gap-1">
+            {slides.map((sl, n) => (
+              <button key={n} onClick={() => go(n)} aria-label={`Go to slide ${n + 1}`} className="group flex items-center gap-3 py-3 pr-3">
+                <span className={`text-[13px] font-medium tabular-nums transition-opacity ${n === i ? "opacity-100" : "opacity-40 group-hover:opacity-80"}`}>
+                  0{n + 1}
+                </span>
+                <span className={`relative h-[2px] overflow-hidden rounded-full bg-ink/15 transition-all duration-700 ${n === i ? "w-14 md:w-20" : "w-5"}`}>
+                  {n === i && (
+                    <span
+                      key={`${i}-${paused}`}
+                      className="absolute inset-0 origin-left bg-ink"
+                      style={{ animation: paused ? "none" : `progress ${DURATION}ms linear both`, transform: paused ? "scaleX(1)" : undefined }}
+                    />
+                  )}
+                </span>
+              </button>
+            ))}
+          </div>
+          <div className="flex gap-2">
+            {[-1, 1].map((d) => (
+              <button
+                key={d}
+                onClick={() => go(i + d)}
+                aria-label={d < 0 ? "Previous slide" : "Next slide"}
+                className="grid h-11 w-11 place-items-center rounded-full bg-white/70 backdrop-blur transition-colors duration-300 hover:bg-ink hover:text-white"
+              >
+                <IconArrow className={`h-4 w-4 ${d < 0 ? "rotate-180" : ""}`} />
+              </button>
+            ))}
           </div>
         </div>
       </div>

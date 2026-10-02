@@ -1,20 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Inter_Tight, Manrope } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 import { CartProvider } from "@/lib/cart";
 import "./globals.css";
 
-const manrope = Manrope({
+// Body copy
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-manrope",
-  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-inter",
   display: "swap",
 });
 
-// Used only for the wordmark
+// Headings + wordmark — same grotesk family as the Tejori logo
 const interTight = Inter_Tight({
   subsets: ["latin"],
   variable: "--font-inter-tight",
-  weight: "700",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -30,14 +30,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#f7f6f2",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${interTight.variable}`}>
+    <html lang="en" className={`${inter.variable} ${interTight.variable}`}>
       <body>
         <CartProvider>{children}</CartProvider>
       </body>

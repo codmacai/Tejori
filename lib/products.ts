@@ -33,7 +33,7 @@ export const products: Product[] = [
     compareAt: 699,
     badge: { label: "Best seller", tone: "sage" },
     image: oilImg,
-    focus: "35% 50%",
+    focus: "28% 50%",
     tint: "#d9e8e3",
     description:
       "A traditional Neelayamari and coconut hair oil that nourishes from the roots for stronger, shinier hair.",

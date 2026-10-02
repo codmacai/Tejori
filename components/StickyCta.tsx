@@ -15,7 +15,7 @@ export function StickyCta() {
   useEffect(() => {
     const onScroll = () => {
       const nearEnd = window.innerHeight + window.scrollY > document.body.scrollHeight - 700;
-      setShow(window.scrollY > 760 && !nearEnd);
+      setShow(window.scrollY > 900 && !nearEnd);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -38,7 +38,7 @@ export function StickyCta() {
             {formatPrice(combo.price)} <s className="text-[11px] font-normal text-muted">{formatPrice(combo.compareAt!)}</s>
           </p>
         </div>
-        <button onClick={() => add(combo.id)} className="h-11 rounded-full bg-ink px-5 text-[12px] font-semibold uppercase tracking-[0.15em] text-white">
+        <button onClick={() => add(combo.id)} className="h-11 rounded-full bg-ink px-5 text-[14px] font-medium text-white">
           Add
         </button>
       </div>

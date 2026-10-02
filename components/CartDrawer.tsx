@@ -35,7 +35,7 @@ export function CartDrawer() {
         }`}
       >
         <div className="flex items-center justify-between bg-white px-6 py-5">
-          <p className="text-[22px] tracking-[-0.02em] text-ink">
+          <p className="font-display text-[22px] font-medium tracking-[-0.02em] text-ink">
             Your bag <span className="text-muted">({count})</span>
           </p>
           <button onClick={close} aria-label="Close bag" className="grid h-10 w-10 place-items-center rounded-full bg-cloud text-ink hover:bg-ink hover:text-white">
@@ -110,7 +110,7 @@ export function CartDrawer() {
                   <p className="truncate text-[14px] text-ink">{upsell.short}</p>
                   <p className="text-[14px] font-bold text-ink">{formatPrice(upsell.price)}</p>
                 </div>
-                <button onClick={() => add(upsell.id)} className="rounded-full bg-ink px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.15em] text-white hover:bg-ink-deep">
+                <button onClick={() => add(upsell.id)} className="rounded-full bg-ink px-4 py-2.5 text-[13px] font-medium text-white hover:bg-ink-deep">
                   Add
                 </button>
               </div>

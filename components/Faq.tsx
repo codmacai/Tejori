@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { IconPlus } from "./Icons";
 import { Reveal } from "./Reveal";
-import { SectionHeading } from "./SectionHeading";
 
 const faqs = [
   {
@@ -33,35 +32,37 @@ export function Faq() {
 
   return (
     <section className="py-20 md:py-28">
-      <div className="container-x">
-        <SectionHeading eyebrow="Questions" title="Good to know" />
-        <div className="mx-auto mt-12 max-w-3xl space-y-3 md:mt-16">
+      <div className="container-x grid gap-10 md:grid-cols-12 md:gap-10">
+        <Reveal className="md:col-span-4">
+          <p className="eyebrow text-muted">Questions</p>
+          <h2 className="heading mt-4 text-[2.25rem] text-ink md:text-[3.25rem]">Good to know</h2>
+          <p className="mt-4 max-w-xs text-[15px] leading-relaxed text-muted">
+            Can’t find what you’re looking for?{" "}
+            <a href="#" className="font-medium text-ink underline underline-offset-4">Contact us</a>
+          </p>
+        </Reveal>
+
+        <div className="border-t border-line md:col-span-7 md:col-start-6">
           {faqs.map((f, i) => {
             const on = open === i;
             return (
-              <Reveal key={f.q} delay={i * 50}>
-                <div className={`rounded-[22px] bg-white transition-shadow duration-500 ${on ? "card-shadow" : ""}`}>
-                  <button
-                    onClick={() => setOpen(on ? null : i)}
-                    aria-expanded={on}
-                    className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left md:px-8 md:py-6"
-                  >
-                    <span className="text-[17px] tracking-[-0.01em] text-ink md:text-[20px]">{f.q}</span>
-                    <span
-                      className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-500 ease-[var(--ease-out-expo)] ${
-                        on ? "rotate-45 bg-ink text-white" : "bg-cloud text-ink"
-                      }`}
-                    >
-                      <IconPlus className="h-4 w-4" />
-                    </span>
-                  </button>
-                  <div className={`grid transition-[grid-template-rows] duration-700 ease-[var(--ease-out-expo)] ${on ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-                    <div className="overflow-hidden">
-                      <p className="px-6 pb-6 pr-16 text-[15px] leading-relaxed text-muted md:px-8 md:pb-7">{f.a}</p>
-                    </div>
+              <div key={f.q} className="border-b border-line">
+                <button
+                  onClick={() => setOpen(on ? null : i)}
+                  aria-expanded={on}
+                  className="flex w-full items-center justify-between gap-6 py-6 text-left"
+                >
+                  <span className="text-[18px] font-medium tracking-[-0.015em] text-ink md:text-[20px]">{f.q}</span>
+                  <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full transition-all duration-500 ease-[var(--ease-out-expo)] ${on ? "rotate-45 bg-ink text-white" : "bg-cloud text-ink"}`}>
+                    <IconPlus className="h-4 w-4" />
+                  </span>
+                </button>
+                <div className={`grid transition-[grid-template-rows] duration-700 ease-[var(--ease-out-expo)] ${on ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                  <div className="overflow-hidden">
+                    <p className="max-w-xl pb-7 pr-12 text-[15.5px] leading-relaxed text-muted">{f.a}</p>
                   </div>
                 </div>
-              </Reveal>
+              </div>
             );
           })}
         </div>
