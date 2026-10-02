@@ -7,6 +7,8 @@ import shampooLifestyle from "@/public/images/shampoo-lifestyle.jpg";
 import comboLifestyle from "@/public/images/hero-combo.jpg";
 import duoImg from "@/public/images/duo-packshot.jpg";
 import ugcImg from "@/public/images/ugc-1.jpg";
+import coconutImg from "@/public/images/ing-coconut.jpg";
+import neelayamariImg from "@/public/images/ing-neelayamari.jpg";
 
 export type Concern = "Hair growth" | "Anti dandruff" | "Dry hair";
 export type IconKey = "leaf" | "roots" | "shine" | "shield" | "hair" | "drop" | "tag";
@@ -24,7 +26,9 @@ export type ProductDetails = {
   why: { icon: IconKey; title: string; copy: string }[];
   howTo: { title: string; copy: string }[];
   /** Hero ingredients. Replace/extend with the full list from the pack. */
-  ingredients: { name: string; latin?: string; copy: string }[];
+  ingredients: { name: string; latin?: string; copy: string; image: StaticImageData }[];
+  /** Who / which hair it suits — shown in the "Suited for" accordion */
+  suitedFor: string[];
   /** How this product is described inside the "pair it with" card */
   pair: { role: string; summary: string; points: string[] };
   /** Product shown next to this one in the pairing section */
@@ -84,9 +88,10 @@ export const products: Product[] = [
         { title: "Leave & wash", copy: "Leave on for at least an hour, or overnight, then wash with the Anti-Dandruff Shampoo." },
       ],
       ingredients: [
-        { name: "Neelayamari", latin: "Indigofera tinctoria", copy: "A herb used in traditional Kerala hair oils to nourish the scalp and roots." },
-        { name: "Coconut oil", latin: "Cocos nucifera", copy: "A classic base oil that conditions hair and helps lock in moisture." },
+        { name: "Neelayamari", latin: "Indigofera tinctoria", copy: "A herb used in traditional Kerala hair oils to nourish the scalp and roots.", image: neelayamariImg },
+        { name: "Coconut oil", latin: "Cocos nucifera", copy: "A classic base oil that conditions hair and helps lock in moisture.", image: coconutImg },
       ],
+      suitedFor: ["All hair types — straight, wavy and curly", "Hair that feels weak or prone to fall", "Dry, dull lengths that need nourishment"],
       pair: {
         role: "The Oil",
         summary: "Feeds the scalp and helps roots feel stronger.",
@@ -127,8 +132,9 @@ export const products: Product[] = [
         { title: "Rinse", copy: "Rinse well. For best results, use after the Neelayamari Hair Oil." },
       ],
       ingredients: [
-        { name: "Neelayamari", latin: "Indigofera tinctoria", copy: "The heart of the Tejori range — traditionally used to care for the scalp and roots." },
+        { name: "Neelayamari", latin: "Indigofera tinctoria", copy: "The heart of the Tejori range — traditionally used to care for the scalp and roots.", image: neelayamariImg },
       ],
+      suitedFor: ["All hair types — straight, wavy and curly", "Scalps prone to flakes and itch", "Regular use, including oiled hair"],
       pair: {
         role: "The Shampoo",
         summary: "Cleanses the scalp and clears away flakes.",
@@ -170,9 +176,10 @@ export const products: Product[] = [
         { title: "Repeat", copy: "Follow the ritual two to three times a week." },
       ],
       ingredients: [
-        { name: "Neelayamari", latin: "Indigofera tinctoria", copy: "Found in both the oil and the shampoo — traditionally used to care for scalp and roots." },
-        { name: "Coconut oil", latin: "Cocos nucifera", copy: "The conditioning base of the hair oil." },
+        { name: "Neelayamari", latin: "Indigofera tinctoria", copy: "Found in both the oil and the shampoo — traditionally used to care for scalp and roots.", image: neelayamariImg },
+        { name: "Coconut oil", latin: "Cocos nucifera", copy: "The conditioning base of the hair oil.", image: coconutImg },
       ],
+      suitedFor: ["All hair types — straight, wavy and curly", "Dandruff-prone scalps", "Anyone wanting a complete weekly ritual"],
       pair: { role: "The Combo", summary: "", points: [] },
     },
   },

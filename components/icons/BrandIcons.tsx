@@ -25,116 +25,46 @@ function Base({ children, strokeWidth = 1.25, ...p }: P & { children: React.Reac
 
 const ns = { vectorEffect: "non-scaling-stroke" as const };
 
-/** Natural — a drop holding a leaf, with a highlight */
-export const IconNatural = (p: P) => (
-  <Base {...p}>
-    <path {...ns} d="M48 10 C 44 20, 22 40, 22 62 A 26 26 0 0 0 74 62 C 74 40, 52 20, 48 10 Z" />
-    <path {...ns} d="M48 74 C 38 68, 36 55, 48 40 C 60 55, 58 68, 48 74 Z" />
-    <path {...ns} d="M48 74 V 50" />
-    <path {...ns} d="M58 81 A 20 20 0 0 0 68 71" />
-  </Base>
-);
-
-/** Roots — a sprout above the soil line, roots below, held in a circle */
-export const IconRoots = (p: P) => (
-  <Base {...p}>
-    <circle {...ns} cx="48" cy="48" r="38" />
-    <path {...ns} d="M26 54 H 70" />
-    <path {...ns} d="M48 54 V 34" />
-    <path {...ns} d="M48 44 C 42 44, 36 40, 34 32 C 42 32, 47 37, 48 44 Z" />
-    <path {...ns} d="M48 38 C 52 32, 57 29, 64 29 C 62 36, 56 39, 48 38 Z" />
-    <path {...ns} d="M48 54 V 72" />
-    <path {...ns} d="M48 60 C 45 64, 41 66, 37 71" />
-    <path {...ns} d="M48 63 C 51 67, 55 69, 59 74" />
-    <path {...ns} d="M48 72 L 45 77" />
-  </Base>
-);
-
-/** Shine — flowing strands with a four-point sparkle */
-export const IconShine = (p: P) => (
-  <Base {...p}>
-    <path {...ns} d="M34 84 C 28 66, 44 54, 36 32 C 34 24, 36 18, 40 14" />
-    <path {...ns} d="M47 86 C 41 68, 57 56, 49 34 C 47 26, 49 20, 53 16" />
-    <path {...ns} d="M60 84 C 54 70, 66 58, 60 42" />
-    <path {...ns} d="M74 12 C 75 19, 77 21, 84 22 C 77 23, 75 25, 74 32 C 73 25, 71 23, 64 22 C 71 21, 73 19, 74 12 Z" />
-    <circle {...ns} cx="82" cy="38" r="1.6" />
-  </Base>
-);
-
-/** Clear scalp — a shield with a check that breaks out of its edge */
-export const IconClearScalp = (p: P) => (
-  <Base {...p}>
-    <path {...ns} d="M48 12 L 76 22 V 46 C 76 66, 64 78, 48 86 C 32 78, 20 66, 20 46 V 22 Z" />
-    <path {...ns} d="M34 50 L 44 60 L 84 22" />
-    <path {...ns} d="M28 30 V 44" />
-  </Base>
-);
-
-/** Every hair type — straight, wavy and curly strands in a circle */
-export const IconHairTypes = (p: P) => (
-  <Base {...p}>
-    <circle {...ns} cx="48" cy="48" r="38" />
-    <path {...ns} d="M34 24 V 72" />
-    <path {...ns} d="M48 22 C 54 30, 42 38, 48 46 S 54 62, 48 72" />
-    <path
-      {...ns}
-      d="M62 22 c 7 3, 6 10, -1 10 c -5 0, -4 -5, 1 -4 c 7 3, 6 10, -1 10 c -5 0, -4 -5, 1 -4 c 7 3, 6 10, -1 10 c -5 0, -4 -5, 1 -4 c 7 3, 6 10, -1 10 c -5 0, -4 -5, 1 -4 c 7 3, 6 10, -1 10"
-    />
-  </Base>
-);
-
-/** Ritual — a dropper releasing a single drop */
-export const IconRitual = (p: P) => (
-  <Base {...p}>
-    <path {...ns} d="M42 30 V 18 A 6 6 0 0 1 54 18 V 30" />
-    <path {...ns} d="M37 30 H 59 V 37 H 37 Z" />
-    <path {...ns} d="M43 37 V 60 L 48 68 L 53 60 V 37" />
-    <path {...ns} d="M48 76 C 46 80, 43 82, 43 86 A 5 5 0 0 0 53 86 C 53 82, 50 80, 48 76 Z" />
-    <path {...ns} d="M47 46 V 56" />
-  </Base>
-);
-
-/** Value — a tag with a percent mark */
-export const IconValue = (p: P) => (
-  <Base {...p}>
-    <path {...ns} d="M18 50 L 48 20 H 76 V 48 L 46 78 Z" />
-    <circle {...ns} cx="66" cy="30" r="4" />
-    <path {...ns} d="M68 26 C 70 16, 78 10, 86 14" />
-    <circle {...ns} cx="40" cy="48" r="3" />
-    <circle {...ns} cx="52" cy="60" r="3" />
-    <path {...ns} d="M38 62 L 54 46" />
-  </Base>
-);
-
-/** Scientifically proven — atom with three orbits inside a circle */
+/** Scientifically proven — a lab flask with a leaf growing from its neck (science × nature) */
 export const IconScience = (p: P) => (
   <Base {...p}>
-    <circle {...ns} cx="48" cy="48" r="40" />
-    <ellipse {...ns} cx="48" cy="48" rx="9" ry="23" />
-    <ellipse {...ns} cx="48" cy="48" rx="23" ry="9" transform="rotate(30 48 48)" />
-    <ellipse {...ns} cx="48" cy="48" rx="23" ry="9" transform="rotate(-30 48 48)" />
-    <circle {...ns} cx="42.6" cy="30" r="2.2" fill="currentColor" />
-    <circle {...ns} cx="67.9" cy="59.5" r="2.2" fill="currentColor" />
-    <circle {...ns} cx="28.1" cy="59.5" r="2.2" fill="currentColor" />
+    <path {...ns} d="M30 82 H 66 A 6 6 0 0 0 71 73 L 56 46 V 26 H 40 V 46 L 25 73 A 6 6 0 0 0 30 82 Z" />
+    <path {...ns} d="M33 64 C 40 60, 46 68, 52 64 S 61 60, 64 64 L 70 74 A 4 4 0 0 1 66 79 H 30 A 4 4 0 0 1 26 74 Z" fill="currentColor" fillOpacity="0.18" stroke="none" />
+    <path {...ns} d="M33 64 C 40 60, 46 68, 52 64 S 61 60, 64 64" />
+    <path {...ns} d="M37 26 H 59" />
+    <path {...ns} d="M48 26 V 12" />
+    <path {...ns} d="M48 18 C 52 12, 58 10, 64 11 C 63 17, 57 21, 48 18 Z" fill="currentColor" fillOpacity="0.18" />
+    <circle {...ns} cx="42" cy="73" r="2" />
+    <circle {...ns} cx="54" cy="71" r="1.4" />
   </Base>
 );
 
-/** Dermatologist tested — a drop with a check breaking out of it, and a highlight */
+/** Dermatologist tested — a lens over layered skin, with a check seal */
 export const IconDermTested = (p: P) => (
   <Base {...p}>
-    <path {...ns} d="M48 10 L 29 40 A 22 22 0 1 0 67 40 Z" />
-    <path {...ns} d="M37 51 L 45 59 L 76 28" />
-    <path {...ns} d="M41 69 A 16 16 0 0 0 59 65" />
+    <circle {...ns} cx="42" cy="44" r="25" fill="currentColor" fillOpacity="0.12" />
+    <path {...ns} d="M60 62 L 80 82" strokeWidth={3.5} />
+    <path {...ns} d="M24 40 C 32 36, 38 44, 46 40 S 56 36, 60 40" />
+    <path {...ns} d="M22 49 C 30 45, 38 53, 46 49 S 56 45, 62 49" />
+    <path {...ns} d="M26 58 C 33 55, 39 61, 46 58 S 54 55, 58 58" />
+    <circle {...ns} cx="72" cy="22" r="10" />
+    <path {...ns} d="M67 22 L 71 26 L 78 18" />
   </Base>
 );
 
-/** Cruelty free — a paw whose pad is a heart */
+/** Cruelty free — a rabbit with a small leaf */
 export const IconCrueltyFree = (p: P) => (
   <Base {...p}>
-    <ellipse {...ns} cx="25" cy="40" rx="5" ry="7.5" transform="rotate(-18 25 40)" />
-    <ellipse {...ns} cx="39" cy="26" rx="5.5" ry="8.5" />
-    <ellipse {...ns} cx="57" cy="26" rx="5.5" ry="8.5" />
-    <ellipse {...ns} cx="71" cy="40" rx="5" ry="7.5" transform="rotate(18 71 40)" />
-    <path {...ns} d="M48 84 C 38 76, 29 69, 29 59 C 29 52, 34 47, 40 47 C 44 47, 47 50, 48 53 C 49 50, 52 47, 56 47 C 62 47, 67 52, 67 59 C 67 69, 58 76, 48 84 Z" />
+    <path {...ns} d="M40 40 C 34 30, 33 16, 38 12 C 43 10, 46 24, 46 37" />
+    <path {...ns} d="M56 40 C 62 30, 63 16, 58 12 C 53 10, 50 24, 50 37" />
+    <path {...ns} d="M40 34 C 38 26, 38 20, 39 17" />
+    <path {...ns} d="M56 34 C 58 26, 58 20, 57 17" />
+    <path {...ns} d="M48 37 C 34 37, 28 46, 28 56 C 28 67, 37 74, 48 74 C 59 74, 68 67, 68 56 C 68 46, 62 37, 48 37 Z" />
+    <circle {...ns} cx="40" cy="54" r="1.8" fill="currentColor" />
+    <circle {...ns} cx="56" cy="54" r="1.8" fill="currentColor" />
+    <path {...ns} d="M46 61 L 48 63 L 50 61" />
+    <path {...ns} d="M48 63 V 66" />
+    <path {...ns} d="M70 80 C 72 72, 78 68, 86 68 C 85 76, 79 80, 70 80 Z" />
+    <path {...ns} d="M70 80 L 79 73" />
   </Base>
 );

@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
 import { COMBO_ID, formatPrice, getProduct, savePct, type Product } from "@/lib/products";
-import { benefitKey, FeatureIcon } from "../FeatureIcon";
 import { IconCheck, IconMinus, IconPlus } from "../Icons";
 import { Reveal } from "../Reveal";
+import { DetailsAccordion } from "./DetailsAccordion";
 import { FeatureBox } from "./FeatureBox";
 import { Gallery } from "./Gallery";
 import { PairSection } from "./PairSection";
@@ -50,20 +50,7 @@ function BuyPanel({ p }: { p: Product }) {
       </div>
       <p className="mt-2 text-[13px] text-muted">{p.size} · Inclusive of all taxes</p>
 
-      <p className="mt-7 max-w-lg text-[16px] leading-relaxed text-ink/80">{p.description}</p>
-
-      <ul className="mt-7 grid grid-cols-2 gap-3">
-        {p.benefits.map((b) => {
-          return (
-            <li key={b} className="flex items-center gap-3 rounded-[18px] bg-paper px-4 py-3.5 text-[14px] text-ink md:bg-white">
-              <FeatureIcon name={benefitKey(b)} className="h-8 w-8 shrink-0" />
-              {b}
-            </li>
-          );
-        })}
-      </ul>
-
-      <div id="pdp-buy" className="mt-8 flex gap-3">
+      <div id="pdp-buy" className="mt-7 flex gap-3">
         <div className="flex items-center rounded-full bg-cloud">
           <button onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Decrease quantity" className="grid h-14 w-12 place-items-center text-ink">
             <IconMinus className="h-4 w-4" />
@@ -102,11 +89,7 @@ function BuyPanel({ p }: { p: Product }) {
         </Link>
       )}
 
-      <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-6 text-[13px] text-muted">
-        <li className="flex items-center gap-2"><FeatureIcon name="leaf" className="h-6 w-6 text-ink" /> 100% natural</li>
-        <li className="flex items-center gap-2"><FeatureIcon name="hair" className="h-6 w-6 text-ink" /> All hair types</li>
-        <li className="flex items-center gap-2"><FeatureIcon name="shield" className="h-6 w-6 text-ink" /> Secure checkout</li>
-      </ul>
+      <DetailsAccordion product={p} />
     </div>
   );
 }
@@ -226,11 +209,15 @@ export function ProductDetail({ product: p }: { product: Product }) {
               </Reveal>
               <div className="relative mt-10 grid gap-4 md:mt-14 md:grid-cols-3 md:gap-5">
                 {d.ingredients.map((ing, i) => (
-                  <Reveal key={ing.name} delay={i * 80} className="rounded-[28px] bg-white/[0.07] p-7 ring-1 ring-white/10 backdrop-blur-sm md:p-8">
-                    <FeatureIcon name="leaf" className="h-14 w-14 text-card" />
-                    <h3 className="mt-7 text-[24px] font-normal tracking-[-0.015em]">{ing.name}</h3>
+                  <Reveal key={ing.name} delay={i * 80} className="overflow-hidden rounded-[28px] bg-white/[0.07] p-2.5 ring-1 ring-white/10 backdrop-blur-sm">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-[22px]">
+                      <Image src={ing.image} alt={ing.name} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-[1.4s] ease-[var(--ease-out-expo)] hover:scale-[1.05]" />
+                    </div>
+                    <div className="px-4 pb-5 pt-6 md:px-5">
+                    <h3 className="text-[24px] font-normal tracking-[-0.015em]">{ing.name}</h3>
                     {ing.latin && <p className="mt-0.5 text-[14px] text-white/55">{ing.latin}</p>}
                     <p className="mt-4 text-[15px] leading-relaxed text-white/75">{ing.copy}</p>
+                    </div>
                   </Reveal>
                 ))}
                 <Reveal delay={d.ingredients.length * 80} className="flex flex-col justify-end rounded-[28px] border border-dashed border-white/20 p-7 md:p-8">

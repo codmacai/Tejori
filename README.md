@@ -31,14 +31,14 @@ Deploy: import the repo on vercel.com — no configuration needed.
 
 `/products/[id]` — one static page per product (`app/products/[id]/page.tsx`, `components/pdp/`).
 
-- **Desktop:** gallery (swipe + thumbnails) sticky on the left, details on the right.
+- **Desktop:** gallery (swipe + thumbnails) sticky on the left, details on the right — price, Add to bag, combo link, then an accordion (Product description · Key benefits · Key ingredients with photos · Suited for).
 - **Mobile:** gallery first; the details sheet slides up over it as you scroll, with a sticky buy bar once the main button scrolls away.
 - **Sections:** Why you'll love it (text-only numbered features in a brand-gradient box, product rising from a sage dome) · How to use · Ingredients · People usually pair it with (split card + combo strip; the combo page shows "What's inside").
-- **Content** lives in `lib/products.ts` under `details` (gallery, why, howTo, ingredients, pair copy, pairWith). Ingredient lists are partial — add the full list from the pack.
+- **Content** lives in `lib/products.ts` under `details` (gallery, why, howTo, ingredients, pair copy, pairWith). Ingredient lists are partial — add the full list from the pack. Ingredient photos: `public/images/ing-*.jpg` (placeholders cropped from lifestyle shots; the Neelayamari image is a generic leaf — replace with a real Neelayamari photo). `suitedFor` drives the Suited for accordion.
 
 ## Icons
 
-Custom hairline brand icons (`components/icons/BrandIcons.tsx`) — 96×96 grid, 1.25px non-scaling strokes, `currentColor`, each combining two ideas (drop + leaf, sprout + roots, shield + check…). Feature labels use DM Mono uppercase (`.label-mono`). Map features to icons in `components/FeatureIcon.tsx`. To swap in designer-made icons, replace the paths in `BrandIcons.tsx` keeping the same component names.
+Custom hairline brand icons for the home-page standards row (`components/icons/BrandIcons.tsx`): lab flask with a leaf (Scientifically proven), lens over skin layers with a check seal (Dermatologist tested), rabbit with a leaf (Cruelty free). 96×96 grid, non-scaling strokes, `currentColor` with soft two-tone fills. Labels use DM Mono uppercase (`.label-mono`).
 
 ## Editing content
 
