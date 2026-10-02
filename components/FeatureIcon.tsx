@@ -2,16 +2,16 @@ import type { IconKey } from "@/lib/products";
 import {
   IconClearScalp,
   IconHairTypes,
-  IconNatural,
   IconRitual,
   IconRoots,
   IconShine,
   IconValue,
 } from "./icons/BrandIcons";
+import { IconNaturalLeaf } from "./icons/LeafArt";
 
 /** Tejori hairline brand icons, keyed by feature. */
-const map: Record<IconKey, typeof IconNatural> = {
-  leaf: IconNatural,
+const map: Record<IconKey, typeof IconRoots> = {
+  leaf: IconNaturalLeaf,
   roots: IconRoots,
   shine: IconShine,
   shield: IconClearScalp,
