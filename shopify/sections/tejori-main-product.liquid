@@ -235,6 +235,18 @@
   "name": "Tejori product",
   "tag": "div",
   "class": "tejori-main-product-section",
+  "enabled_on": { "templates": ["product"] },
+  "presets": [
+    {
+      "name": "Tejori product",
+      "blocks": [
+        { "type": "description" },
+        { "type": "collapsible", "settings": { "title": "Key benefits" } },
+        { "type": "ingredients" },
+        { "type": "collapsible", "settings": { "title": "Suited for" } }
+      ]
+    }
+  ],
   "settings": [
     { "type": "color", "id": "tint", "label": "Gallery background", "default": "#dce0c5", "info": "Match your packshot background (or use transparent PNGs)." },
     { "type": "range", "id": "cover_from", "label": "Fill frame from image #", "min": 0, "max": 6, "step": 1, "default": 1, "info": "Images after this number fill the frame (lifestyle photos). 0 = all images contained." },

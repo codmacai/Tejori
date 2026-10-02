@@ -25,7 +25,8 @@ The Next.js site converted into Shopify Online Store 2.0 sections. Every section
 5. **Pick products & images in the theme editor** — the templates are prefilled with the handles `neelayamari-hair-oil`, `neelayamari-anti-dandruff-shampoo` and `anti-dandruff-combo`. If your handles differ, re-pick the products in Combo, Shop the look, Reviews, Pair and Concerns. Then upload images:
    - **Hero** → each slide block has *Image*, *Mobile image* (optional) and *Video* (optional), plus layout, colour, text and two buttons. Add/remove/reorder slides freely.
    - Shop by concern, Combo, Shop the look, How to use, Ingredients (one photo per ingredient; also in the product accordion).
-6. Product photos: the gallery uses the product's own media. For the floating card look, use transparent PNG packshots as the first image.
+6. **Can't find a section under *Add section*?** Type `Tejori` in the search box at the top of the Add section list. Header/footer only appear inside the Header/Footer groups, and *Tejori product* only on product templates. If a section is still missing, open it in Edit code and press Save: if Shopify shows an error, the file was not saved.
+7. Product photos: the gallery uses the product's own media. For the floating card look, use transparent PNG packshots as the first image.
 
 ## Optional metafields (Settings → Custom data → Products)
 
