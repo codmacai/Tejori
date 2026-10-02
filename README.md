@@ -18,7 +18,6 @@ Deploy: import the repo on vercel.com — no configuration needed.
 | --- | --- |
 | Announcement + header | Offer bar collapses on scroll; header is transparent over the hero, solid on scroll |
 | Hero | Full-screen slideshow — slow push-in zoom, crossfades, line-by-line headline reveal, progress rail, swipe on mobile |
-| Feature box | Brand-gradient box with four icon features, products rising from a sage dome |
 | Shop by concern | Hair growth / Anti dandruff / Dry hair — routes visitors to the right product first |
 | Our products | Apple-style product cards (label, name, tagline, benefit icons, price, Add to bag / Learn more) with a quick-look product sheet |
 | The combo | "Better together" bundle: oil + shampoo breakdown, bought-separately vs combo price, quantity + add to bag |
@@ -33,8 +32,12 @@ Deploy: import the repo on vercel.com — no configuration needed.
 
 - **Desktop:** gallery (swipe + thumbnails) sticky on the left, details on the right.
 - **Mobile:** gallery first; the details sheet slides up over it as you scroll, with a sticky buy bar once the main button scrolls away.
-- **Sections:** Why you'll love it · How to use · Ingredients · People usually pair it with (split card + combo strip; the combo page shows "What's inside").
+- **Sections:** Why you'll love it (brand-gradient feature box with the product rising from a sage dome) · How to use · Ingredients · People usually pair it with (split card + combo strip; the combo page shows "What's inside").
 - **Content** lives in `lib/products.ts` under `details` (gallery, why, howTo, ingredients, pair copy, pairWith). Ingredient lists are partial — add the full list from the pack.
+
+## Icons
+
+Feature and benefit icons use [Phosphor](https://phosphoricons.com) at light weight (`components/FeatureIcon.tsx`). Map new features to an icon key in `lib/products.ts`.
 
 ## Editing content
 

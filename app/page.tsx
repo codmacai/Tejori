@@ -9,7 +9,6 @@ import { HeroSlider } from "@/components/HeroSlider";
 import { Products } from "@/components/Products";
 import { StickyCta } from "@/components/StickyCta";
 import { Testimonials } from "@/components/Testimonials";
-import { TrustBar } from "@/components/TrustBar";
 
 export default function Home() {
   return (
@@ -17,7 +16,6 @@ export default function Home() {
       <Header />
       <main>
         <HeroSlider />
-        <TrustBar />
         <Concerns />
         <Products />
         <ComboFeature />

@@ -4,20 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
-import { COMBO_ID, formatPrice, getProduct, savePct, type IconKey, type Product } from "@/lib/products";
-import { benefitIcon } from "../benefitIcon";
-import { IconCheck, IconDrop, IconLeaf, IconMinus, IconPlus, IconRoots, IconShield, IconSparkle, IconWaves } from "../Icons";
+import { COMBO_ID, formatPrice, getProduct, savePct, type Product } from "@/lib/products";
+import { benefitKey, FeatureIcon } from "../FeatureIcon";
+import { IconCheck, IconMinus, IconPlus } from "../Icons";
 import { Reveal } from "../Reveal";
+import { FeatureBox } from "./FeatureBox";
 import { Gallery } from "./Gallery";
 import { PairSection } from "./PairSection";
 
-const icons: Record<IconKey, typeof IconLeaf> = {
-  leaf: IconLeaf,
-  roots: IconRoots,
-  waves: IconWaves,
-  sparkle: IconSparkle,
-  drop: IconDrop,
-};
 
 function BuyPanel({ p }: { p: Product }) {
   const { add } = useCart();
@@ -60,10 +54,9 @@ function BuyPanel({ p }: { p: Product }) {
 
       <ul className="mt-7 grid grid-cols-2 gap-3">
         {p.benefits.map((b) => {
-          const I = benefitIcon(b);
           return (
             <li key={b} className="flex items-center gap-3 rounded-[18px] bg-paper px-4 py-3.5 text-[14px] text-ink md:bg-white">
-              <I className="h-5 w-5 shrink-0" />
+              <FeatureIcon name={benefitKey(b)} className="h-[22px] w-[22px] shrink-0" />
               {b}
             </li>
           );
@@ -86,7 +79,7 @@ function BuyPanel({ p }: { p: Product }) {
               <IconCheck className="h-5 w-5" /> Added to bag
             </>
           ) : (
-            <>Add to bag<span className="hidden sm:inline"> · {formatPrice(p.price * qty)}</span></>
+            <span>Add to bag<span className="hidden sm:inline"> · {formatPrice(p.price * qty)}</span></span>
           )}
         </button>
       </div>
@@ -110,9 +103,9 @@ function BuyPanel({ p }: { p: Product }) {
       )}
 
       <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-6 text-[13px] text-muted">
-        <li className="flex items-center gap-2"><IconLeaf className="h-4 w-4 text-ink" /> 100% natural</li>
-        <li className="flex items-center gap-2"><IconDrop className="h-4 w-4 text-ink" /> All hair types</li>
-        <li className="flex items-center gap-2"><IconShield className="h-4 w-4 text-ink" /> Secure checkout</li>
+        <li className="flex items-center gap-2"><FeatureIcon name="leaf" className="h-[18px] w-[18px] text-ink" /> 100% natural</li>
+        <li className="flex items-center gap-2"><FeatureIcon name="hair" className="h-[18px] w-[18px] text-ink" /> All hair types</li>
+        <li className="flex items-center gap-2"><FeatureIcon name="shield" className="h-[18px] w-[18px] text-ink" /> Secure checkout</li>
       </ul>
     </div>
   );
@@ -178,28 +171,7 @@ export function ProductDetail({ product: p }: { product: Product }) {
       {/* sections sit on an opaque layer so the sticky image never shows through */}
       <div className="relative z-10 bg-paper">
         {/* ───────── Why choose ───────── */}
-        <section className="pt-20 md:pt-32">
-          <div className="container-x">
-            <Reveal className="max-w-2xl">
-              <p className="eyebrow text-muted">Why choose it</p>
-              <h2 className="heading mt-4 text-[2.4rem] text-ink md:text-[3.5rem]">Why you’ll love {p.short}</h2>
-            </Reveal>
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 md:mt-14 lg:grid-cols-4 lg:gap-5">
-              {d.why.map((w, i) => {
-                const I = icons[w.icon];
-                return (
-                  <Reveal key={w.title} delay={i * 80} className="flex flex-col rounded-[32px] bg-white p-7 md:p-8">
-                    <span className="grid h-14 w-14 place-items-center rounded-full bg-label text-ink">
-                      <I className="h-6 w-6" />
-                    </span>
-                    <h3 className="mt-8 text-[22px] font-normal tracking-[-0.015em] text-ink">{w.title}</h3>
-                    <p className="mt-2 text-[15px] leading-relaxed text-muted">{w.copy}</p>
-                  </Reveal>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        <FeatureBox product={p} />
 
         {/* ───────── How to use ───────── */}
         <section className="pt-20 md:pt-32">
@@ -255,9 +227,7 @@ export function ProductDetail({ product: p }: { product: Product }) {
               <div className="relative mt-10 grid gap-4 md:mt-14 md:grid-cols-3 md:gap-5">
                 {d.ingredients.map((ing, i) => (
                   <Reveal key={ing.name} delay={i * 80} className="rounded-[28px] bg-white/[0.07] p-7 ring-1 ring-white/10 backdrop-blur-sm md:p-8">
-                    <span className="grid h-12 w-12 place-items-center rounded-full bg-card text-ink">
-                      <IconLeaf className="h-5 w-5" />
-                    </span>
+                    <FeatureIcon name="leaf" className="h-9 w-9 text-card" />
                     <h3 className="mt-7 text-[24px] font-normal tracking-[-0.015em]">{ing.name}</h3>
                     {ing.latin && <p className="mt-0.5 text-[14px] text-white/55">{ing.latin}</p>}
                     <p className="mt-4 text-[15px] leading-relaxed text-white/75">{ing.copy}</p>

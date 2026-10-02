@@ -9,7 +9,7 @@ import duoImg from "@/public/images/duo-packshot.jpg";
 import ugcImg from "@/public/images/ugc-1.jpg";
 
 export type Concern = "Hair growth" | "Anti dandruff" | "Dry hair";
-export type IconKey = "leaf" | "roots" | "waves" | "sparkle" | "drop";
+export type IconKey = "leaf" | "roots" | "shine" | "shield" | "hair" | "drop" | "tag";
 
 export type GalleryImage = {
   src: StaticImageData;
@@ -75,8 +75,8 @@ export const products: Product[] = [
       why: [
         { icon: "roots", title: "Nourishes from the root", copy: "Massaged into the scalp, it feeds the roots so hair feels stronger wash after wash." },
         { icon: "leaf", title: "100% natural ingredients", copy: "Neelayamari and coconut — the way Kerala has cared for hair for generations." },
-        { icon: "waves", title: "Stronger, shinier hair", copy: "Softens the lengths and brings back natural shine." },
-        { icon: "drop", title: "For all hair types", copy: "Straight, wavy or curly — gentle enough for regular use." },
+        { icon: "shine", title: "Stronger, shinier hair", copy: "Softens the lengths and brings back natural shine." },
+        { icon: "hair", title: "For all hair types", copy: "Straight, wavy or curly — gentle enough for regular use." },
       ],
       howTo: [
         { title: "Apply", copy: "Part your hair and apply the oil directly to the scalp with the comb applicator." },
@@ -116,9 +116,9 @@ export const products: Product[] = [
         { src: ugcImg, alt: "Customer holding the shampoo and hair oil", fit: "cover" },
       ],
       why: [
-        { icon: "sparkle", title: "Removes dandruff", copy: "Clears away flakes for a scalp that looks and feels clean." },
+        { icon: "shield", title: "Removes dandruff", copy: "Clears away flakes for a scalp that looks and feels clean." },
         { icon: "roots", title: "Strengthens hair roots", copy: "Cleanses without stripping, so roots stay cared for." },
-        { icon: "waves", title: "Nourishes hair locks", copy: "Leaves the lengths soft and manageable after every wash." },
+        { icon: "hair", title: "Nourishes hair locks", copy: "Leaves the lengths soft and manageable after every wash." },
         { icon: "leaf", title: "100% organic", copy: "Made with Neelayamari for a gentle, natural clean." },
       ],
       howTo: [
@@ -160,9 +160,9 @@ export const products: Product[] = [
       ],
       why: [
         { icon: "drop", title: "The complete ritual", copy: "Oil to nourish, shampoo to cleanse — designed to work together." },
-        { icon: "sparkle", title: "Removes dandruff", copy: "Clears flakes for a clean, calm scalp." },
+        { icon: "shield", title: "Removes dandruff", copy: "Clears flakes for a clean, calm scalp." },
         { icon: "roots", title: "Nourishes hair roots", copy: "Feeds the scalp for stronger-feeling hair." },
-        { icon: "leaf", title: "Better value", copy: "Save Rs. 199 compared with buying both separately." },
+        { icon: "tag", title: "Better value", copy: "Save Rs. 199 compared with buying both separately." },
       ],
       howTo: [
         { title: "Oil", copy: "Massage the Hair Oil into your scalp. Leave on for an hour, or overnight." },
