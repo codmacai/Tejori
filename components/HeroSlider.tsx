@@ -80,8 +80,6 @@ export function HeroSlider() {
       style={{ background: s.bg }}
       aria-roledescription="carousel"
       aria-label="Featured"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
       onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
       onTouchEnd={(e) => {
         if (touchX.current === null) return;
@@ -136,7 +134,7 @@ export function HeroSlider() {
       {/* copy */}
       <div className="relative z-10 flex h-full flex-col justify-end md:justify-center">
         <div className="container-x pb-28 md:pb-0 md:pt-24">
-          <div key={i} className="max-w-[640px] text-ink">
+          <div key={i} className="max-w-[640px] text-ink" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
             <p className="eyebrow overflow-hidden text-muted">
               <span className="block animate-[rise_1s_var(--ease-out-expo)_.15s_both]">{s.eyebrow}</span>
             </p>
@@ -165,7 +163,7 @@ export function HeroSlider() {
       </div>
 
       {/* controls */}
-      <div className="absolute inset-x-0 bottom-0 z-20 text-ink">
+      <div className="absolute inset-x-0 bottom-0 z-20 text-ink" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
         <div className="container-x flex items-center justify-between pb-7 md:pb-9">
           <div className="flex items-center gap-1">
             {slides.map((sl, n) => (

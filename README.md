@@ -27,6 +27,10 @@ Deploy: import the repo on vercel.com — no configuration needed.
 | FAQ, newsletter, footer | Objection handling and email capture |
 | Bag drawer + mobile buy bar | Free-shipping progress, savings, upsell; bag persists in localStorage |
 
+## Shopify
+
+`shopify/sections/hero.liquid` — the cinematic hero as a Shopify Online Store 2.0 section ("Tejori hero slideshow"). Upload it to your theme's `sections/` folder (Edit code → sections → Add a new section → paste), then add it from the theme editor under Banners. Each slide is a block (layout, image, mobile image, optional video, slide colour, text, two buttons). Self-contained CSS/JS — no theme snippets required.
+
 ## Product pages
 
 `/products/[id]` — one static page per product (`app/products/[id]/page.tsx`, `components/pdp/`).

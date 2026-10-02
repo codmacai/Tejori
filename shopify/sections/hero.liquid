@@ -1,0 +1,617 @@
+{%- comment -%}
+  Tejori — Hero Slideshow
+  Full-screen, cinematic slideshow matching the Tejori web design:
+  slow push-in zoom, crossfades, line-by-line headline reveal,
+  numbered progress rail, arrows, swipe on mobile, pause on hover.
+
+  Each slide is a block with three layouts:
+    - cover    : photo bleeding off the right (top on mobile) and fading into the slide colour
+    - stage    : product packshot floating on the slide colour
+    - portrait : framed, rounded portrait photo
+{%- endcomment -%}
+
+{%- liquid
+  assign slide_count = section.blocks.size
+  assign speed_ms = section.settings.slideshow_speed | times: 1000
+  assign zoom_ms = speed_ms | plus: 1500
+
+  case section.settings.section_height
+    when 'full-screen'
+      assign hero_height = '100svh'
+    when 'large'
+      assign hero_height = '85svh'
+    else
+      assign hero_height = '70svh'
+  endcase
+
+  assign first_tone = 'dark'
+  if section.blocks.first.settings.text_tone == 'light'
+    assign first_tone = 'light'
+  endif
+-%}
+
+<tejori-hero
+  id="TejoriHero-{{ section.id }}"
+  class="tj-hero{% if section.settings.autoplay and slide_count > 1 %} is-autoplay{% endif %}"
+  data-tone="{{ first_tone }}"
+  role="region"
+  aria-roledescription="carousel"
+  aria-label="{{ section.settings.aria_label | escape }}"
+  style="
+    --tj-height: {{ hero_height }};
+    --tj-speed: {{ speed_ms }}ms;
+    --tj-zoom: {{ zoom_ms }}ms;
+    --tj-ink: {{ section.settings.ink_color }};
+    --tj-muted: {{ section.settings.muted_color }};
+    --tj-accent: {{ section.settings.button_color }};
+    --tj-accent-text: {{ section.settings.button_text_color }};
+  "
+>
+  <div class="tj-hero__slides">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign s = block.settings
+        assign is_first = forloop.first
+        assign loading = 'lazy'
+        assign priority = 'low'
+        if is_first and section.index == 1
+          assign loading = 'eager'
+          assign priority = 'high'
+        endif
+
+        case s.layout
+          when 'stage'
+            assign sizes = '(min-width: 750px) 50vw, 90vw'
+          when 'portrait'
+            assign sizes = '(min-width: 750px) 30vw, 60vw'
+          else
+            assign sizes = '(min-width: 750px) 66vw, 100vw'
+        endcase
+      -%}
+
+      <div
+        class="tj-hero__slide tj-hero__slide--{{ s.layout }}{% if is_first %} is-active{% endif %}"
+        data-index="{{ forloop.index0 }}"
+        data-tone="{{ s.text_tone }}"
+        role="group"
+        aria-roledescription="slide"
+        aria-label="{{ forloop.index }} of {{ slide_count }}"
+        {% unless is_first %}aria-hidden="true"{% endunless %}
+        style="--tj-bg: {{ s.background }};"
+        {{ block.shopify_attributes }}
+      >
+        {%- comment -%} Media {%- endcomment -%}
+        <div class="tj-hero__media">
+          <div class="tj-hero__frame">
+            {%- if s.video != blank and s.layout == 'cover' -%}
+              {{ s.video | video_tag: autoplay: true, loop: true, controls: false, muted: true, playsinline: true, class: 'tj-hero__img tj-hero__zoom' }}
+            {%- elsif s.image != blank -%}
+              {%- if s.image_mobile != blank -%}
+                <picture>
+                  <source
+                    media="(max-width: 749px)"
+                    srcset="{{ s.image_mobile | image_url: width: 600 }} 600w, {{ s.image_mobile | image_url: width: 900 }} 900w, {{ s.image_mobile | image_url: width: 1200 }} 1200w, {{ s.image_mobile | image_url: width: 1600 }} 1600w"
+                    sizes="100vw"
+                  >
+                  {{ s.image | image_url: width: 3200 | image_tag: widths: '750, 1100, 1500, 1920, 2560, 3200', sizes: sizes, loading: loading, fetchpriority: priority, class: 'tj-hero__img tj-hero__zoom', alt: s.image.alt }}
+                </picture>
+              {%- else -%}
+                {{ s.image | image_url: width: 3200 | image_tag: widths: '600, 900, 1200, 1600, 1920, 2560, 3200', sizes: sizes, loading: loading, fetchpriority: priority, class: 'tj-hero__img tj-hero__zoom', alt: s.image.alt }}
+              {%- endif -%}
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'tj-hero__img tj-hero__placeholder' }}
+            {%- endif -%}
+            {%- if s.layout == 'cover' -%}<div class="tj-hero__fade"></div>{%- endif -%}
+          </div>
+        </div>
+
+        {%- comment -%} Copy {%- endcomment -%}
+        <div class="tj-hero__content">
+          <div class="tj-hero__inner">
+            <div class="tj-hero__copy">
+              {%- if s.eyebrow != blank -%}
+                <p class="tj-hero__eyebrow"><span>{{ s.eyebrow | escape }}</span></p>
+              {%- endif -%}
+
+              {%- if s.title_line_1 != blank or s.title_line_2 != blank -%}
+                {%- if is_first -%}<h1 class="tj-hero__title">{%- else -%}<h2 class="tj-hero__title">{%- endif -%}
+                  {%- if s.title_line_1 != blank -%}<span class="tj-hero__line"><span style="--d: 280ms">{{ s.title_line_1 | escape }}</span></span>{%- endif -%}
+                  {%- if s.title_line_2 != blank -%}<span class="tj-hero__line"><span style="--d: 390ms">{{ s.title_line_2 | escape }}</span></span>{%- endif -%}
+                {%- if is_first -%}</h1>{%- else -%}</h2>{%- endif -%}
+              {%- endif -%}
+
+              {%- if s.copy != blank -%}
+                <p class="tj-hero__text">{{ s.copy | escape }}</p>
+              {%- endif -%}
+
+              {%- if s.primary_label != blank or s.secondary_label != blank -%}
+                <div class="tj-hero__ctas">
+                  {%- if s.primary_label != blank -%}
+                    <a href="{{ s.primary_link | default: routes.all_products_collection_url }}" class="tj-hero__btn tj-hero__btn--primary">{{ s.primary_label | escape }}</a>
+                  {%- endif -%}
+                  {%- if s.secondary_label != blank -%}
+                    <a href="{{ s.secondary_link | default: routes.all_products_collection_url }}" class="tj-hero__btn tj-hero__btn--secondary">{{ s.secondary_label | escape }}</a>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- else -%}
+      <div class="tj-hero__slide tj-hero__slide--cover is-active" style="--tj-bg: #f3f1ea;">
+        <div class="tj-hero__media"><div class="tj-hero__frame">{{ 'lifestyle-1' | placeholder_svg_tag: 'tj-hero__img tj-hero__placeholder' }}</div></div>
+        <div class="tj-hero__content"><div class="tj-hero__inner"><div class="tj-hero__copy">
+          <h1 class="tj-hero__title"><span class="tj-hero__line"><span>Add a slide</span></span></h1>
+        </div></div></div>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if slide_count > 1 -%}
+    <div class="tj-hero__controls">
+      <div class="tj-hero__inner tj-hero__controls-inner">
+        <div class="tj-hero__rail">
+          {%- for block in section.blocks -%}
+            <button
+              type="button"
+              class="tj-hero__step{% if forloop.first %} is-active{% endif %}"
+              data-go="{{ forloop.index0 }}"
+              aria-label="Go to slide {{ forloop.index }}"
+              {% if forloop.first %}aria-current="true"{% endif %}
+            >
+              <span class="tj-hero__num">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+              <span class="tj-hero__bar"><span class="tj-hero__bar-fill"></span></span>
+            </button>
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.show_arrows -%}
+          <div class="tj-hero__arrows">
+            <button type="button" class="tj-hero__arrow" data-prev aria-label="Previous slide">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+            </button>
+            <button type="button" class="tj-hero__arrow" data-next aria-label="Next slide">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</tejori-hero>
+
+{% javascript %}
+  if (!customElements.get('tejori-hero')) {
+    class TejoriHero extends HTMLElement {
+      connectedCallback() {
+        this.slides = Array.from(this.querySelectorAll('.tj-hero__slide'));
+        this.steps = Array.from(this.querySelectorAll('.tj-hero__step'));
+        this.index = 0;
+        if (this.slides.length < 2) return;
+
+        // Advance when the active progress bar finishes — pausing the bar pauses the slideshow.
+        this.onBarEnd = (e) => {
+          if (e.animationName === 'tjProgress' && e.target.closest('.tj-hero__step.is-active')) this.go(this.index + 1);
+        };
+        this.addEventListener('animationend', this.onBarEnd);
+
+        this.addEventListener('click', (e) => {
+          const step = e.target.closest('[data-go]');
+          if (step) return this.go(Number(step.dataset.go));
+          if (e.target.closest('[data-prev]')) return this.go(this.index - 1);
+          if (e.target.closest('[data-next]')) return this.go(this.index + 1);
+        });
+
+        // Pause while the visitor reads the copy or uses the controls (not the whole
+        // full-screen hero — the cursor almost always rests somewhere on it).
+        this.querySelectorAll('.tj-hero__copy, .tj-hero__controls').forEach((el) => {
+          el.addEventListener('mouseenter', () => this.classList.add('is-paused'));
+          el.addEventListener('mouseleave', () => this.classList.remove('is-paused'));
+        });
+        this.addEventListener('focusin', () => this.classList.add('is-paused'));
+        this.addEventListener('focusout', () => this.classList.remove('is-paused'));
+
+        let startX = null;
+        this.addEventListener('touchstart', (e) => (startX = e.touches[0].clientX), { passive: true });
+        this.addEventListener('touchend', (e) => {
+          if (startX === null) return;
+          const dx = e.changedTouches[0].clientX - startX;
+          if (Math.abs(dx) > 40) this.go(this.index + (dx < 0 ? 1 : -1));
+          startX = null;
+        });
+
+        this.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowRight') this.go(this.index + 1);
+          if (e.key === 'ArrowLeft') this.go(this.index - 1);
+        });
+
+        // Theme editor: show the selected slide and hold it there
+        this.onSelect = (e) => {
+          const i = this.slides.indexOf(e.target);
+          if (i === -1) return;
+          this.go(i);
+          this.classList.add('is-paused');
+        };
+        this.onDeselect = () => this.classList.remove('is-paused');
+        document.addEventListener('shopify:block:select', this.onSelect);
+        document.addEventListener('shopify:block:deselect', this.onDeselect);
+      }
+
+      disconnectedCallback() {
+        document.removeEventListener('shopify:block:select', this.onSelect);
+        document.removeEventListener('shopify:block:deselect', this.onDeselect);
+      }
+
+      go(n) {
+        const count = this.slides.length;
+        const next = ((n % count) + count) % count;
+        if (next === this.index) return;
+
+        const prev = this.slides[this.index];
+        prev.classList.remove('is-active');
+        prev.setAttribute('aria-hidden', 'true');
+        this.steps[this.index]?.classList.remove('is-active');
+        this.steps[this.index]?.removeAttribute('aria-current');
+
+        this.index = next;
+        const slide = this.slides[next];
+        slide.classList.add('is-active');
+        slide.removeAttribute('aria-hidden');
+        this.steps[next]?.classList.add('is-active');
+        this.steps[next]?.setAttribute('aria-current', 'true');
+        this.dataset.tone = slide.dataset.tone || 'dark';
+      }
+    }
+    customElements.define('tejori-hero', TejoriHero);
+  }
+{% endjavascript %}
+
+{% stylesheet %}
+  .tj-hero {
+    --tj-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --tj-fg: var(--tj-ink);
+    --tj-fg-soft: var(--tj-muted);
+    position: relative;
+    display: block;
+    height: var(--tj-height, 100svh);
+    min-height: 640px;
+    overflow: hidden;
+    overflow: clip;
+    color: var(--tj-fg);
+    isolation: isolate;
+  }
+  .tj-hero,
+  .tj-hero *,
+  .tj-hero *::before,
+  .tj-hero *::after { box-sizing: border-box; }
+  .tj-hero[data-tone='light'] { --tj-fg: #ffffff; --tj-fg-soft: rgba(255, 255, 255, 0.78); }
+
+  .tj-hero__slides { position: absolute; inset: 0; }
+
+  /* ── Slides: crossfade ── */
+  .tj-hero__slide {
+    position: absolute;
+    inset: 0;
+    background: var(--tj-bg);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.2s ease-in-out, visibility 0s linear 1.2s;
+  }
+  .tj-hero__slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+    transition: opacity 1.2s ease-in-out, visibility 0s;
+  }
+  .tj-hero__slide[data-tone='light'] { --tj-fg: #ffffff; --tj-fg-soft: rgba(255, 255, 255, 0.78); color: #ffffff; }
+  .tj-hero__slide[data-tone='dark'] { --tj-fg: var(--tj-ink); --tj-fg-soft: var(--tj-muted); color: var(--tj-ink); }
+
+  /* ── Media layouts ── */
+  .tj-hero__media { position: absolute; inset: 0; }
+  .tj-hero__frame { position: relative; overflow: hidden; }
+  .tj-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tj-hero__placeholder { background: rgba(0, 0, 0, 0.04); fill: rgba(0, 0, 0, 0.18); }
+
+  /* cover: photo fills the top on mobile, the right two-thirds on desktop */
+  .tj-hero__slide--cover .tj-hero__frame { position: absolute; left: 0; right: 0; top: 0; height: 54%; }
+  .tj-hero__slide--cover .tj-hero__img { object-position: 60% 60%; }
+  .tj-hero__fade { position: absolute; inset: 0; background: linear-gradient(0deg, var(--tj-bg) 0%, transparent 40%); pointer-events: none; }
+
+  /* stage: packshot floating on the slide colour */
+  .tj-hero__slide--stage .tj-hero__media { display: flex; align-items: flex-end; justify-content: center; bottom: 47%; padding-top: 72px; }
+  .tj-hero__slide--stage .tj-hero__frame { width: 90%; max-width: 680px; max-height: 100%; aspect-ratio: 482 / 345; overflow: visible; }
+  .tj-hero__slide--stage .tj-hero__img { object-fit: contain; }
+
+  /* portrait: framed, rounded photo */
+  .tj-hero__slide--portrait .tj-hero__media { display: flex; align-items: flex-end; justify-content: center; bottom: 48%; padding-top: 84px; }
+  .tj-hero__slide--portrait .tj-hero__frame { height: 100%; aspect-ratio: 350 / 535; border-radius: 24px; }
+
+  @media (min-width: 750px) {
+    .tj-hero__slide--cover .tj-hero__frame { left: 34%; height: 100%; }
+    .tj-hero__fade { background: linear-gradient(90deg, var(--tj-bg) 0%, transparent 30%); }
+    .tj-hero__slide--stage .tj-hero__media { left: 42%; right: 4%; bottom: 0; padding-top: 0; align-items: center; }
+    .tj-hero__slide--portrait .tj-hero__media { left: auto; right: 10%; bottom: 0; align-items: center; padding-top: 80px; }
+    .tj-hero__slide--portrait .tj-hero__frame { height: 72%; }
+  }
+
+  /* Slow push-in zoom on the active slide */
+  .tj-hero__slide.is-active .tj-hero__zoom,
+  .tj-hero__slide--stage.is-active .tj-hero__frame { animation: tjPushIn var(--tj-zoom) linear both; }
+  .tj-hero__slide--stage .tj-hero__zoom { animation: none !important; }
+
+  /* ── Copy ── */
+  .tj-hero__content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; }
+  .tj-hero__inner { width: 100%; max-width: 1440px; margin: 0 auto; padding-inline: 16px; }
+  .tj-hero__copy { max-width: 640px; padding-bottom: 112px; }
+
+  @media (min-width: 750px) {
+    .tj-hero__content { justify-content: center; }
+    .tj-hero__inner { padding-inline: 40px; }
+    .tj-hero__copy { padding-bottom: 0; padding-top: 96px; }
+  }
+
+  .tj-hero__eyebrow {
+    margin: 0;
+    overflow: hidden;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tj-fg-soft);
+  }
+  .tj-hero__eyebrow > span { display: block; }
+
+  .tj-hero__title {
+    margin: 16px 0 0;
+    font-size: clamp(3rem, 6.6vw, 6rem);
+    font-weight: 400;
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+    color: var(--tj-fg);
+  }
+  .tj-hero__line { display: block; overflow: hidden; padding-bottom: 0.08em; }
+  .tj-hero__line > span { display: block; }
+
+  .tj-hero__text {
+    margin: 16px 0 0;
+    max-width: 440px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--tj-fg-soft);
+  }
+
+  .tj-hero__ctas { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
+
+  @media (min-width: 750px) {
+    .tj-hero__title { margin-top: 24px; }
+    .tj-hero__text { margin-top: 24px; font-size: 17px; }
+    .tj-hero__ctas { margin-top: 36px; }
+  }
+
+  .tj-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    padding: 0 30px;
+    border-radius: 999px;
+    font-size: 16px;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s, transform 0.5s var(--tj-ease);
+  }
+  .tj-hero__btn:active { transform: scale(0.97); }
+  .tj-hero__btn--primary { background: var(--tj-accent); color: var(--tj-accent-text); }
+  .tj-hero__btn--primary:hover { filter: brightness(0.88); }
+  .tj-hero__btn--secondary { color: var(--tj-fg); box-shadow: inset 0 0 0 1px currentColor; }
+  .tj-hero__btn--secondary:hover { background: var(--tj-fg); color: var(--tj-bg, #fff); }
+  @media (max-width: 749px) { .tj-hero__btn--secondary { display: none; } }
+
+  /* Line-by-line reveal, replayed each time a slide becomes active */
+  .tj-hero__slide.is-active .tj-hero__eyebrow > span { animation: tjRise 1s var(--tj-ease) 0.15s both; }
+  .tj-hero__slide.is-active .tj-hero__line > span { animation: tjRise 1.2s var(--tj-ease) var(--d, 280ms) both; }
+  .tj-hero__slide.is-active .tj-hero__text { animation: tjFadeUp 1s var(--tj-ease) 0.55s both; }
+  .tj-hero__slide.is-active .tj-hero__ctas { animation: tjFadeUp 1s var(--tj-ease) 0.7s both; }
+
+  /* ── Controls ── */
+  .tj-hero__controls { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; color: var(--tj-fg); transition: color 0.6s; }
+  .tj-hero__controls-inner { display: flex; align-items: center; justify-content: space-between; padding-bottom: 28px; }
+  @media (min-width: 750px) { .tj-hero__controls-inner { padding-bottom: 36px; } }
+
+  .tj-hero__rail { display: flex; align-items: center; gap: 4px; }
+  .tj-hero__step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 12px 12px 0;
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+  }
+  .tj-hero__num { font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; opacity: 0.4; transition: opacity 0.3s; }
+  .tj-hero__step:hover .tj-hero__num { opacity: 0.8; }
+  .tj-hero__step.is-active .tj-hero__num { opacity: 1; }
+  .tj-hero__bar {
+    position: relative;
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: color-mix(in srgb, currentColor 18%, transparent);
+    transition: width 0.7s var(--tj-ease);
+  }
+  .tj-hero__bar-fill { position: absolute; inset: 0; background: currentColor; transform: scaleX(0); transform-origin: left; }
+  .tj-hero__step.is-active .tj-hero__bar { width: 56px; }
+  .tj-hero__step.is-active .tj-hero__bar-fill { transform: scaleX(1); }
+  .tj-hero.is-autoplay .tj-hero__step.is-active .tj-hero__bar-fill { animation: tjProgress var(--tj-speed) linear both; }
+  .tj-hero.is-paused .tj-hero__step.is-active .tj-hero__bar-fill { animation-play-state: paused; }
+  @media (min-width: 750px) { .tj-hero__step.is-active .tj-hero__bar { width: 80px; } }
+
+  .tj-hero__arrows { display: flex; gap: 8px; }
+  .tj-hero__arrow {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--tj-ink);
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .tj-hero__arrow:hover { background: var(--tj-accent); color: var(--tj-accent-text); }
+  .tj-hero__arrow svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+  .tj-hero :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+  @keyframes tjPushIn { from { transform: scale(1); } to { transform: scale(1.12); } }
+  @keyframes tjRise { from { transform: translateY(105%); } to { transform: none; } }
+  @keyframes tjFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  @keyframes tjProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tj-hero__slide,
+    .tj-hero__slide.is-active { transition-duration: 0.01ms; }
+    .tj-hero__slide.is-active .tj-hero__zoom,
+    .tj-hero__slide--stage.is-active .tj-hero__frame,
+    .tj-hero__slide.is-active .tj-hero__eyebrow > span,
+    .tj-hero__slide.is-active .tj-hero__line > span,
+    .tj-hero__slide.is-active .tj-hero__text,
+    .tj-hero__slide.is-active .tj-hero__ctas { animation: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Tejori hero slideshow",
+  "tag": "section",
+  "class": "tejori-hero-section",
+  "max_blocks": 5,
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "Slideshow" },
+    { "type": "checkbox", "id": "autoplay", "label": "Auto-play slides", "default": true },
+    { "type": "range", "id": "slideshow_speed", "label": "Time per slide", "min": 3, "max": 12, "step": 1, "unit": "s", "default": 7 },
+    { "type": "checkbox", "id": "show_arrows", "label": "Show arrows", "default": true },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Height",
+      "options": [
+        { "value": "full-screen", "label": "Full screen" },
+        { "value": "large", "label": "Large" },
+        { "value": "medium", "label": "Medium" }
+      ],
+      "default": "full-screen"
+    },
+    { "type": "text", "id": "aria_label", "label": "Accessible name", "default": "Featured" },
+
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "ink_color", "label": "Text (dark slides)", "default": "#2e4345" },
+    { "type": "color", "id": "muted_color", "label": "Secondary text (dark slides)", "default": "#5f6f70" },
+    { "type": "color", "id": "button_color", "label": "Primary button", "default": "#2e4345" },
+    { "type": "color", "id": "button_text_color", "label": "Primary button text", "default": "#ffffff" }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "select",
+          "id": "layout",
+          "label": "Layout",
+          "options": [
+            { "value": "cover", "label": "Full-bleed photo" },
+            { "value": "stage", "label": "Product on colour" },
+            { "value": "portrait", "label": "Framed portrait" }
+          ],
+          "default": "cover"
+        },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Full-bleed: 2400px+ wide landscape. Product on colour: transparent PNG or packshot on the slide colour. Portrait: tall photo." },
+        { "type": "image_picker", "id": "image_mobile", "label": "Mobile image", "info": "Optional — used on phones." },
+        { "type": "video", "id": "video", "label": "Video", "info": "Optional — full-bleed layout only. Plays muted on loop instead of the image." },
+        { "type": "color", "id": "background", "label": "Slide colour", "default": "#f3f1ea" },
+        {
+          "type": "select",
+          "id": "text_tone",
+          "label": "Text colour",
+          "options": [
+            { "value": "dark", "label": "Dark (for light slides)" },
+            { "value": "light", "label": "Light (for dark slides)" }
+          ],
+          "default": "dark"
+        },
+
+        { "type": "header", "content": "Text" },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Neelayamari hair care" },
+        { "type": "text", "id": "title_line_1", "label": "Heading — line 1", "default": "Rooted in" },
+        { "type": "text", "id": "title_line_2", "label": "Heading — line 2", "default": "nature." },
+        { "type": "textarea", "id": "copy", "label": "Text", "default": "Hair oil and anti-dandruff shampoo made with Neelayamari and coconut — for every hair type." },
+
+        { "type": "header", "content": "Buttons" },
+        { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Shop the combo" },
+        { "type": "url", "id": "primary_link", "label": "Primary button link" },
+        { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "Explore products", "info": "Hidden on mobile." },
+        { "type": "url", "id": "secondary_link", "label": "Secondary button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tejori hero slideshow",
+      "category": "Banners",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "layout": "cover",
+            "background": "#f3f1ea",
+            "text_tone": "dark",
+            "eyebrow": "Neelayamari hair care",
+            "title_line_1": "Rooted in",
+            "title_line_2": "nature.",
+            "copy": "Hair oil and anti-dandruff shampoo made with Neelayamari and coconut — for every hair type.",
+            "primary_label": "Shop the combo",
+            "secondary_label": "Explore products"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "layout": "stage",
+            "background": "#dce0c5",
+            "text_tone": "dark",
+            "eyebrow": "Neelayamari Hair Oil",
+            "title_line_1": "Stronger roots,",
+            "title_line_2": "naturally.",
+            "copy": "Nourishes from the root for stronger, shinier hair. 100% natural ingredients.",
+            "primary_label": "Shop hair oil",
+            "secondary_label": "Shop by concern"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "layout": "portrait",
+            "background": "#dde9e5",
+            "text_tone": "dark",
+            "eyebrow": "Real customers",
+            "title_line_1": "Loved by",
+            "title_line_2": "real people.",
+            "copy": "See how our community makes Tejori part of their everyday hair ritual.",
+            "primary_label": "Read reviews",
+            "secondary_label": "Shop bestsellers"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
