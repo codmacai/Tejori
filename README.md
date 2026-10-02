@@ -20,7 +20,7 @@ Deploy: import the repo on vercel.com — no configuration needed.
 | Hero | Full-screen slideshow — slow push-in zoom, crossfades, line-by-line headline reveal, progress rail, swipe on mobile |
 | Trust bar | Four product truths from the packaging |
 | Shop by concern | Hair growth / Anti dandruff / Dry hair — routes visitors to the right product first |
-| Our products | Clean product cards: badge, discount, hover quick add, add to bag |
+| Our products | Apple-style product cards (label, name, tagline, benefit icons, price, Add to bag / Learn more) with a quick-look product sheet |
 | The combo | "Better together" bundle: oil + shampoo breakdown, bought-separately vs combo price, quantity + add to bag |
 | Tejori, every day | Shoppable photo/video cards with product tags |
 | Reviews | Three review cards linked to products |

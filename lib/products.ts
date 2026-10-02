@@ -9,6 +9,8 @@ export type Product = {
   id: string;
   name: string;
   short: string;
+  /** One-line promise shown on cards */
+  tagline: string;
   size: string;
   price: number;
   compareAt?: number;
@@ -28,6 +30,7 @@ export const products: Product[] = [
     id: "neelayamari-hair-oil",
     name: "Tejori Neelayamari Hair Oil",
     short: "Neelayamari Hair Oil",
+    tagline: "Stronger, shinier hair — from the root.",
     size: "200 ml",
     price: 499,
     compareAt: 699,
@@ -44,6 +47,7 @@ export const products: Product[] = [
     id: "neelayamari-anti-dandruff-shampoo",
     name: "Tejori Neelayamari Anti-Dandruff Shampoo",
     short: "Anti-Dandruff Shampoo",
+    tagline: "A clean, calm, flake-free scalp.",
     size: "200 ml",
     price: 599,
     badge: { label: "Best seller", tone: "ink" },
@@ -59,6 +63,7 @@ export const products: Product[] = [
     id: "anti-dandruff-combo",
     name: "Tejori Anti-Dandruff Combo",
     short: "Anti-Dandruff Combo",
+    tagline: "The complete ritual. Better together.",
     size: "Hair Oil + Shampoo",
     price: 899,
     compareAt: 1098,
