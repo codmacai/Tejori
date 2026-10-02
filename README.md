@@ -1,6 +1,6 @@
 # Tejori — home page
 
-Conversion-focused home page for Tejori, built with **Next.js 16 (App Router)**, **React 19**, **TypeScript** and **Tailwind CSS v4**. The design follows the Tejori Shopify store aesthetic: soft whites, sage and mint, dark-teal accents. Typography is Outfit (soft geometric sans) for headings and UI, with Inter Tight reserved for the wordmark. Product cards follow a minimal floating-product style: soft sage panel, centred packshot, large price and a round sage add button on a deep green stage.
+Conversion-focused home page for Tejori, built with **Next.js 16 (App Router)**, **React 19**, **TypeScript** and **Tailwind CSS v4**. The design follows the Tejori Shopify store aesthetic: soft whites, sage and mint, dark-teal accents. Typography is Outfit (soft geometric sans) for headings and UI, with Inter Tight reserved for the wordmark. Product cards follow a minimal floating-product style: soft sage panel, centred packshot, large price and a round brand-teal add button on a deep brand-teal stage.
 
 ## Run it
 

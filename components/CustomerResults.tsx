@@ -68,7 +68,7 @@ export function CustomerResults() {
                         setTimeout(() => setAdded(null), 1500);
                       }}
                       aria-label={`Add ${p.name} to bag`}
-                      className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-moss text-white transition hover:scale-105"
+                      className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-accent text-white transition hover:scale-105"
                     >
                       {added === k ? <IconCheck className="h-4 w-4 animate-[pop_.4s_ease-out]" /> : <IconPlus className="h-4 w-4" />}
                     </button>

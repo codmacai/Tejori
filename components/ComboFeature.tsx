@@ -102,7 +102,7 @@ export function ComboFeature() {
                   <IconPlus className="h-4 w-4" />
                 </button>
               </div>
-              <button onClick={onAdd} className="btn btn-moss h-14 flex-1">
+              <button onClick={onAdd} className="btn btn-accent h-14 flex-1">
                 {added ? (
                   <>
                     <IconCheck className="h-4 w-4" /> Added

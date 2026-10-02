@@ -67,7 +67,7 @@ export function QuickView({ product, onClose }: { product: Product | null; onClo
               </div>
 
               <div className="flex flex-col px-6 pb-8 pt-4 md:px-10 md:py-12">
-                <p className="text-[13px] font-semibold text-leaf">{p.badge?.label}</p>
+                <p className="text-[13px] font-semibold text-accent-soft">{p.badge?.label}</p>
                 <h3 className="mt-1 text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-ink md:text-[38px]">{p.short}</h3>
                 <p className="mt-2 text-[17px] text-muted">{p.tagline}</p>
 
@@ -91,7 +91,7 @@ export function QuickView({ product, onClose }: { product: Product | null; onClo
                   <div className="flex items-baseline gap-3">
                     <span className="text-[30px] font-normal tracking-[-0.02em] text-ink">{formatPrice(p.price)}</span>
                     {p.compareAt && <s className="text-[15px] text-muted">{formatPrice(p.compareAt)}</s>}
-                    {save > 0 && <span className="text-[14px] font-semibold text-leaf">Save {save}%</span>}
+                    {save > 0 && <span className="text-[14px] font-semibold text-accent-soft">Save {save}%</span>}
                   </div>
                   <p className="mt-1 text-[13px] text-muted">{p.size} · Inclusive of all taxes</p>
 
@@ -110,13 +110,13 @@ export function QuickView({ product, onClose }: { product: Product | null; onClo
                         add(p.id, qty);
                         onClose();
                       }}
-                      className="btn btn-moss h-12 flex-1"
+                      className="btn btn-accent h-12 flex-1"
                     >
                       Add to bag — {formatPrice(p.price * qty)}
                     </button>
                   </div>
                   <p className="mt-4 flex items-center gap-2 text-[13px] text-muted">
-                    <IconCheck className="h-4 w-4 text-leaf" /> Suitable for all hair types
+                    <IconCheck className="h-4 w-4 text-accent-soft" /> Suitable for all hair types
                   </p>
                 </div>
               </div>

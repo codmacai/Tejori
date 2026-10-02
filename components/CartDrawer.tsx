@@ -110,7 +110,7 @@ export function CartDrawer() {
                   <p className="truncate text-[14px] text-ink">{upsell.short}</p>
                   <p className="text-[14px] font-bold text-ink">{formatPrice(upsell.price)}</p>
                 </div>
-                <button onClick={() => add(upsell.id)} className="rounded-full bg-moss px-4 py-2.5 text-[13px] font-medium text-white hover:bg-moss-deep">
+                <button onClick={() => add(upsell.id)} className="rounded-full bg-accent px-4 py-2.5 text-[13px] font-medium text-white hover:bg-accent-deep">
                   Add
                 </button>
               </div>

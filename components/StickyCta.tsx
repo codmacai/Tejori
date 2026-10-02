@@ -38,7 +38,7 @@ export function StickyCta() {
             {formatPrice(combo.price)} <s className="text-[11px] font-normal text-muted">{formatPrice(combo.compareAt!)}</s>
           </p>
         </div>
-        <button onClick={() => add(combo.id)} className="h-11 rounded-full bg-moss px-5 text-[14px] font-medium text-white">
+        <button onClick={() => add(combo.id)} className="h-11 rounded-full bg-accent px-5 text-[14px] font-medium text-white">
           Add
         </button>
       </div>

@@ -54,7 +54,7 @@ export function ProductCard({ product: p, onLearnMore }: { product: Product; onL
           onClick={onAdd}
           aria-label={`Add ${p.name} to bag`}
           className={`absolute right-0 grid h-14 w-14 place-items-center rounded-full text-white transition-all duration-500 hover:scale-105 ${
-            added ? "bg-ink" : "bg-moss hover:bg-moss-deep"
+            added ? "bg-accent-soft" : "bg-accent hover:bg-accent-deep"
           }`}
         >
           {added ? <IconCheck className="h-5 w-5 animate-[pop_.4s_ease-out]" /> : <IconPlus className="h-5 w-5" />}

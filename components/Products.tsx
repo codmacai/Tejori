@@ -11,7 +11,7 @@ export function Products() {
   const close = useCallback(() => setQuick(null), []);
 
   return (
-    <section id="shop" className="forest relative scroll-mt-20 overflow-hidden py-24 md:py-32">
+    <section id="shop" className="stage relative scroll-mt-20 overflow-hidden py-24 md:py-32">
       {/* oversized faded wordmark */}
       <span
         aria-hidden
