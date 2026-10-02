@@ -1,3 +1,4 @@
+import { Assurances } from "@/components/Assurances";
 import { CartDrawer } from "@/components/CartDrawer";
 import { ComboFeature } from "@/components/ComboFeature";
 import { Concerns } from "@/components/Concerns";
@@ -16,6 +17,7 @@ export default function Home() {
       <Header />
       <main>
         <HeroSlider />
+        <Assurances />
         <Concerns />
         <Products />
         <ComboFeature />

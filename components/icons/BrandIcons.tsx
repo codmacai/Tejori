@@ -105,3 +105,36 @@ export const IconValue = (p: P) => (
     <path {...ns} d="M38 62 L 54 46" />
   </Base>
 );
+
+/** Scientifically proven — atom with three orbits inside a circle */
+export const IconScience = (p: P) => (
+  <Base {...p}>
+    <circle {...ns} cx="48" cy="48" r="40" />
+    <ellipse {...ns} cx="48" cy="48" rx="9" ry="23" />
+    <ellipse {...ns} cx="48" cy="48" rx="23" ry="9" transform="rotate(30 48 48)" />
+    <ellipse {...ns} cx="48" cy="48" rx="23" ry="9" transform="rotate(-30 48 48)" />
+    <circle {...ns} cx="42.6" cy="30" r="2.2" fill="var(--color-paper, #fff)" />
+    <circle {...ns} cx="67.9" cy="59.5" r="2.2" fill="var(--color-paper, #fff)" />
+    <circle {...ns} cx="28.1" cy="59.5" r="2.2" fill="var(--color-paper, #fff)" />
+  </Base>
+);
+
+/** Dermatologist tested — a drop with a check breaking out of it, and a highlight */
+export const IconDermTested = (p: P) => (
+  <Base {...p}>
+    <path {...ns} d="M48 10 L 29 40 A 22 22 0 1 0 67 40 Z" />
+    <path {...ns} d="M37 51 L 45 59 L 76 28" />
+    <path {...ns} d="M41 69 A 16 16 0 0 0 59 65" />
+  </Base>
+);
+
+/** Cruelty free — a paw whose pad is a heart */
+export const IconCrueltyFree = (p: P) => (
+  <Base {...p}>
+    <ellipse {...ns} cx="25" cy="40" rx="5" ry="7.5" transform="rotate(-18 25 40)" />
+    <ellipse {...ns} cx="39" cy="26" rx="5.5" ry="8.5" />
+    <ellipse {...ns} cx="57" cy="26" rx="5.5" ry="8.5" />
+    <ellipse {...ns} cx="71" cy="40" rx="5" ry="7.5" transform="rotate(18 71 40)" />
+    <path {...ns} d="M48 84 C 38 76, 29 69, 29 59 C 29 52, 34 47, 40 47 C 44 47, 47 50, 48 53 C 49 50, 52 47, 56 47 C 62 47, 67 52, 67 59 C 67 69, 58 76, 48 84 Z" />
+  </Base>
+);
