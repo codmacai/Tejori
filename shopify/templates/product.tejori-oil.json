@@ -1,0 +1,184 @@
+{
+  "sections": {
+    "main": {
+      "type": "tejori-main-product",
+      "blocks": {
+        "description": {
+          "type": "description",
+          "settings": {
+            "title": "Product description",
+            "open": true
+          }
+        },
+        "benefits": {
+          "type": "collapsible",
+          "settings": {
+            "title": "Key benefits",
+            "content": "<ul><li>Nourishes hair roots</li><li>Stronger & shinier hair</li><li>100% natural ingredients</li><li>For all hair types</li></ul>"
+          }
+        },
+        "ingredients": {
+          "type": "ingredients",
+          "settings": {
+            "title": "Key ingredients",
+            "name_1": "Neelayamari",
+            "latin_1": "Indigofera tinctoria",
+            "text_1": "A herb used in traditional Kerala hair oils to nourish the scalp and roots.",
+            "name_2": "Coconut oil",
+            "latin_2": "Cocos nucifera",
+            "text_2": "A classic base oil that conditions hair and helps lock in moisture.",
+            "name_3": "",
+            "latin_3": "",
+            "text_3": ""
+          }
+        },
+        "suited": {
+          "type": "collapsible",
+          "settings": {
+            "title": "Suited for",
+            "content": "<ul><li>All hair types — straight, wavy and curly</li><li>Hair that feels weak or prone to fall</li><li>Dry, dull lengths that need nourishment</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "description",
+        "benefits",
+        "ingredients",
+        "suited"
+      ],
+      "settings": {
+        "badge": "Best seller",
+        "tagline": "Stronger, shinier hair — from the root.",
+        "tint": "#dce0c5",
+        "cover_from": 1,
+        "tax_note": "Inclusive of all taxes",
+        "combo_label": "Better together: Oil + Shampoo",
+        "combo_product": "anti-dandruff-combo"
+      }
+    },
+    "features": {
+      "type": "tejori-product-features",
+      "blocks": {
+        "f-1": {
+          "type": "feature",
+          "settings": {
+            "title": "Nourishes from the root",
+            "text": "Massaged into the scalp, it feeds the roots so hair feels stronger wash after wash."
+          }
+        },
+        "f-2": {
+          "type": "feature",
+          "settings": {
+            "title": "100% natural ingredients",
+            "text": "Neelayamari and coconut — the way Kerala has cared for hair for generations."
+          }
+        },
+        "f-3": {
+          "type": "feature",
+          "settings": {
+            "title": "Stronger, shinier hair",
+            "text": "Softens the lengths and brings back natural shine."
+          }
+        },
+        "f-4": {
+          "type": "feature",
+          "settings": {
+            "title": "For all hair types",
+            "text": "Straight, wavy or curly — gentle enough for regular use."
+          }
+        }
+      },
+      "block_order": [
+        "f-1",
+        "f-2",
+        "f-3",
+        "f-4"
+      ],
+      "settings": {}
+    },
+    "how": {
+      "type": "tejori-how-to-use",
+      "blocks": {
+        "h-1": {
+          "type": "step",
+          "settings": {
+            "title": "Apply",
+            "text": "Part your hair and apply the oil directly to the scalp with the comb applicator."
+          }
+        },
+        "h-2": {
+          "type": "step",
+          "settings": {
+            "title": "Massage",
+            "text": "Massage gently with your fingertips for 3–5 minutes to work it through the roots."
+          }
+        },
+        "h-3": {
+          "type": "step",
+          "settings": {
+            "title": "Leave & wash",
+            "text": "Leave on for at least an hour, or overnight, then wash with the Anti-Dandruff Shampoo."
+          }
+        }
+      },
+      "block_order": [
+        "h-1",
+        "h-2",
+        "h-3"
+      ],
+      "settings": {}
+    },
+    "ingredients": {
+      "type": "tejori-ingredients",
+      "blocks": {
+        "i-1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Neelayamari",
+            "latin": "Indigofera tinctoria",
+            "text": "A herb used in traditional Kerala hair oils to nourish the scalp and roots."
+          }
+        },
+        "i-2": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Coconut oil",
+            "latin": "Cocos nucifera",
+            "text": "A classic base oil that conditions hair and helps lock in moisture."
+          }
+        }
+      },
+      "block_order": [
+        "i-1",
+        "i-2"
+      ],
+      "settings": {}
+    },
+    "pair": {
+      "type": "tejori-pair",
+      "settings": {
+        "use_current": true,
+        "left_chip": "You’re viewing",
+        "left_role": "The Oil",
+        "left_summary": "Feeds the scalp and helps roots feel stronger.",
+        "left_points": "Nourishes hair roots\nStronger & shinier hair\n100% natural ingredients",
+        "pair_product": "neelayamari-anti-dandruff-shampoo",
+        "right_chip": "Pairs with",
+        "right_role": "The Shampoo",
+        "right_summary": "Cleanses the scalp and clears away flakes.",
+        "right_points": "Removes dandruff\nStrengthens hair roots\nNourishes hair locks",
+        "eyebrow": "Better together",
+        "heading": "People usually pair it with",
+        "strip_text": "Get both in the Anti-Dandruff Combo",
+        "combo_product": "anti-dandruff-combo"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "features",
+    "how",
+    "ingredients",
+    "pair"
+  ]
+}

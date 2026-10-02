@@ -1,0 +1,70 @@
+{%- render 'tejori-assets' -%}
+
+<section class="tj tj-section tj-pad-top">
+  <div class="tj-container">
+    <div class="tj-ing tj-stage">
+      <span class="tj-ing__mark" aria-hidden="true">{{ shop.name | escape }}</span>
+      <div class="tj-ing__head tj-reveal">
+        {%- if section.settings.eyebrow != blank -%}<p class="tj-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        <h2 class="tj-heading" style="margin-top:16px">{{ section.settings.heading | escape }}</h2>
+        {%- if section.settings.text != blank -%}<p class="tj-sub">{{ section.settings.text | escape }}</p>{%- endif -%}
+      </div>
+      <div class="tj-ing__grid">
+        {%- for block in section.blocks -%}
+          <div class="tj-ing__card tj-reveal" style="--d: {{ forloop.index0 | times: 80 }}ms;" {{ block.shopify_attributes }}>
+            <div class="tj-ing__img">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 900 | image_tag: widths: '400, 600, 900', sizes: '(min-width: 750px) 33vw, 100vw', loading: 'lazy', alt: block.settings.name }}
+              {%- endif -%}
+            </div>
+            <div class="tj-ing__body">
+              <h3>{{ block.settings.name | escape }}</h3>
+              {%- if block.settings.latin != blank -%}<p class="tj-ing__latin">{{ block.settings.latin | escape }}</p>{%- endif -%}
+              {%- if block.settings.text != blank -%}<p class="tj-ing__text">{{ block.settings.text | escape }}</p>{%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+        {%- if section.settings.note != blank -%}
+          <div class="tj-ing__note tj-reveal">{{ section.settings.note | escape }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Tejori ingredients",
+  "tag": "div",
+  "class": "tejori-ingredients-section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Ingredients" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What’s inside" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Simple, recognisable ingredients — chosen for what they do for your scalp and hair." },
+    { "type": "text", "id": "note", "label": "Note card", "default": "The full ingredient list is printed on the pack. Always patch-test before first use." }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Neelayamari" },
+        { "type": "text", "id": "latin", "label": "Botanical name", "default": "Indigofera tinctoria" },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "A herb used in traditional Kerala hair oils to nourish the scalp and roots." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tejori ingredients",
+      "category": "Tejori",
+      "blocks": [
+        { "type": "ingredient", "settings": { "name": "Neelayamari", "latin": "Indigofera tinctoria", "text": "A herb used in traditional Kerala hair oils to nourish the scalp and roots." } },
+        { "type": "ingredient", "settings": { "name": "Coconut oil", "latin": "Cocos nucifera", "text": "A classic base oil that conditions hair and helps lock in moisture." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

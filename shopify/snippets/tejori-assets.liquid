@@ -1,0 +1,10 @@
+{%- comment -%}
+  Shared Tejori fonts, styles and behaviour. Every Tejori section renders this;
+  repeats are harmless (tejori.js guards against running twice).
+{%- endcomment -%}
+<script>document.documentElement.classList.add('tj-js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&family=Inter+Tight:wght@700&family=Outfit:wght@300;400;500;600&display=swap">
+{{ 'tejori.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'tejori.js' | asset_url }}" defer></script>

@@ -1,0 +1,85 @@
+{%- render 'tejori-assets' -%}
+
+<div class="tj tj-header-wrap">
+  {%- if section.settings.announcement != blank -%}
+    <div class="tj-announce">
+      <p>
+        {%- if section.settings.announcement_link != blank -%}
+          <a href="{{ section.settings.announcement_link }}">{{ section.settings.announcement | escape }}</a>
+        {%- else -%}
+          {{ section.settings.announcement | escape }}
+        {%- endif -%}
+      </p>
+    </div>
+  {%- endif -%}
+
+  <header class="tj-header">
+    <div class="tj-container tj-header__bar">
+      <div class="tj-header__left">
+        <button type="button" class="tj-header__icon tj-header__burger" data-tj-menu-open aria-label="Open menu">
+          {%- render 'tejori-icon', name: 'menu' -%}
+        </button>
+        <nav class="tj-header__nav" aria-label="Primary">
+          {%- for link in section.settings.menu.links -%}
+            <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+          {%- endfor -%}
+        </nav>
+      </div>
+
+      <a href="{{ routes.root_url }}" class="tj-header__logo" aria-label="{{ shop.name | escape }} home">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 400 | image_tag: widths: '200, 300, 400', sizes: '160px', alt: shop.name, loading: 'eager' }}
+        {%- else -%}
+          <span class="tj-logo-text">{{ section.settings.logo_text | default: shop.name | escape }}</span>
+        {%- endif -%}
+      </a>
+
+      <div class="tj-header__right">
+        <a href="{{ routes.search_url }}" class="tj-header__icon tj-header__icon--desk" aria-label="Search">{%- render 'tejori-icon', name: 'search' -%}</a>
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{{ routes.account_url }}" class="tj-header__icon tj-header__icon--desk" aria-label="Account">{%- render 'tejori-icon', name: 'user' -%}</a>
+        {%- endif -%}
+        <a href="{{ routes.cart_url }}" class="tj-header__icon" aria-label="Bag">
+          {%- render 'tejori-icon', name: 'bag' -%}
+          <span class="tj-header__count" data-tj-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="tj-drawer" aria-hidden="true">
+    <div class="tj-drawer__scrim" data-tj-menu-close></div>
+    <div class="tj-drawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+      <div class="tj-drawer__top">
+        <span class="tj-logo-text">{{ section.settings.logo_text | default: shop.name | escape }}</span>
+        <button type="button" class="tj-header__icon" data-tj-menu-close aria-label="Close menu">{%- render 'tejori-icon', name: 'close' -%}</button>
+      </div>
+      <nav class="tj-drawer__nav" aria-label="Mobile">
+        {%- for link in section.settings.menu.links -%}
+          <a href="{{ link.url }}">{{ link.title | escape }}</a>
+        {%- endfor -%}
+      </nav>
+      {%- if section.settings.drawer_cta_label != blank -%}
+        <a href="{{ section.settings.drawer_cta_link | default: routes.all_products_collection_url }}" class="tj-btn tj-btn--primary">{{ section.settings.drawer_cta_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Tejori header",
+  "tag": "div",
+  "class": "tejori-header-section",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    { "type": "text", "id": "announcement", "label": "Announcement", "default": "Anti-Dandruff Combo — save Rs. 199 this week" },
+    { "type": "url", "id": "announcement_link", "label": "Announcement link" },
+    { "type": "image_picker", "id": "logo", "label": "Logo image", "info": "Leave empty to show the logo text." },
+    { "type": "text", "id": "logo_text", "label": "Logo text", "default": "Tejori" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "text", "id": "drawer_cta_label", "label": "Mobile menu button", "default": "Shop the combo" },
+    { "type": "url", "id": "drawer_cta_link", "label": "Mobile menu button link" }
+  ]
+}
+{% endschema %}

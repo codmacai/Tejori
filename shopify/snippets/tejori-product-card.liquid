@@ -1,0 +1,45 @@
+{%- comment -%}
+  Tejori product card — soft sage panel, centred packshot, large price, round add button.
+  Usage: {% render 'tejori-product-card', product: product %}
+  Optional metafields: custom.size (text) — shown under the title.
+{%- endcomment -%}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign save = 0
+  if product.compare_at_price > product.price
+    assign save = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | floor
+  endif
+  assign size = product.metafields.custom.size.value
+  if size == blank and product.has_only_default_variant == false
+    assign size = variant.title
+  endif
+-%}
+<article class="tj-card">
+  {%- if save > 0 -%}<span class="tj-card__save">Save {{ save }}%</span>{%- endif -%}
+  <a href="{{ product.url }}" class="tj-card__media" aria-label="{{ product.title | escape }}">
+    <span class="tj-card__shadow" aria-hidden="true"></span>
+    {%- if product.featured_media -%}
+      {{ product.featured_media | image_url: width: 900 | image_tag: widths: '300, 450, 600, 900', sizes: '(min-width: 990px) 320px, 70vw', class: 'tj-card__img', loading: 'lazy', alt: product.featured_media.alt | default: product.title }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'tj-card__img tj-placeholder' }}
+    {%- endif -%}
+  </a>
+  <h3 class="tj-card__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+  <p class="tj-card__size">{% if size != blank %}{{ size | escape }}{% else %}&nbsp;{% endif %}</p>
+  <div class="tj-card__buy">
+    <p class="tj-card__price">{{ product.price | money_without_trailing_zeros }}</p>
+    <button
+      type="button"
+      class="tj-card__add"
+      data-tj-add="{{ variant.id }}"
+      aria-label="Add {{ product.title | escape }} to bag"
+      {% unless variant.available %}disabled{% endunless %}
+    >
+      <span class="tj-card__add-plus">{% render 'tejori-icon', name: 'plus' %}</span>
+      <span class="tj-card__add-check">{% render 'tejori-icon', name: 'check' %}</span>
+    </button>
+  </div>
+  <p class="tj-card__compare">
+    {%- if save > 0 -%}<s>{{ product.compare_at_price | money_without_trailing_zeros }}</s>{%- elsif variant.available == false -%}Sold out{%- else -%}&nbsp;{%- endif -%}
+  </p>
+</article>

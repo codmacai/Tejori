@@ -1,0 +1,124 @@
+{%- render 'tejori-assets' -%}
+
+{%- liquid
+  assign combo = section.settings.combo_product
+  assign p1 = section.settings.product_1
+  assign p2 = section.settings.product_2
+  assign separately = 0
+  if p1 != blank
+    assign separately = separately | plus: p1.price
+  endif
+  if p2 != blank
+    assign separately = separately | plus: p2.price
+  endif
+  assign combo_price = combo.price | default: 0
+  assign saving = separately | minus: combo_price
+  assign save_pct = 0
+  if separately > 0 and saving > 0
+    assign save_pct = saving | times: 100 | divided_by: separately | floor
+  endif
+  assign combo_variant = combo.selected_or_first_available_variant
+  assign qty_id = 'TejoriComboQty-' | append: section.id
+  assign media = section.settings.image | default: combo.featured_media
+-%}
+
+<section id="combo" class="tj tj-section tj-section--white tj-pad">
+  <div class="tj-container tj-combo__grid">
+    <div class="tj-reveal">
+      <div class="tj-combo__media{% if section.settings.image != blank and section.settings.image_fill %} tj-combo__media--cover{% endif %}">
+        {%- if media != blank -%}
+          {{ media | image_url: width: 1400 | image_tag: widths: '500, 800, 1100, 1400', sizes: '(min-width: 990px) 58vw, 100vw', loading: 'lazy', alt: combo.title | default: section.settings.heading_1 }}
+        {%- else -%}
+          {{ 'product-2' | placeholder_svg_tag: 'tj-placeholder' }}
+        {%- endif -%}
+        {%- if save_pct > 0 -%}<span class="tj-combo__badge">Save {{ save_pct }}%</span>{%- endif -%}
+      </div>
+    </div>
+
+    <div>
+      <div class="tj-reveal">
+        {%- if section.settings.eyebrow != blank -%}<p class="tj-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        <h2 class="tj-combo__title">{{ section.settings.heading_1 | escape }}{% if section.settings.heading_2 != blank %}<br>{{ section.settings.heading_2 | escape }}{% endif %}</h2>
+        {%- if section.settings.text != blank -%}<p class="tj-sub">{{ section.settings.text | escape }}</p>{%- endif -%}
+      </div>
+
+      <div class="tj-reveal" style="--d: 120ms;">
+        <ul class="tj-combo__parts">
+          {%- for p in (1..2) -%}
+            {%- if forloop.first -%}{%- assign part = p1 -%}{%- else -%}{%- assign part = p2 -%}{%- endif -%}
+            {%- if part != blank -%}
+              <li>
+                {%- unless forloop.first -%}<div class="tj-combo__plus">{%- render 'tejori-icon', name: 'plus' -%}</div>{%- endunless -%}
+                <a href="{{ part.url }}" class="tj-combo__part">
+                  <span class="tj-combo__thumb">
+                    {%- if part.featured_media -%}{{ part.featured_media | image_url: width: 160 | image_tag: loading: 'lazy', alt: part.title }}{%- endif -%}
+                  </span>
+                  <span class="tj-combo__part-name">
+                    {{ part.title | escape }}
+                    {%- assign part_size = part.metafields.custom.size.value -%}
+                    {%- if part_size != blank -%}<small>{{ part_size | escape }}</small>{%- endif -%}
+                  </span>
+                  <span class="tj-combo__part-price">{{ part.price | money }}</span>
+                </a>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+
+        <div class="tj-combo__sum">
+          {%- if separately > 0 -%}
+            <div class="tj-combo__row"><span>Bought separately</span><s>{{ separately | money }}</s></div>
+          {%- endif -%}
+          <div class="tj-combo__row">
+            <span>Combo price</span>
+            <span class="tj-combo__price">{% if combo != blank %}{{ combo.price | money }}{% else %}—{% endif %}</span>
+          </div>
+          {%- if saving > 0 and separately > 0 -%}<p class="tj-combo__saving">You save {{ saving | money }}</p>{%- endif -%}
+        </div>
+
+        <div class="tj-combo__buy">
+          <div class="tj-qty tj-qty--outline">
+            <button type="button" data-tj-step="-1" aria-label="Decrease quantity">{%- render 'tejori-icon', name: 'minus' -%}</button>
+            <input id="{{ qty_id }}" type="number" min="1" value="1" aria-label="Quantity">
+            <button type="button" data-tj-step="1" aria-label="Increase quantity">{%- render 'tejori-icon', name: 'plus' -%}</button>
+          </div>
+          <button
+            type="button"
+            class="tj-btn tj-btn--primary"
+            data-tj-add="{{ combo_variant.id }}"
+            data-tj-qty="{{ qty_id }}"
+            {% if combo == blank or combo_variant.available == false %}disabled{% endif %}
+          >
+            {%- if combo != blank and combo_variant.available == false -%}Sold out{%- else -%}{{ section.settings.button_label | escape }}{%- endif -%}
+          </button>
+        </div>
+        <p class="tj-combo__note">
+          {{ section.settings.note | escape }}
+          {%- if combo != blank -%} · <a href="{{ combo.url }}">View details</a>{%- endif -%}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Tejori combo",
+  "tag": "div",
+  "class": "tejori-combo-section",
+  "settings": [
+    { "type": "product", "id": "combo_product", "label": "Combo product", "info": "The bundle product that's added to the bag." },
+    { "type": "product", "id": "product_1", "label": "Included product 1", "info": "Used to show 'bought separately' pricing." },
+    { "type": "product", "id": "product_2", "label": "Included product 2" },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Optional — defaults to the combo product's main image." },
+    { "type": "checkbox", "id": "image_fill", "label": "Fill the frame with the image", "default": false, "info": "Turn on for lifestyle photos; off for packshots." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The combo" },
+    { "type": "text", "id": "heading_1", "label": "Heading — line 1", "default": "Better" },
+    { "type": "text", "id": "heading_2", "label": "Heading — line 2", "default": "together." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Oil to nourish the roots, shampoo to clear the scalp. The complete Neelayamari ritual — in one box." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Add combo to bag" },
+    { "type": "text", "id": "note", "label": "Note", "default": "200 ml each · Suitable for all hair types" }
+  ],
+  "presets": [{ "name": "Tejori combo", "category": "Tejori" }]
+}
+{% endschema %}

@@ -1,0 +1,87 @@
+{%- render 'tejori-assets' -%}
+
+<section id="results" class="tj tj-section tj-pad">
+  <div class="tj-container">
+    <div class="tj-head tj-reveal">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="tj-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        <h2 class="tj-heading">{{ section.settings.heading | escape }}</h2>
+        {%- if section.settings.text != blank -%}<p class="tj-sub">{{ section.settings.text | escape }}</p>{%- endif -%}
+      </div>
+    </div>
+
+    <div class="tj-look__list tj-scroller" style="--cols: {{ section.blocks.size | at_least: 1 | at_most: 4 }};">
+      {%- for block in section.blocks -%}
+        {%- assign p = block.settings.product -%}
+        <div class="tj-reveal" style="--d: {{ forloop.index0 | times: 80 }}ms;" {{ block.shopify_attributes }}>
+          <div class="tj-look">
+            {%- if block.settings.video != blank -%}
+              {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, class: 'tj-look__media' }}
+            {%- elsif block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 900 | image_tag: widths: '300, 500, 700, 900', sizes: '(min-width: 990px) 25vw, 68vw', class: 'tj-look__media', loading: 'lazy', alt: block.settings.caption }}
+            {%- else -%}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'tj-look__media tj-placeholder' }}
+            {%- endif -%}
+            <span class="tj-look__shade" aria-hidden="true"></span>
+            {%- if block.settings.caption != blank -%}<p class="tj-look__caption">{{ block.settings.caption | escape }}</p>{%- endif -%}
+
+            {%- if p != blank -%}
+              {%- assign v = p.selected_or_first_available_variant -%}
+              <div class="tj-look__product">
+                <a href="{{ p.url }}" class="tj-look__thumb" tabindex="-1" aria-hidden="true">
+                  {%- if p.featured_media -%}{{ p.featured_media | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+                </a>
+                <div class="tj-look__info">
+                  <a href="{{ p.url }}">{{ p.title | escape }}</a>
+                  <p>{{ p.price | money }}</p>
+                </div>
+                <button type="button" class="tj-look__add" data-tj-add="{{ v.id }}" aria-label="Add {{ p.title | escape }} to bag" {% unless v.available %}disabled{% endunless %}>
+                  <span class="tj-card__add-plus">{%- render 'tejori-icon', name: 'plus' -%}</span>
+                  <span class="tj-card__add-check">{%- render 'tejori-icon', name: 'check' -%}</span>
+                </button>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Tejori shop the look",
+  "tag": "div",
+  "class": "tejori-look-section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop the look" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Tejori, every day" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Moments from our community — tap + to add to bag." }
+  ],
+  "blocks": [
+    {
+      "type": "look",
+      "name": "Look",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Portrait images work best (9:14)." },
+        { "type": "video", "id": "video", "label": "Video", "info": "Optional — plays muted on loop instead of the image." },
+        { "type": "text", "id": "caption", "label": "Caption", "default": "My weekly hair ritual" },
+        { "type": "product", "id": "product", "label": "Product" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tejori shop the look",
+      "category": "Tejori",
+      "blocks": [
+        { "type": "look", "settings": { "caption": "My weekly hair ritual" } },
+        { "type": "look", "settings": { "caption": "Oiling night" } },
+        { "type": "look", "settings": { "caption": "Wash day" } },
+        { "type": "look", "settings": { "caption": "Shelf favourites" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

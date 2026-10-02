@@ -1,0 +1,67 @@
+{%- render 'tejori-assets' -%}
+
+<section class="tj tj-section{% if section.settings.padding_top %} tj-pad-top{% endif %}" aria-label="{{ section.settings.aria_label | escape }}">
+  <div class="tj-container">
+    <div class="tj-standards__box tj-stage tj-reveal">
+      <div class="tj-standards__glow" aria-hidden="true"></div>
+      <ul class="tj-standards__list" style="--cols: {{ section.blocks.size | at_least: 1 }};">
+        {%- for block in section.blocks -%}
+          <li class="tj-standards__item" {{ block.shopify_attributes }}>
+            <span class="tj-standards__ring">{%- render 'tejori-icon', name: block.settings.icon -%}</span>
+            <p class="tj-label-mono tj-standards__label">
+              {{ block.settings.line_1 | escape }}
+              {%- if block.settings.line_2 != blank -%}<br>{{ block.settings.line_2 | escape }}{%- endif -%}
+            </p>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Tejori standards",
+  "tag": "div",
+  "class": "tejori-standards-section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "checkbox", "id": "padding_top", "label": "Space above", "default": true },
+    { "type": "text", "id": "aria_label", "label": "Accessible name", "default": "Our standards" },
+    { "type": "paragraph", "content": "Only show claims you can substantiate with test reports or certification." }
+  ],
+  "blocks": [
+    {
+      "type": "standard",
+      "name": "Standard",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "science", "label": "Lab flask (science)" },
+            { "value": "derm", "label": "Lens over skin (dermatologist)" },
+            { "value": "cruelty", "label": "Rabbit (cruelty free)" },
+            { "value": "leaf", "label": "Leaf (natural)" }
+          ],
+          "default": "science"
+        },
+        { "type": "text", "id": "line_1", "label": "Label — line 1", "default": "Scientifically" },
+        { "type": "text", "id": "line_2", "label": "Label — line 2", "default": "proven" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tejori standards",
+      "category": "Tejori",
+      "blocks": [
+        { "type": "standard", "settings": { "icon": "science", "line_1": "Scientifically", "line_2": "proven" } },
+        { "type": "standard", "settings": { "icon": "derm", "line_1": "Dermatologist", "line_2": "tested" } },
+        { "type": "standard", "settings": { "icon": "cruelty", "line_1": "Cruelty", "line_2": "free" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

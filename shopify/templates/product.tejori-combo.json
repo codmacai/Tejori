@@ -1,0 +1,184 @@
+{
+  "sections": {
+    "main": {
+      "type": "tejori-main-product",
+      "blocks": {
+        "description": {
+          "type": "description",
+          "settings": {
+            "title": "Product description",
+            "open": true
+          }
+        },
+        "benefits": {
+          "type": "collapsible",
+          "settings": {
+            "title": "Key benefits",
+            "content": "<ul><li>Oil + shampoo ritual</li><li>Removes dandruff</li><li>Nourishes hair roots</li><li>For all hair types</li></ul>"
+          }
+        },
+        "ingredients": {
+          "type": "ingredients",
+          "settings": {
+            "title": "Key ingredients",
+            "name_1": "Neelayamari",
+            "latin_1": "Indigofera tinctoria",
+            "text_1": "Found in both the oil and the shampoo — traditionally used to care for scalp and roots.",
+            "name_2": "Coconut oil",
+            "latin_2": "Cocos nucifera",
+            "text_2": "The conditioning base of the hair oil.",
+            "name_3": "",
+            "latin_3": "",
+            "text_3": ""
+          }
+        },
+        "suited": {
+          "type": "collapsible",
+          "settings": {
+            "title": "Suited for",
+            "content": "<ul><li>All hair types — straight, wavy and curly</li><li>Dandruff-prone scalps</li><li>Anyone wanting a complete weekly ritual</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "description",
+        "benefits",
+        "ingredients",
+        "suited"
+      ],
+      "settings": {
+        "badge": "Best value",
+        "tagline": "The complete ritual. Better together.",
+        "tint": "#dce0c5",
+        "cover_from": 1,
+        "tax_note": "Inclusive of all taxes",
+        "combo_label": "Better together: Oil + Shampoo"
+      }
+    },
+    "features": {
+      "type": "tejori-product-features",
+      "blocks": {
+        "f-1": {
+          "type": "feature",
+          "settings": {
+            "title": "The complete ritual",
+            "text": "Oil to nourish, shampoo to cleanse — designed to work together."
+          }
+        },
+        "f-2": {
+          "type": "feature",
+          "settings": {
+            "title": "Removes dandruff",
+            "text": "Clears flakes for a clean, calm scalp."
+          }
+        },
+        "f-3": {
+          "type": "feature",
+          "settings": {
+            "title": "Nourishes hair roots",
+            "text": "Feeds the scalp for stronger-feeling hair."
+          }
+        },
+        "f-4": {
+          "type": "feature",
+          "settings": {
+            "title": "Better value",
+            "text": "Save compared with buying both separately."
+          }
+        }
+      },
+      "block_order": [
+        "f-1",
+        "f-2",
+        "f-3",
+        "f-4"
+      ],
+      "settings": {}
+    },
+    "how": {
+      "type": "tejori-how-to-use",
+      "blocks": {
+        "h-1": {
+          "type": "step",
+          "settings": {
+            "title": "Oil",
+            "text": "Massage the Hair Oil into your scalp. Leave on for an hour, or overnight."
+          }
+        },
+        "h-2": {
+          "type": "step",
+          "settings": {
+            "title": "Wash",
+            "text": "Wash with the Anti-Dandruff Shampoo, massaging the scalp before rinsing."
+          }
+        },
+        "h-3": {
+          "type": "step",
+          "settings": {
+            "title": "Repeat",
+            "text": "Follow the ritual two to three times a week."
+          }
+        }
+      },
+      "block_order": [
+        "h-1",
+        "h-2",
+        "h-3"
+      ],
+      "settings": {}
+    },
+    "ingredients": {
+      "type": "tejori-ingredients",
+      "blocks": {
+        "i-1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Neelayamari",
+            "latin": "Indigofera tinctoria",
+            "text": "Found in both the oil and the shampoo — traditionally used to care for scalp and roots."
+          }
+        },
+        "i-2": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Coconut oil",
+            "latin": "Cocos nucifera",
+            "text": "The conditioning base of the hair oil."
+          }
+        }
+      },
+      "block_order": [
+        "i-1",
+        "i-2"
+      ],
+      "settings": {}
+    },
+    "pair": {
+      "type": "tejori-pair",
+      "settings": {
+        "use_current": false,
+        "left_product": "neelayamari-hair-oil",
+        "left_chip": "Step 1",
+        "left_role": "The Oil",
+        "left_summary": "Feeds the scalp and helps roots feel stronger.",
+        "left_points": "Nourishes hair roots\nStronger & shinier hair\n100% natural ingredients",
+        "pair_product": "neelayamari-anti-dandruff-shampoo",
+        "right_chip": "Step 2",
+        "right_role": "The Shampoo",
+        "right_summary": "Cleanses the scalp and clears away flakes.",
+        "right_points": "Removes dandruff\nStrengthens hair roots\nNourishes hair locks",
+        "eyebrow": "Inside the box",
+        "heading": "What’s inside",
+        "strip_text": "Both, in one box",
+        "combo_product": "anti-dandruff-combo"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "features",
+    "how",
+    "ingredients",
+    "pair"
+  ]
+}

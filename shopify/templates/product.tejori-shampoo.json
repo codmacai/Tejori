@@ -1,0 +1,175 @@
+{
+  "sections": {
+    "main": {
+      "type": "tejori-main-product",
+      "blocks": {
+        "description": {
+          "type": "description",
+          "settings": {
+            "title": "Product description",
+            "open": true
+          }
+        },
+        "benefits": {
+          "type": "collapsible",
+          "settings": {
+            "title": "Key benefits",
+            "content": "<ul><li>Removes dandruff</li><li>Strengthens hair roots</li><li>Nourishes hair locks</li><li>100% organic</li></ul>"
+          }
+        },
+        "ingredients": {
+          "type": "ingredients",
+          "settings": {
+            "title": "Key ingredients",
+            "name_1": "Neelayamari",
+            "latin_1": "Indigofera tinctoria",
+            "text_1": "The heart of the Tejori range — traditionally used to care for the scalp and roots.",
+            "name_2": "",
+            "latin_2": "",
+            "text_2": "",
+            "name_3": "",
+            "latin_3": "",
+            "text_3": ""
+          }
+        },
+        "suited": {
+          "type": "collapsible",
+          "settings": {
+            "title": "Suited for",
+            "content": "<ul><li>All hair types — straight, wavy and curly</li><li>Scalps prone to flakes and itch</li><li>Regular use, including oiled hair</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "description",
+        "benefits",
+        "ingredients",
+        "suited"
+      ],
+      "settings": {
+        "badge": "Best seller",
+        "tagline": "A clean, calm, flake-free scalp.",
+        "tint": "#dce0c5",
+        "cover_from": 1,
+        "tax_note": "Inclusive of all taxes",
+        "combo_label": "Better together: Oil + Shampoo",
+        "combo_product": "anti-dandruff-combo"
+      }
+    },
+    "features": {
+      "type": "tejori-product-features",
+      "blocks": {
+        "f-1": {
+          "type": "feature",
+          "settings": {
+            "title": "Removes dandruff",
+            "text": "Clears away flakes for a scalp that looks and feels clean."
+          }
+        },
+        "f-2": {
+          "type": "feature",
+          "settings": {
+            "title": "Strengthens hair roots",
+            "text": "Cleanses without stripping, so roots stay cared for."
+          }
+        },
+        "f-3": {
+          "type": "feature",
+          "settings": {
+            "title": "Nourishes hair locks",
+            "text": "Leaves the lengths soft and manageable after every wash."
+          }
+        },
+        "f-4": {
+          "type": "feature",
+          "settings": {
+            "title": "100% organic",
+            "text": "Made with Neelayamari for a gentle, natural clean."
+          }
+        }
+      },
+      "block_order": [
+        "f-1",
+        "f-2",
+        "f-3",
+        "f-4"
+      ],
+      "settings": {}
+    },
+    "how": {
+      "type": "tejori-how-to-use",
+      "blocks": {
+        "h-1": {
+          "type": "step",
+          "settings": {
+            "title": "Wet",
+            "text": "Wet your hair thoroughly with lukewarm water."
+          }
+        },
+        "h-2": {
+          "type": "step",
+          "settings": {
+            "title": "Lather",
+            "text": "Work a small amount into the scalp and massage for 2–3 minutes."
+          }
+        },
+        "h-3": {
+          "type": "step",
+          "settings": {
+            "title": "Rinse",
+            "text": "Rinse well. For best results, use after the Neelayamari Hair Oil."
+          }
+        }
+      },
+      "block_order": [
+        "h-1",
+        "h-2",
+        "h-3"
+      ],
+      "settings": {}
+    },
+    "ingredients": {
+      "type": "tejori-ingredients",
+      "blocks": {
+        "i-1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Neelayamari",
+            "latin": "Indigofera tinctoria",
+            "text": "The heart of the Tejori range — traditionally used to care for the scalp and roots."
+          }
+        }
+      },
+      "block_order": [
+        "i-1"
+      ],
+      "settings": {}
+    },
+    "pair": {
+      "type": "tejori-pair",
+      "settings": {
+        "use_current": true,
+        "left_chip": "You’re viewing",
+        "left_role": "The Shampoo",
+        "left_summary": "Cleanses the scalp and clears away flakes.",
+        "left_points": "Removes dandruff\nStrengthens hair roots\nNourishes hair locks",
+        "pair_product": "neelayamari-hair-oil",
+        "right_chip": "Pairs with",
+        "right_role": "The Oil",
+        "right_summary": "Feeds the scalp and helps roots feel stronger.",
+        "right_points": "Nourishes hair roots\nStronger & shinier hair\n100% natural ingredients",
+        "eyebrow": "Better together",
+        "heading": "People usually pair it with",
+        "strip_text": "Get both in the Anti-Dandruff Combo",
+        "combo_product": "anti-dandruff-combo"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "features",
+    "how",
+    "ingredients",
+    "pair"
+  ]
+}

@@ -1,0 +1,291 @@
+{%- render 'tejori-assets' -%}
+
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign images = product.media | where: 'media_type', 'image'
+
+  assign save = 0
+  if current.compare_at_price > current.price
+    assign save = current.compare_at_price | minus: current.price | times: 100 | divided_by: current.compare_at_price | floor
+  endif
+
+  assign badge = product.metafields.custom.badge.value | default: section.settings.badge
+  assign tagline = product.metafields.custom.tagline.value | default: section.settings.tagline
+  assign combo = section.settings.combo_product
+  assign form_id = 'TejoriProductForm-' | append: section.id
+  assign qty_id = 'TejoriQty-' | append: section.id
+-%}
+
+<section class="tj tj-section tj-pdp" data-tj-product style="--tj-tint: {{ section.settings.tint }};">
+  <div class="tj-pdp__grid">
+    {%- comment -%} Gallery {%- endcomment -%}
+    <div class="tj-pdp__gallery" data-tj-gallery>
+      <div class="tj-gallery__frame">
+        <div class="tj-gallery__stage">
+          <div class="tj-gallery__track">
+            {%- for media in images -%}
+              {%- liquid
+                assign is_cover = false
+                if section.settings.cover_from > 0 and forloop.index > section.settings.cover_from
+                  assign is_cover = true
+                endif
+                assign loading = 'lazy'
+                if forloop.first
+                  assign loading = 'eager'
+                endif
+              -%}
+              <div class="tj-gallery__slide{% if is_cover %} tj-gallery__slide--cover{% endif %}">
+                {{ media | image_url: width: 1600 | image_tag: widths: '400, 600, 800, 1100, 1400, 1600', sizes: '(min-width: 990px) 50vw, 100vw', loading: loading, alt: media.alt | default: product.title }}
+              </div>
+            {%- else -%}
+              <div class="tj-gallery__slide">{{ 'product-1' | placeholder_svg_tag: 'tj-placeholder' }}</div>
+            {%- endfor -%}
+          </div>
+          {%- if save > 0 -%}<span class="tj-gallery__save" data-tj-save>Save {{ save }}%</span>{%- endif -%}
+          {%- if images.size > 1 -%}
+            <div class="tj-gallery__dots">
+              {%- for media in images -%}
+                <button type="button" class="{% if forloop.first %}is-active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="Show image {{ forloop.index }}"></button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+      {%- if images.size > 1 -%}
+        <div class="tj-gallery__thumbs">
+          {%- for media in images -%}
+            <button type="button" class="{% if forloop.first %}is-active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="Show image {{ forloop.index }}">
+              {{ media | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Details {%- endcomment -%}
+    <div class="tj-pdp__info">
+      <div class="tj-pdp__grabber" aria-hidden="true"></div>
+
+      <nav class="tj-pdp__crumbs" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a><span>/</span>
+        {%- if collection -%}
+          <a href="{{ collection.url }}">{{ collection.title | escape }}</a><span>/</span>
+        {%- else -%}
+          <a href="{{ routes.all_products_collection_url }}">Shop</a><span>/</span>
+        {%- endif -%}
+        <span style="margin:0;color:var(--tj-ink)">{{ product.title | escape }}</span>
+      </nav>
+
+      {%- if badge != blank -%}<p class="tj-pdp__badge">{{ badge | escape }}</p>{%- endif -%}
+      <h1 class="tj-pdp__title">{{ product.title | escape }}</h1>
+      {%- if tagline != blank -%}<p class="tj-pdp__tagline">{{ tagline | escape }}</p>{%- endif -%}
+
+      <div class="tj-pdp__price">
+        <span class="tj-pdp__price-now" data-tj-price>{{ current.price | money }}</span>
+        <s data-tj-compare data-prefix="MRP " {% unless current.compare_at_price > current.price %}hidden{% endunless %}>{% if current.compare_at_price > current.price %}MRP {{ current.compare_at_price | money }}{% endif %}</s>
+        <span class="tj-pdp__save" data-tj-save {% unless save > 0 %}hidden{% endunless %}>{% if save > 0 %}Save {{ save }}%{% endif %}</span>
+      </div>
+      <p class="tj-pdp__tax">{{ section.settings.tax_note | escape }}</p>
+
+      {%- form 'product', product, id: form_id, data-tj-product-form: '' -%}
+        <input type="hidden" name="id" value="{{ current.id }}">
+
+        {%- unless product.has_only_default_variant -%}
+          <div class="tj-pdp__variants">
+            <fieldset>
+              <legend>{{ product.options.first | escape }}</legend>
+              <div class="tj-pdp__variant-list" role="radiogroup">
+                {%- for v in product.variants -%}
+                  <button
+                    type="button"
+                    role="radio"
+                    class="tj-pdp__variant{% if v.id == current.id %} is-active{% endif %}{% unless v.available %} is-unavailable{% endunless %}"
+                    aria-checked="{% if v.id == current.id %}true{% else %}false{% endif %}"
+                    data-tj-variant="{{ v.id }}"
+                  >{{ v.title | escape }}</button>
+                {%- endfor -%}
+              </div>
+            </fieldset>
+          </div>
+        {%- endunless -%}
+
+        <div class="tj-pdp__buy">
+          <div class="tj-qty">
+            <button type="button" data-tj-step="-1" aria-label="Decrease quantity">{%- render 'tejori-icon', name: 'minus' -%}</button>
+            <input id="{{ qty_id }}" type="number" name="quantity" min="1" value="1" aria-label="Quantity">
+            <button type="button" data-tj-step="1" aria-label="Increase quantity">{%- render 'tejori-icon', name: 'plus' -%}</button>
+          </div>
+          <button
+            type="submit"
+            class="tj-btn tj-btn--primary"
+            data-add-label="Add to bag"
+            data-sold-label="Sold out"
+            {% unless current.available %}disabled{% endunless %}
+          >
+            <span data-tj-label>{% if current.available %}Add to bag{% else %}Sold out{% endif %}</span><span class="tj-pdp__buy-price" data-tj-buy-price>{% if current.available %} · {{ current.price | money }}{% endif %}</span>
+          </button>
+        </div>
+      {%- endform -%}
+
+      {%- if combo != blank and combo.id != product.id -%}
+        {%- assign combo_saving = combo.compare_at_price | minus: combo.price -%}
+        <a href="{{ combo.url }}" class="tj-pdp__upsell">
+          <span class="tj-combo__thumb">{%- if combo.featured_media -%}{{ combo.featured_media | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span>
+          <span class="tj-pdp__upsell-text">
+            {{ section.settings.combo_label | escape }}
+            <small>{{ combo.price | money }}{% if combo_saving > 0 %} · save {{ combo_saving | money }}{% endif %}</small>
+          </span>
+          <span class="tj-pdp__upsell-cta">View ›</span>
+        </a>
+      {%- endif -%}
+
+      {%- comment -%} Accordion {%- endcomment -%}
+      {%- if section.blocks.size > 0 -%}
+        <div class="tj-acc tj-acc--pdp">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when '@app' -%}
+                {% render block %}
+              {%- when 'description' -%}
+                <details {% if block.settings.open %}open{% endif %} {{ block.shopify_attributes }}>
+                  <summary><span class="tj-acc__q">{{ block.settings.title | escape }}</span><span class="tj-acc__toggle" aria-hidden="true"></span></summary>
+                  <div class="tj-acc__a">{{ product.description }}</div>
+                </details>
+              {%- when 'collapsible' -%}
+                {%- if block.settings.content != blank -%}
+                  <details {% if block.settings.open %}open{% endif %} {{ block.shopify_attributes }}>
+                    <summary><span class="tj-acc__q">{{ block.settings.title | escape }}</span><span class="tj-acc__toggle" aria-hidden="true"></span></summary>
+                    <div class="tj-acc__a">{{ block.settings.content }}</div>
+                  </details>
+                {%- endif -%}
+              {%- when 'ingredients' -%}
+                <details {% if block.settings.open %}open{% endif %} {{ block.shopify_attributes }}>
+                  <summary><span class="tj-acc__q">{{ block.settings.title | escape }}</span><span class="tj-acc__toggle" aria-hidden="true"></span></summary>
+                  <div class="tj-acc__a">
+                    {%- for i in (1..3) -%}
+                      {%- liquid
+                        assign img_key = 'image_' | append: i
+                        assign name_key = 'name_' | append: i
+                        assign latin_key = 'latin_' | append: i
+                        assign text_key = 'text_' | append: i
+                      -%}
+                      {%- if block.settings[name_key] != blank -%}
+                        <div class="tj-acc__ing">
+                          <span class="tj-acc__ing-img">{%- if block.settings[img_key] != blank -%}{{ block.settings[img_key] | image_url: width: 160 | image_tag: loading: 'lazy', alt: block.settings[name_key] }}{%- endif -%}</span>
+                          <span>
+                            <strong>{{ block.settings[name_key] | escape }}</strong>{%- if block.settings[latin_key] != blank -%}<em>{{ block.settings[latin_key] | escape }}</em>{%- endif -%}
+                            {%- if block.settings[text_key] != blank -%}<span style="display:block;font-size:14.5px">{{ block.settings[text_key] | escape }}</span>{%- endif -%}
+                          </span>
+                        </div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                    {%- if block.settings.note != blank -%}<p class="tj-acc__note">{{ block.settings.note | escape }}</p>{%- endif -%}
+                  </div>
+                </details>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} Mobile buy bar {%- endcomment -%}
+  <div class="tj-buybar" aria-hidden="false">
+    <span class="tj-buybar__thumb">{%- if product.featured_media -%}{{ product.featured_media | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span>
+    <div class="tj-buybar__text">
+      <p>{{ product.title | escape }}</p>
+      <p data-tj-bar-price>{{ current.price | money }}</p>
+    </div>
+    <button type="button" class="tj-btn tj-btn--primary" data-tj-add="{{ current.id }}" data-tj-qty="{{ qty_id }}" {% unless current.available %}disabled{% endunless %}>Add to bag</button>
+  </div>
+
+  {%- comment -%} Variant data for the picker {%- endcomment -%}
+  <script type="application/json" data-tj-variants>
+    [
+      {%- for v in product.variants -%}
+        {%- liquid
+          assign v_save = 0
+          if v.compare_at_price > v.price
+            assign v_save = v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price | floor
+          endif
+          assign media_index = 'null'
+          if v.featured_media
+            for m in images
+              if m.id == v.featured_media.id
+                assign media_index = forloop.index0
+              endif
+            endfor
+          endif
+        -%}
+        {
+          "id": {{ v.id }},
+          "available": {{ v.available | json }},
+          "price": {{ v.price | money | json }},
+          "compare": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | money | json }}{% else %}null{% endif %},
+          "save": {{ v_save }},
+          "media_index": {{ media_index }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Tejori product",
+  "tag": "div",
+  "class": "tejori-main-product-section",
+  "settings": [
+    { "type": "color", "id": "tint", "label": "Gallery background", "default": "#dce0c5", "info": "Match your packshot background (or use transparent PNGs)." },
+    { "type": "range", "id": "cover_from", "label": "Fill frame from image #", "min": 0, "max": 6, "step": 1, "default": 1, "info": "Images after this number fill the frame (lifestyle photos). 0 = all images contained." },
+    { "type": "text", "id": "badge", "label": "Badge", "default": "Best seller", "info": "Overridden by the product metafield custom.badge." },
+    { "type": "text", "id": "tagline", "label": "Tagline", "info": "Overridden by the product metafield custom.tagline." },
+    { "type": "text", "id": "tax_note", "label": "Price note", "default": "Inclusive of all taxes" },
+    { "type": "product", "id": "combo_product", "label": "Combo upsell product" },
+    { "type": "text", "id": "combo_label", "label": "Combo upsell text", "default": "Better together: Oil + Shampoo" }
+  ],
+  "blocks": [
+    { "type": "@app" },
+    {
+      "type": "description",
+      "name": "Product description",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Product description" },
+        { "type": "checkbox", "id": "open", "label": "Open by default", "default": true }
+      ]
+    },
+    {
+      "type": "collapsible",
+      "name": "Collapsible row",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Key benefits" },
+        { "type": "richtext", "id": "content", "label": "Content", "info": "Tip: connect a product metafield (rich text) so each product shows its own content." },
+        { "type": "checkbox", "id": "open", "label": "Open by default", "default": false }
+      ]
+    },
+    {
+      "type": "ingredients",
+      "name": "Key ingredients",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Key ingredients" },
+        { "type": "checkbox", "id": "open", "label": "Open by default", "default": false },
+        { "type": "image_picker", "id": "image_1", "label": "Ingredient 1 photo" },
+        { "type": "text", "id": "name_1", "label": "Ingredient 1 name", "default": "Neelayamari" },
+        { "type": "text", "id": "latin_1", "label": "Ingredient 1 botanical name", "default": "Indigofera tinctoria" },
+        { "type": "text", "id": "text_1", "label": "Ingredient 1 description", "default": "A herb used in traditional Kerala hair oils to nourish the scalp and roots." },
+        { "type": "image_picker", "id": "image_2", "label": "Ingredient 2 photo" },
+        { "type": "text", "id": "name_2", "label": "Ingredient 2 name", "default": "Coconut oil" },
+        { "type": "text", "id": "latin_2", "label": "Ingredient 2 botanical name", "default": "Cocos nucifera" },
+        { "type": "text", "id": "text_2", "label": "Ingredient 2 description", "default": "A classic base oil that conditions hair and helps lock in moisture." },
+        { "type": "image_picker", "id": "image_3", "label": "Ingredient 3 photo" },
+        { "type": "text", "id": "name_3", "label": "Ingredient 3 name" },
+        { "type": "text", "id": "latin_3", "label": "Ingredient 3 botanical name" },
+        { "type": "text", "id": "text_3", "label": "Ingredient 3 description" },
+        { "type": "text", "id": "note", "label": "Note", "default": "Full ingredient list is printed on the pack." }
+      ]
+    }
+  ]
+}
+{% endschema %}

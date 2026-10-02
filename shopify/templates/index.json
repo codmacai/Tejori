@@ -1,0 +1,288 @@
+{
+  "sections": {
+    "hero": {
+      "type": "tejori-hero",
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "layout": "cover",
+            "background": "#f3f1ea",
+            "text_tone": "dark",
+            "eyebrow": "Neelayamari hair care",
+            "title_line_1": "Rooted in",
+            "title_line_2": "nature.",
+            "copy": "Hair oil and anti-dandruff shampoo made with Neelayamari and coconut — for every hair type.",
+            "primary_label": "Shop the combo",
+            "primary_link": "#combo",
+            "secondary_label": "Explore products",
+            "secondary_link": "#shop"
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "layout": "stage",
+            "background": "#dce0c5",
+            "text_tone": "dark",
+            "eyebrow": "Neelayamari Hair Oil",
+            "title_line_1": "Stronger roots,",
+            "title_line_2": "naturally.",
+            "copy": "Nourishes from the root for stronger, shinier hair. 100% natural ingredients.",
+            "primary_label": "Shop hair oil",
+            "primary_link": "#shop",
+            "secondary_label": "Shop by concern",
+            "secondary_link": "#concerns"
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "layout": "portrait",
+            "background": "#dde9e5",
+            "text_tone": "dark",
+            "eyebrow": "Real customers",
+            "title_line_1": "Loved by",
+            "title_line_2": "real people.",
+            "copy": "See how our community makes Tejori part of their everyday hair ritual.",
+            "primary_label": "Read reviews",
+            "primary_link": "#reviews",
+            "secondary_label": "Shop bestsellers",
+            "secondary_link": "#shop"
+          }
+        }
+      },
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3"
+      ],
+      "settings": {
+        "autoplay": true,
+        "slideshow_speed": 7,
+        "show_arrows": true,
+        "section_height": "full-screen"
+      }
+    },
+    "standards": {
+      "type": "tejori-standards",
+      "blocks": {
+        "s-1": {
+          "type": "standard",
+          "settings": {
+            "icon": "science",
+            "line_1": "Scientifically",
+            "line_2": "proven"
+          }
+        },
+        "s-2": {
+          "type": "standard",
+          "settings": {
+            "icon": "derm",
+            "line_1": "Dermatologist",
+            "line_2": "tested"
+          }
+        },
+        "s-3": {
+          "type": "standard",
+          "settings": {
+            "icon": "cruelty",
+            "line_1": "Cruelty",
+            "line_2": "free"
+          }
+        }
+      },
+      "block_order": [
+        "s-1",
+        "s-2",
+        "s-3"
+      ],
+      "settings": {}
+    },
+    "concerns": {
+      "type": "tejori-concerns",
+      "blocks": {
+        "c-1": {
+          "type": "concern",
+          "settings": {
+            "title": "Hair growth",
+            "subtitle": "Neelayamari Hair Oil",
+            "link": "/products/neelayamari-hair-oil"
+          }
+        },
+        "c-2": {
+          "type": "concern",
+          "settings": {
+            "title": "Anti dandruff",
+            "subtitle": "Anti-Dandruff Combo",
+            "link": "/products/anti-dandruff-combo"
+          }
+        },
+        "c-3": {
+          "type": "concern",
+          "settings": {
+            "title": "Dry hair",
+            "subtitle": "Neelayamari Hair Oil",
+            "link": "/products/neelayamari-hair-oil"
+          }
+        }
+      },
+      "block_order": [
+        "c-1",
+        "c-2",
+        "c-3"
+      ],
+      "settings": {}
+    },
+    "products": {
+      "type": "tejori-products",
+      "settings": {
+        "limit": 3
+      }
+    },
+    "combo": {
+      "type": "tejori-combo",
+      "settings": {
+        "combo_product": "anti-dandruff-combo",
+        "product_1": "neelayamari-hair-oil",
+        "product_2": "neelayamari-anti-dandruff-shampoo"
+      }
+    },
+    "look": {
+      "type": "tejori-shop-the-look",
+      "blocks": {
+        "l-1": {
+          "type": "look",
+          "settings": {
+            "caption": "My weekly hair ritual",
+            "product": "anti-dandruff-combo"
+          }
+        },
+        "l-2": {
+          "type": "look",
+          "settings": {
+            "caption": "Oiling night",
+            "product": "neelayamari-hair-oil"
+          }
+        },
+        "l-3": {
+          "type": "look",
+          "settings": {
+            "caption": "Wash day",
+            "product": "neelayamari-anti-dandruff-shampoo"
+          }
+        },
+        "l-4": {
+          "type": "look",
+          "settings": {
+            "caption": "Shelf favourites",
+            "product": "anti-dandruff-combo"
+          }
+        }
+      },
+      "block_order": [
+        "l-1",
+        "l-2",
+        "l-3",
+        "l-4"
+      ],
+      "settings": {}
+    },
+    "reviews": {
+      "type": "tejori-reviews",
+      "blocks": {
+        "r-1": {
+          "type": "review",
+          "settings": {
+            "title": "My hair fall has reduced",
+            "quote": "The oil smells lovely and my hair feels thicker and softer after every wash.",
+            "name": "Anjali R.",
+            "product": "neelayamari-hair-oil"
+          }
+        },
+        "r-2": {
+          "type": "review",
+          "settings": {
+            "title": "Finally a clean scalp",
+            "quote": "Dandruff was a constant battle for me. A few weeks with the shampoo and my scalp feels clean and calm.",
+            "name": "Rahul M.",
+            "product": "neelayamari-anti-dandruff-shampoo"
+          }
+        },
+        "r-3": {
+          "type": "review",
+          "settings": {
+            "title": "Simple, and it works",
+            "quote": "Oil the night before, wash in the morning. The combo has become my weekend ritual.",
+            "name": "Sneha K.",
+            "product": "anti-dandruff-combo"
+          }
+        }
+      },
+      "block_order": [
+        "r-1",
+        "r-2",
+        "r-3"
+      ],
+      "settings": {}
+    },
+    "faq": {
+      "type": "tejori-faq",
+      "blocks": {
+        "q-1": {
+          "type": "question",
+          "settings": {
+            "question": "What is Neelayamari?",
+            "answer": "<p>Neelayamari (Indigofera tinctoria) is a herb long used in traditional Kerala hair oils. We combine it with coconut and other botanicals to nourish the scalp and roots.</p>"
+          }
+        },
+        "q-2": {
+          "type": "question",
+          "settings": {
+            "question": "How often should I use the hair oil?",
+            "answer": "<p>Two to three times a week works well for most people. Massage it into the scalp and leave it on for at least an hour, or overnight, before washing with the Anti-Dandruff Shampoo.</p>"
+          }
+        },
+        "q-3": {
+          "type": "question",
+          "settings": {
+            "question": "Is it suitable for my hair type?",
+            "answer": "<p>Yes — both the hair oil and shampoo are made for all hair types, from straight to curly.</p>"
+          }
+        },
+        "q-4": {
+          "type": "question",
+          "settings": {
+            "question": "Can I use the shampoo every day?",
+            "answer": "<p>The shampoo is gentle enough for regular use. If your scalp is prone to flakes, use it consistently for a few weeks to see the best results.</p>"
+          }
+        },
+        "q-5": {
+          "type": "question",
+          "settings": {
+            "question": "What’s in the Anti-Dandruff Combo?",
+            "answer": "<p>One Neelayamari Hair Oil (200 ml) and one Neelayamari Anti-Dandruff Shampoo (200 ml) — the complete ritual at a lower price than buying both separately.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q-1",
+        "q-2",
+        "q-3",
+        "q-4",
+        "q-5"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "standards",
+    "concerns",
+    "products",
+    "combo",
+    "look",
+    "reviews",
+    "faq"
+  ]
+}

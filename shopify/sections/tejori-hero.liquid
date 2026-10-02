@@ -10,14 +10,18 @@
     - portrait : framed, rounded portrait photo
 {%- endcomment -%}
 
+{%- render 'tejori-assets' -%}
+
 {%- liquid
   assign slide_count = section.blocks.size
   assign speed_ms = section.settings.slideshow_speed | times: 1000
   assign zoom_ms = speed_ms | plus: 1500
 
+  assign header_offset = '0px'
   case section.settings.section_height
     when 'full-screen'
       assign hero_height = '100svh'
+      assign header_offset = 'var(--tj-header-h, 0px)'
     when 'large'
       assign hero_height = '85svh'
     else
@@ -32,13 +36,14 @@
 
 <tejori-hero
   id="TejoriHero-{{ section.id }}"
-  class="tj-hero{% if section.settings.autoplay and slide_count > 1 %} is-autoplay{% endif %}"
+  class="tj tj-hero{% if section.settings.autoplay and slide_count > 1 %} is-autoplay{% endif %}"
   data-tone="{{ first_tone }}"
   role="region"
   aria-roledescription="carousel"
   aria-label="{{ section.settings.aria_label | escape }}"
   style="
     --tj-height: {{ hero_height }};
+    --tj-header-offset: {{ header_offset }};
     --tj-speed: {{ speed_ms }}ms;
     --tj-zoom: {{ zoom_ms }}ms;
     --tj-ink: {{ section.settings.ink_color }};
@@ -274,8 +279,8 @@
     --tj-fg-soft: var(--tj-muted);
     position: relative;
     display: block;
-    height: var(--tj-height, 100svh);
-    min-height: 640px;
+    height: calc(var(--tj-height, 100svh) - var(--tj-header-offset, 0px));
+    min-height: 600px;
     overflow: hidden;
     overflow: clip;
     color: var(--tj-fg);

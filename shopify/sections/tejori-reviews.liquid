@@ -1,0 +1,82 @@
+{%- render 'tejori-assets' -%}
+
+<section id="reviews" class="tj tj-section tj-section--white tj-pad">
+  <div class="tj-container">
+    <div class="tj-head tj-reveal">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="tj-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        <h2 class="tj-heading">{{ section.settings.heading | escape }}</h2>
+      </div>
+    </div>
+
+    <div class="tj-reviews__grid">
+      {%- for block in section.blocks -%}
+        {%- assign p = block.settings.product -%}
+        <figure class="tj-review tj-reveal" style="--d: {{ forloop.index0 | modulo: 3 | times: 90 }}ms;" {{ block.shopify_attributes }}>
+          <div class="tj-review__stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+            {%- for i in (1..5) -%}
+              <span{% if i > block.settings.rating %} class="is-off"{% endif %}>{%- render 'tejori-icon', name: 'star' -%}</span>
+            {%- endfor -%}
+          </div>
+          <blockquote>
+            <p class="tj-review__title">“{{ block.settings.title | escape }}”</p>
+            <p class="tj-review__quote">{{ block.settings.quote | escape }}</p>
+          </blockquote>
+          <figcaption>
+            <span>
+              <span class="tj-review__name" style="display:block">{{ block.settings.name | escape }}</span>
+              {%- if block.settings.verified -%}
+                <span class="tj-review__verified">{%- render 'tejori-icon', name: 'check' -%} Verified buyer</span>
+              {%- endif -%}
+            </span>
+            {%- if p != blank -%}
+              <a href="{{ p.url }}" class="tj-review__product" aria-label="View {{ p.title | escape }}">
+                <span>{{ p.title | escape }}</span>
+                <span class="tj-look__thumb" style="display:block">{%- if p.featured_media -%}{{ p.featured_media | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span>
+              </a>
+            {%- endif -%}
+          </figcaption>
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Tejori reviews",
+  "tag": "div",
+  "class": "tejori-reviews-section",
+  "max_blocks": 9,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "What they say" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Loved by our community" },
+    { "type": "paragraph", "content": "Use genuine, verified customer reviews only." }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "title", "label": "Headline", "default": "My hair fall has reduced" },
+        { "type": "textarea", "id": "quote", "label": "Review", "default": "The oil smells lovely and my hair feels thicker and softer after every wash." },
+        { "type": "text", "id": "name", "label": "Name", "default": "Customer name" },
+        { "type": "checkbox", "id": "verified", "label": "Verified buyer", "default": true },
+        { "type": "product", "id": "product", "label": "Product reviewed" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tejori reviews",
+      "category": "Tejori",
+      "blocks": [
+        { "type": "review", "settings": { "title": "My hair fall has reduced", "quote": "The oil smells lovely and my hair feels thicker and softer after every wash." } },
+        { "type": "review", "settings": { "title": "Finally a clean scalp", "quote": "Dandruff was a constant battle for me. A few weeks with the shampoo and my scalp feels clean and calm." } },
+        { "type": "review", "settings": { "title": "Simple, and it works", "quote": "Oil the night before, wash in the morning. The combo has become my weekend ritual." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

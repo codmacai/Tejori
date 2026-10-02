@@ -29,7 +29,7 @@ Deploy: import the repo on vercel.com — no configuration needed.
 
 ## Shopify
 
-`shopify/sections/hero.liquid` — the cinematic hero as a Shopify Online Store 2.0 section ("Tejori hero slideshow"). Upload it to your theme's `sections/` folder (Edit code → sections → Add a new section → paste), then add it from the theme editor under Banners. Each slide is a block (layout, image, mobile image, optional video, slide colour, text, two buttons). Self-contained CSS/JS — no theme snippets required.
+`shopify/` — the whole site as a Shopify Online Store 2.0 theme pack: header, footer, hero slideshow (image/mobile image/video per slide), standards, shop by concern, products (live from a collection), combo, shop the look, reviews, FAQ, and the product page (gallery, variant picker, AJAX add to bag, accordion, features, how to use, ingredients, pair). Install steps in [`shopify/README.md`](shopify/README.md).
 
 ## Product pages
 

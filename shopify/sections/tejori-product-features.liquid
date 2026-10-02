@@ -1,0 +1,76 @@
+{%- render 'tejori-assets' -%}
+
+{%- liquid
+  assign p = product | default: section.settings.product
+  assign img = section.settings.image | default: p.featured_media
+-%}
+
+<section class="tj tj-section tj-pad-top" aria-label="{{ section.settings.heading | escape }}" style="--tj-dome: {{ section.settings.dome_color }};">
+  <div class="tj-container">
+    <div class="tj-why tj-reveal">
+      <div class="tj-why__dome">
+        <div class="tj-why__product">
+          {%- if img != blank -%}
+            {{ img | image_url: width: 800 | image_tag: widths: '300, 500, 800', sizes: '320px', loading: 'lazy', alt: p.title }}
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'tj-placeholder' }}
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="tj-why__box tj-stage">
+        <div class="tj-why__inner">
+          {%- if section.settings.eyebrow != blank -%}<p class="tj-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+          <h2 class="tj-heading">{{ section.settings.heading | escape }}</h2>
+        </div>
+        <ul class="tj-why__inner tj-why__list">
+          {%- for block in section.blocks -%}
+            <li class="tj-why__item" {{ block.shopify_attributes }}>
+              <span class="tj-label-mono tj-why__num">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+              <h3 class="tj-why__title">{{ block.settings.title | escape }}</h3>
+              {%- if block.settings.text != blank -%}<p class="tj-why__text">{{ block.settings.text | escape }}</p>{%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Tejori why you'll love it",
+  "tag": "div",
+  "class": "tejori-features-section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why choose it" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Why you’ll love it" },
+    { "type": "image_picker", "id": "image", "label": "Product image", "info": "Optional — defaults to the product's main image. Transparent PNGs look best." },
+    { "type": "product", "id": "product", "label": "Product", "info": "Only used outside product pages." },
+    { "type": "color", "id": "dome_color", "label": "Dome colour", "default": "#dce0c5" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Nourishes from the root" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Massaged into the scalp, it feeds the roots so hair feels stronger wash after wash." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tejori why you'll love it",
+      "category": "Tejori",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Nourishes from the root", "text": "Massaged into the scalp, it feeds the roots so hair feels stronger wash after wash." } },
+        { "type": "feature", "settings": { "title": "100% natural ingredients", "text": "Neelayamari and coconut — the way Kerala has cared for hair for generations." } },
+        { "type": "feature", "settings": { "title": "Stronger, shinier hair", "text": "Softens the lengths and brings back natural shine." } },
+        { "type": "feature", "settings": { "title": "For all hair types", "text": "Straight, wavy or curly — gentle enough for regular use." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

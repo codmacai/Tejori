@@ -1,0 +1,57 @@
+{%- render 'tejori-assets' -%}
+
+<section class="tj tj-section tj-pad">
+  <div class="tj-container tj-faq__grid">
+    <div class="tj-faq__intro tj-reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="tj-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <h2 class="tj-heading">{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.text != blank -%}<div class="tj-sub">{{ section.settings.text }}</div>{%- endif -%}
+    </div>
+
+    <div class="tj-acc">
+      {%- for block in section.blocks -%}
+        <details {% if forloop.first and section.settings.open_first %}open{% endif %} {{ block.shopify_attributes }}>
+          <summary><span class="tj-acc__q">{{ block.settings.question | escape }}</span><span class="tj-acc__toggle" aria-hidden="true"></span></summary>
+          <div class="tj-acc__a">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Tejori FAQ",
+  "tag": "div",
+  "class": "tejori-faq-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Questions" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Good to know" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Can’t find what you’re looking for? <a href=\"/pages/contact\">Contact us</a></p>" },
+    { "type": "checkbox", "id": "open_first", "label": "Open the first question", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "What is Neelayamari?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Neelayamari (Indigofera tinctoria) is a herb long used in traditional Kerala hair oils. We combine it with coconut and other botanicals to nourish the scalp and roots.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tejori FAQ",
+      "category": "Tejori",
+      "blocks": [
+        { "type": "question", "settings": { "question": "What is Neelayamari?", "answer": "<p>Neelayamari (Indigofera tinctoria) is a herb long used in traditional Kerala hair oils. We combine it with coconut and other botanicals to nourish the scalp and roots.</p>" } },
+        { "type": "question", "settings": { "question": "How often should I use the hair oil?", "answer": "<p>Two to three times a week works well for most people. Massage it into the scalp and leave it on for at least an hour, or overnight, before washing with the Anti-Dandruff Shampoo.</p>" } },
+        { "type": "question", "settings": { "question": "Is it suitable for my hair type?", "answer": "<p>Yes — both the hair oil and shampoo are made for all hair types, from straight to curly.</p>" } },
+        { "type": "question", "settings": { "question": "Can I use the shampoo every day?", "answer": "<p>The shampoo is gentle enough for regular use. If your scalp is prone to flakes, use it consistently for a few weeks to see the best results.</p>" } },
+        { "type": "question", "settings": { "question": "What’s in the Anti-Dandruff Combo?", "answer": "<p>One Neelayamari Hair Oil (200 ml) and one Neelayamari Anti-Dandruff Shampoo (200 ml) — the complete ritual at a lower price than buying both separately.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

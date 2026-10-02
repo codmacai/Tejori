@@ -1,0 +1,115 @@
+{%- render 'tejori-assets' -%}
+
+{%- liquid
+  assign left = section.settings.left_product
+  if section.settings.use_current and product
+    assign left = product
+  endif
+  assign right = section.settings.pair_product
+  assign combo = section.settings.combo_product
+  assign left_points = section.settings.left_points | newline_to_br | split: '<br />'
+  assign right_points = section.settings.right_points | newline_to_br | split: '<br />'
+  assign separately = 0
+  if left != blank
+    assign separately = separately | plus: left.price
+  endif
+  if right != blank
+    assign separately = separately | plus: right.price
+  endif
+  assign saving = separately | minus: combo.price
+  assign combo_variant = combo.selected_or_first_available_variant
+-%}
+
+{%- if left != blank and right != blank and left.id != right.id -%}
+<section class="tj tj-section tj-pad">
+  <div class="tj-container">
+    <div class="tj-head tj-head--center tj-reveal">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="tj-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        <h2 class="tj-heading">{{ section.settings.heading | escape }}</h2>
+      </div>
+    </div>
+
+    <div class="tj-pair tj-reveal" style="--d: 100ms;">
+      <div class="tj-pair__halves">
+        <div class="tj-pair__half tj-stage">
+          <span class="tj-pair__chip">{{ section.settings.left_chip | escape }}</span>
+          <div class="tj-pair__img">{%- if left.featured_media -%}{{ left.featured_media | image_url: width: 500 | image_tag: widths: '250, 500', sizes: '224px', loading: 'lazy', alt: left.title }}{%- endif -%}</div>
+          <h3 class="tj-pair__role">{{ section.settings.left_role | escape }}</h3>
+          <p class="tj-pair__summary">{{ section.settings.left_summary | escape }}</p>
+          <div class="tj-pair__rule"></div>
+          <ul class="tj-pair__points">
+            {%- for pt in left_points -%}{%- assign pt = pt | strip -%}{%- if pt != blank -%}
+              <li><span class="tj-pair__tick">{%- render 'tejori-icon', name: 'check' -%}</span>{{ pt | escape }}</li>
+            {%- endif -%}{%- endfor -%}
+          </ul>
+        </div>
+        <div class="tj-pair__half">
+          <span class="tj-pair__plus" aria-hidden="true">{%- render 'tejori-icon', name: 'plus' -%}</span>
+          <span class="tj-pair__chip">{{ section.settings.right_chip | escape }}</span>
+          <div class="tj-pair__img">{%- if right.featured_media -%}{{ right.featured_media | image_url: width: 500 | image_tag: widths: '250, 500', sizes: '224px', loading: 'lazy', alt: right.title }}{%- endif -%}</div>
+          <h3 class="tj-pair__role">{{ section.settings.right_role | escape }}</h3>
+          <p class="tj-pair__summary">{{ section.settings.right_summary | escape }}</p>
+          <div class="tj-pair__rule"></div>
+          <ul class="tj-pair__points">
+            {%- for pt in right_points -%}{%- assign pt = pt | strip -%}{%- if pt != blank -%}
+              <li><span class="tj-pair__tick">{%- render 'tejori-icon', name: 'check' -%}</span>{{ pt | escape }}</li>
+            {%- endif -%}{%- endfor -%}
+          </ul>
+          {%- if right != blank -%}
+            <a href="{{ right.url }}" class="tj-link tj-pair__view"><span>View {{ right.title | escape }}</span>{%- render 'tejori-icon', name: 'arrow' -%}</a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- if combo != blank -%}
+        <div class="tj-pair__strip">
+          <div class="tj-pair__deal">
+            <span class="tj-combo__thumb">{%- if combo.featured_media -%}{{ combo.featured_media | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span>
+            <div>
+              <p style="font-size:15px">{{ section.settings.strip_text | escape }}</p>
+              <p class="tj-pair__deal-price">
+                <strong>{{ combo.price | money }}</strong>
+                {%- if saving > 0 -%}<s>{{ separately | money }}</s><span>Save {{ saving | money }}</span>{%- endif -%}
+              </p>
+            </div>
+          </div>
+          <div class="tj-pair__actions">
+            {%- unless product and product.id == combo.id -%}<a href="{{ combo.url }}" class="tj-btn tj-btn--outline">View combo</a>{%- endunless -%}
+            <button type="button" class="tj-btn tj-btn--primary" data-tj-add="{{ combo_variant.id }}" {% unless combo_variant.available %}disabled{% endunless %}>Add combo to bag</button>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Tejori pair it with",
+  "tag": "div",
+  "class": "tejori-pair-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Better together" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "People usually pair it with" },
+    { "type": "header", "content": "This product (left)" },
+    { "type": "checkbox", "id": "use_current", "label": "Use the product being viewed", "default": true, "info": "Turn off to choose the left product (e.g. on a combo page)." },
+    { "type": "product", "id": "left_product", "label": "Product" },
+    { "type": "text", "id": "left_chip", "label": "Chip", "default": "You’re viewing" },
+    { "type": "text", "id": "left_role", "label": "Title", "default": "The Oil" },
+    { "type": "text", "id": "left_summary", "label": "Summary", "default": "Feeds the scalp and helps roots feel stronger." },
+    { "type": "textarea", "id": "left_points", "label": "Points (one per line)", "default": "Nourishes hair roots\nStronger & shinier hair\n100% natural ingredients" },
+    { "type": "header", "content": "Pairs with (right)" },
+    { "type": "product", "id": "pair_product", "label": "Product" },
+    { "type": "text", "id": "right_chip", "label": "Chip", "default": "Pairs with" },
+    { "type": "text", "id": "right_role", "label": "Title", "default": "The Shampoo" },
+    { "type": "text", "id": "right_summary", "label": "Summary", "default": "Cleanses the scalp and clears away flakes." },
+    { "type": "textarea", "id": "right_points", "label": "Points (one per line)", "default": "Removes dandruff\nStrengthens hair roots\nNourishes hair locks" },
+    { "type": "header", "content": "Combo strip" },
+    { "type": "product", "id": "combo_product", "label": "Combo product" },
+    { "type": "text", "id": "strip_text", "label": "Text", "default": "Get both in the Anti-Dandruff Combo" }
+  ],
+  "presets": [{ "name": "Tejori pair it with", "category": "Tejori" }]
+}
+{% endschema %}

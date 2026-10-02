@@ -1,0 +1,91 @@
+{%- render 'tejori-assets' -%}
+
+<footer class="tj">
+  {%- if section.settings.show_newsletter -%}
+    <div class="tj-section tj-news" id="tejori-newsletter">
+      <div class="tj-container">
+        <p class="tj-eyebrow">{{ section.settings.news_eyebrow | escape }}</p>
+        <h2 class="tj-heading">{{ section.settings.news_heading | escape }}</h2>
+        {%- form 'customer', id: 'TejoriNewsletter', class: 'tj-news__form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label class="visually-hidden" for="TejoriNewsletterEmail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
+          <input id="TejoriNewsletterEmail" type="email" name="contact[email]" required autocomplete="email" placeholder="Your email address">
+          <button type="submit" class="tj-btn tj-btn--primary">Subscribe</button>
+          {%- capture news_msg -%}
+            {%- if form.posted_successfully? -%}Thank you — you’re on the list.{%- elsif form.errors -%}{{ form.errors.translated_fields.email | default: 'Email' }} {{ form.errors.messages.email }}{%- else -%}{{ section.settings.news_note | escape }}{%- endif -%}
+          {%- endcapture -%}
+        {%- endform -%}
+        <p class="tj-news__msg" role="status">{{ news_msg }}</p>
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="tj-footer">
+    <div class="tj-container tj-footer__grid">
+      <div class="tj-footer__brand">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 400 | image_tag: widths: '200, 400', sizes: '200px', alt: shop.name, loading: 'lazy' }}
+        {%- else -%}
+          <span class="tj-logo-text">{{ section.settings.logo_text | default: shop.name | escape }}</span>
+        {%- endif -%}
+        {%- if section.settings.about != blank -%}<p class="tj-footer__about">{{ section.settings.about | escape }}</p>{%- endif -%}
+        <div class="tj-footer__social">
+          {%- if section.settings.instagram != blank -%}<a href="{{ section.settings.instagram }}" target="_blank" rel="noopener">Instagram</a>{%- endif -%}
+          {%- if section.settings.facebook != blank -%}<a href="{{ section.settings.facebook }}" target="_blank" rel="noopener">Facebook</a>{%- endif -%}
+          {%- if section.settings.youtube != blank -%}<a href="{{ section.settings.youtube }}" target="_blank" rel="noopener">YouTube</a>{%- endif -%}
+        </div>
+      </div>
+
+      {%- assign menus = 'menu_1,menu_2,menu_3' | split: ',' -%}
+      {%- for key in menus -%}
+        {%- assign menu = section.settings[key] -%}
+        {%- if menu != blank and menu.links.size > 0 -%}
+          <div class="tj-footer__col">
+            <h3>{{ menu.title | escape }}</h3>
+            <ul>
+              {%- for link in menu.links -%}
+                <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="tj-container tj-footer__bottom">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | escape }}. All rights reserved.</p>
+      <ul>
+        {%- for policy in shop.policies -%}
+          <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Tejori footer",
+  "tag": "div",
+  "class": "tejori-footer-section",
+  "enabled_on": { "groups": ["footer"] },
+  "settings": [
+    { "type": "header", "content": "Newsletter" },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter", "default": true },
+    { "type": "text", "id": "news_eyebrow", "label": "Eyebrow", "default": "Join the Tejori family" },
+    { "type": "text", "id": "news_heading", "label": "Heading", "default": "Hair tips & early offers" },
+    { "type": "text", "id": "news_note", "label": "Note", "default": "No spam. Unsubscribe anytime." },
+    { "type": "header", "content": "Brand" },
+    { "type": "image_picker", "id": "logo", "label": "Logo image (light)", "info": "Leave empty to show the logo text." },
+    { "type": "text", "id": "logo_text", "label": "Logo text", "default": "Tejori" },
+    { "type": "textarea", "id": "about", "label": "About", "default": "Natural Neelayamari hair care for stronger roots and a healthy scalp." },
+    { "type": "url", "id": "instagram", "label": "Instagram" },
+    { "type": "url", "id": "facebook", "label": "Facebook" },
+    { "type": "url", "id": "youtube", "label": "YouTube" },
+    { "type": "header", "content": "Menus" },
+    { "type": "link_list", "id": "menu_1", "label": "Column 1", "default": "main-menu" },
+    { "type": "link_list", "id": "menu_2", "label": "Column 2" },
+    { "type": "link_list", "id": "menu_3", "label": "Column 3", "default": "footer" }
+  ]
+}
+{% endschema %}
