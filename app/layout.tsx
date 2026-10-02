@@ -1,20 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Inter_Tight } from "next/font/google";
+import { Inter_Tight, Outfit } from "next/font/google";
 import { CartProvider } from "@/lib/cart";
 import "./globals.css";
 
-// Body copy
-const inter = Inter({
+// UI + headings — soft geometric sans
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-outfit",
+  weight: ["300", "400", "500", "600"],
   display: "swap",
 });
 
-// Headings + wordmark — same grotesk family as the Tejori logo
+// Wordmark only — matches the Tejori logo
 const interTight = Inter_Tight({
   subsets: ["latin"],
   variable: "--font-inter-tight",
-  weight: ["400", "500", "600", "700"],
+  weight: "700",
   display: "swap",
 });
 
@@ -37,7 +38,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${interTight.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${interTight.variable}`}>
       <body>
         <CartProvider>{children}</CartProvider>
       </body>

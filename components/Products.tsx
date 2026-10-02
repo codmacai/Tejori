@@ -5,19 +5,30 @@ import { products, type Product } from "@/lib/products";
 import { ProductCard } from "./ProductCard";
 import { QuickView } from "./QuickView";
 import { Reveal } from "./Reveal";
-import { SectionHeading } from "./SectionHeading";
 
 export function Products() {
   const [quick, setQuick] = useState<Product | null>(null);
   const close = useCallback(() => setQuick(null), []);
 
   return (
-    <section id="shop" className="scroll-mt-20 py-20 md:py-28">
-      <div className="container-x">
-        <SectionHeading eyebrow="Bestsellers" title="Our products" sub="Three essentials. One simple ritual." />
-        <div className="no-scrollbar -mx-4 mt-10 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-8 pt-2 md:mx-0 md:mt-14 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0">
+    <section id="shop" className="forest relative scroll-mt-20 overflow-hidden py-24 md:py-32">
+      {/* oversized faded wordmark */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap font-logo text-[34vw] font-bold leading-none tracking-[-0.06em] text-white/[0.06]"
+      >
+        Tejori
+      </span>
+
+      <div className="container-x relative">
+        <Reveal className="text-center text-white">
+          <p className="eyebrow text-white/60">Bestsellers</p>
+          <h2 className="heading mt-4 text-[2.5rem] md:text-[4rem]">Our products</h2>
+        </Reveal>
+
+        <div className="no-scrollbar -mx-4 mt-12 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 pb-10 pt-4 md:mx-auto md:mt-16 md:grid md:max-w-[1200px] md:grid-cols-3 md:gap-7 md:overflow-visible md:px-0">
           {products.map((p, i) => (
-            <Reveal key={p.id} delay={i * 90} className="flex w-[84%] shrink-0 snap-start sm:w-[58%] md:w-auto">
+            <Reveal key={p.id} delay={i * 90} className="flex w-[80%] shrink-0 snap-center sm:w-[55%] md:w-auto">
               <ProductCard product={p} onLearnMore={setQuick} />
             </Reveal>
           ))}

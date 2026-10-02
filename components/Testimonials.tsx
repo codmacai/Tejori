@@ -36,10 +36,10 @@ export function Testimonials() {
             const p = getProduct(r.productId)!;
             return (
               <Reveal key={r.name} delay={i * 90}>
-                <figure className="flex h-full flex-col rounded-[20px] bg-paper p-7 md:p-8">
+                <figure className="flex h-full flex-col rounded-[36px] bg-paper p-8 md:p-9">
                   <Stars value={5} className="text-ink [&_svg]:h-4 [&_svg]:w-4" />
                   <blockquote className="mt-6 flex-1">
-                    <p className="text-[22px] font-medium leading-snug tracking-[-0.02em] text-ink">“{r.title}”</p>
+                    <p className="text-[22px] font-normal leading-snug tracking-[-0.02em] text-ink">“{r.title}”</p>
                     <p className="mt-3 text-[15px] leading-relaxed text-muted">{r.quote}</p>
                   </blockquote>
                   <figcaption className="mt-8 flex items-center justify-between gap-4 border-t border-line pt-5">
@@ -52,7 +52,7 @@ export function Testimonials() {
                     <a href={`#${p.id}`} className="flex items-center gap-2.5" aria-label={`View ${p.name}`}>
                       <span className="hidden text-right text-[12.5px] leading-tight text-muted sm:block">{p.short}</span>
                       <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-[10px]" style={{ background: p.tint }}>
-                        <Image src={p.image} alt="" fill sizes="44px" className="object-cover" style={{ objectPosition: p.focus }} />
+                        <Image src={p.image} alt="" fill sizes="44px" className="object-contain p-1" />
                       </span>
                     </a>
                   </figcaption>

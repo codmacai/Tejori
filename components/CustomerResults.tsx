@@ -36,7 +36,7 @@ export function CustomerResults() {
             const p = getProduct(s.productId)!;
             return (
               <Reveal key={k} delay={k * 80} className="w-[68%] shrink-0 snap-start sm:w-[42%] md:w-auto">
-                <div className="group relative aspect-[9/14] overflow-hidden rounded-[20px] bg-cloud">
+                <div className="group relative aspect-[9/14] overflow-hidden rounded-[36px] bg-cloud">
                   {s.video ? (
                     <video src={s.video} autoPlay muted loop playsInline className="absolute inset-0 h-full w-full object-cover" />
                   ) : (
@@ -53,9 +53,9 @@ export function CustomerResults() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
                   <p className="absolute left-4 top-4 rounded-full bg-white/85 px-3 py-1.5 text-[12px] font-medium text-ink backdrop-blur">{s.caption}</p>
 
-                  <div className="absolute inset-x-3 bottom-3 flex items-center gap-3 rounded-[14px] bg-white p-2 pr-2.5">
-                    <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-[10px]" style={{ background: p.tint }}>
-                      <Image src={p.image} alt="" fill sizes="44px" className="object-cover" style={{ objectPosition: p.focus }} />
+                  <div className="absolute inset-x-3 bottom-3 flex items-center gap-3 rounded-[24px] bg-white/90 p-2 pr-2.5 backdrop-blur">
+                    <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-[16px]" style={{ background: p.tint }}>
+                      <Image src={p.image} alt="" fill sizes="44px" className="object-contain p-1" />
                     </div>
                     <div className="min-w-0 flex-1 leading-tight">
                       <p className="truncate text-[13px] text-ink">{p.short}</p>
@@ -68,7 +68,7 @@ export function CustomerResults() {
                         setTimeout(() => setAdded(null), 1500);
                       }}
                       aria-label={`Add ${p.name} to bag`}
-                      className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-ink text-white transition hover:scale-105"
+                      className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-moss text-white transition hover:scale-105"
                     >
                       {added === k ? <IconCheck className="h-4 w-4 animate-[pop_.4s_ease-out]" /> : <IconPlus className="h-4 w-4" />}
                     </button>

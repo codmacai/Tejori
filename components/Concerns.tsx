@@ -20,7 +20,7 @@ export function Concerns() {
         <div className="mt-10 grid gap-4 md:mt-14 md:grid-cols-3 md:gap-6">
           {concerns.map((c, i) => (
             <Reveal key={c.title} delay={i * 90}>
-              <a href={c.href} className="group relative block aspect-[4/3] overflow-hidden rounded-[20px] md:aspect-square">
+              <a href={c.href} className="group relative block aspect-[4/3] overflow-hidden rounded-[36px] md:aspect-square">
                 <Image
                   src={c.image}
                   alt={`${c.title} concern`}

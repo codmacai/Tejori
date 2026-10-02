@@ -28,9 +28,9 @@ export function StickyCta() {
         show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-24 opacity-0"
       }`}
     >
-      <div className="flex items-center gap-3 rounded-[22px] bg-white p-2 shadow-[0_20px_50px_-15px_rgba(31,47,49,.45)] ring-1 ring-line">
+      <div className="flex items-center gap-3 rounded-[28px] bg-white p-2 shadow-[0_20px_50px_-15px_rgba(31,47,49,.45)] ring-1 ring-line">
         <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-[14px]" style={{ background: combo.tint }}>
-          <Image src={combo.image} alt="" fill sizes="48px" className="object-cover" style={{ objectPosition: combo.focus }} />
+          <Image src={combo.image} alt="" fill sizes="48px" className="object-contain p-1" />
         </div>
         <div className="min-w-0 flex-1 leading-tight">
           <p className="truncate text-[13px] text-ink">{combo.short}</p>
@@ -38,7 +38,7 @@ export function StickyCta() {
             {formatPrice(combo.price)} <s className="text-[11px] font-normal text-muted">{formatPrice(combo.compareAt!)}</s>
           </p>
         </div>
-        <button onClick={() => add(combo.id)} className="h-11 rounded-full bg-ink px-5 text-[14px] font-medium text-white">
+        <button onClick={() => add(combo.id)} className="h-11 rounded-full bg-moss px-5 text-[14px] font-medium text-white">
           Add
         </button>
       </div>

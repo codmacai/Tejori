@@ -47,7 +47,7 @@ export function QuickView({ product, onClose }: { product: Product | null; onClo
             role="dialog"
             aria-modal="true"
             aria-label={p.name}
-            className={`relative max-h-[92svh] w-full max-w-5xl overflow-y-auto rounded-t-[28px] bg-white transition-all duration-700 ease-[var(--ease-out-expo)] md:rounded-[32px] ${
+            className={`relative max-h-[92svh] w-full max-w-5xl overflow-y-auto rounded-t-[36px] bg-white transition-all duration-700 ease-[var(--ease-out-expo)] md:rounded-[40px] ${
               open ? "translate-y-0 opacity-100 md:scale-100" : "translate-y-10 opacity-0 md:scale-[0.97]"
             }`}
           >
@@ -61,14 +61,14 @@ export function QuickView({ product, onClose }: { product: Product | null; onClo
 
             <div className="grid md:grid-cols-2">
               <div className="p-3 md:p-4">
-                <div className="relative aspect-square overflow-hidden rounded-[22px] md:aspect-auto md:h-full md:min-h-[520px] md:rounded-[24px]" style={{ background: p.tint }}>
-                  <Image src={p.image} alt={p.name} fill sizes="(min-width: 768px) 480px, 100vw" className="object-cover" style={{ objectPosition: p.focus }} />
+                <div className="relative aspect-square overflow-hidden rounded-[28px] md:aspect-auto md:h-full md:min-h-[520px] md:rounded-[32px]" style={{ background: p.tint }}>
+                  <Image src={p.image} alt={p.name} fill sizes="(min-width: 768px) 480px, 100vw" className="object-contain p-14" />
                 </div>
               </div>
 
               <div className="flex flex-col px-6 pb-8 pt-4 md:px-10 md:py-12">
                 <p className="text-[13px] font-semibold text-leaf">{p.badge?.label}</p>
-                <h3 className="mt-1 text-[30px] font-semibold leading-[1.1] tracking-[-0.022em] text-ink md:text-[36px]">{p.short}</h3>
+                <h3 className="mt-1 text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-ink md:text-[38px]">{p.short}</h3>
                 <p className="mt-2 text-[17px] text-muted">{p.tagline}</p>
 
                 <p className="mt-6 text-[15.5px] leading-relaxed text-ink/80">{p.description}</p>
@@ -89,7 +89,7 @@ export function QuickView({ product, onClose }: { product: Product | null; onClo
 
                 <div className="mt-8 border-t border-line pt-6">
                   <div className="flex items-baseline gap-3">
-                    <span className="text-[26px] font-semibold tracking-[-0.02em] text-ink">{formatPrice(p.price)}</span>
+                    <span className="text-[30px] font-normal tracking-[-0.02em] text-ink">{formatPrice(p.price)}</span>
                     {p.compareAt && <s className="text-[15px] text-muted">{formatPrice(p.compareAt)}</s>}
                     {save > 0 && <span className="text-[14px] font-semibold text-leaf">Save {save}%</span>}
                   </div>
@@ -110,7 +110,7 @@ export function QuickView({ product, onClose }: { product: Product | null; onClo
                         add(p.id, qty);
                         onClose();
                       }}
-                      className="btn btn-ink h-12 flex-1"
+                      className="btn btn-moss h-12 flex-1"
                     >
                       Add to bag — {formatPrice(p.price * qty)}
                     </button>

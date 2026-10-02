@@ -27,7 +27,7 @@ export function ComboFeature() {
       <div className="container-x grid items-center gap-12 md:grid-cols-12 md:gap-10 lg:gap-20">
         {/* image */}
         <Reveal className="md:col-span-7">
-          <div className="group relative aspect-[4/3] overflow-hidden rounded-[28px] bg-[#dce0c5] md:aspect-square">
+          <div className="group relative aspect-[4/3] overflow-hidden rounded-[36px] bg-card md:aspect-square">
             <Image
               src={duoImg}
               alt="Tejori Anti-Dandruff Combo — Neelayamari shampoo and hair oil"
@@ -67,8 +67,8 @@ export function ComboFeature() {
                     </div>
                   )}
                   <div className="flex items-center gap-4">
-                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl" style={{ background: p.tint }}>
-                      <Image src={p.image} alt="" fill sizes="64px" className="object-cover" style={{ objectPosition: p.focus }} />
+                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-[16px]" style={{ background: p.tint }}>
+                      <Image src={p.image} alt="" fill sizes="64px" className="object-contain p-1" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="text-[16px] text-ink">{p.short}</p>
@@ -87,7 +87,7 @@ export function ComboFeature() {
               </div>
               <div className="mt-3 flex items-baseline justify-between">
                 <span className="text-[15px] text-ink">Combo price</span>
-                <span className="font-display text-[2.2rem] font-semibold tracking-[-0.02em] tabular-nums text-ink">{formatPrice(combo.price)}</span>
+                <span className="font-display text-[2.6rem] font-normal tracking-[-0.02em] tabular-nums text-ink">{formatPrice(combo.price)}</span>
               </div>
               <p className="mt-1 text-right text-[13px] font-medium text-ink">You save {formatPrice(separately - combo.price)}</p>
             </div>
@@ -102,7 +102,7 @@ export function ComboFeature() {
                   <IconPlus className="h-4 w-4" />
                 </button>
               </div>
-              <button onClick={onAdd} className="btn btn-ink h-14 flex-1">
+              <button onClick={onAdd} className="btn btn-moss h-14 flex-1">
                 {added ? (
                   <>
                     <IconCheck className="h-4 w-4" /> Added

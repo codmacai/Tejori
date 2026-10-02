@@ -75,7 +75,7 @@ export function CartDrawer() {
                 return (
                   <li key={l.productId} className="flex gap-4 rounded-[20px] bg-white p-3">
                     <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-[14px]" style={{ background: p.tint }}>
-                      <Image src={p.image} alt={p.name} fill sizes="96px" className="object-cover" style={{ objectPosition: p.focus }} />
+                      <Image src={p.image} alt={p.name} fill sizes="96px" className="object-contain p-1" />
                     </div>
                     <div className="flex min-w-0 flex-1 flex-col">
                       <p className="text-[15px] leading-snug text-ink">{p.name}</p>
@@ -104,13 +104,13 @@ export function CartDrawer() {
               <p className="eyebrow text-[10px] text-ink">You may also like</p>
               <div className="mt-3 flex items-center gap-3">
                 <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-white">
-                  <Image src={upsell.image} alt="" fill sizes="56px" className="object-cover" style={{ objectPosition: upsell.focus }} />
+                  <Image src={upsell.image} alt="" fill sizes="56px" className="object-contain p-1" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[14px] text-ink">{upsell.short}</p>
                   <p className="text-[14px] font-bold text-ink">{formatPrice(upsell.price)}</p>
                 </div>
-                <button onClick={() => add(upsell.id)} className="rounded-full bg-ink px-4 py-2.5 text-[13px] font-medium text-white hover:bg-ink-deep">
+                <button onClick={() => add(upsell.id)} className="rounded-full bg-moss px-4 py-2.5 text-[13px] font-medium text-white hover:bg-moss-deep">
                   Add
                 </button>
               </div>

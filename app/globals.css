@@ -13,9 +13,13 @@
   --color-mint-deep: #b9d3cc;
   --color-line: #2e43451f;
   --color-leaf: #3d7a57;
+  --color-moss: #8db08c;
+  --color-moss-deep: #6f9670;
+  --color-forest: #3f5c4c;
+  --color-card: #dce0c5;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-inter-tight), var(--font-inter), ui-sans-serif, sans-serif;
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), ui-sans-serif, sans-serif;
   --font-logo: var(--font-inter-tight), ui-sans-serif, sans-serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -70,10 +74,24 @@
   /* Display headings — medium weight grotesk, like the wordmark */
   .heading {
     font-family: var(--font-display);
-    font-weight: 500;
-    letter-spacing: -0.035em;
-    line-height: 1.02;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 1.04;
   }
+
+  /* Deep green stage — like the reference card backdrop */
+  .forest {
+    background:
+      radial-gradient(120% 90% at 15% 0%, #6f8f74 0%, transparent 55%),
+      radial-gradient(90% 80% at 100% 100%, #2a3f37 0%, transparent 60%),
+      linear-gradient(160deg, #4f6e58 0%, #3a5547 45%, #2e4345 100%);
+  }
+
+  .btn-moss {
+    background: var(--color-moss);
+    color: #fff;
+  }
+  .btn-moss:hover { background: var(--color-moss-deep); }
 
   .btn {
     display: inline-flex;
@@ -83,8 +101,8 @@
     height: 3.25rem;
     padding-inline: 1.9rem;
     border-radius: 999px;
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 400;
     letter-spacing: -0.005em;
     transition: transform 0.5s var(--ease-out-expo), background-color 0.3s, color 0.3s, box-shadow 0.5s;
   }

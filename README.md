@@ -1,6 +1,6 @@
 # Tejori — home page
 
-Conversion-focused home page for Tejori, built with **Next.js 16 (App Router)**, **React 19**, **TypeScript** and **Tailwind CSS v4**. The design follows the Tejori Shopify store aesthetic: soft whites, sage and mint, dark-teal accents. Typography is Inter Tight (headings, same grotesk family as the wordmark) at medium weight with Inter for body copy.
+Conversion-focused home page for Tejori, built with **Next.js 16 (App Router)**, **React 19**, **TypeScript** and **Tailwind CSS v4**. The design follows the Tejori Shopify store aesthetic: soft whites, sage and mint, dark-teal accents. Typography is Outfit (soft geometric sans) for headings and UI, with Inter Tight reserved for the wordmark. Product cards follow a minimal floating-product style: soft sage panel, centred packshot, large price and a round sage add button on a deep green stage.
 
 ## Run it
 
@@ -30,6 +30,7 @@ Deploy: import the repo on vercel.com — no configuration needed.
 ## Editing content
 
 - **Products & prices:** `lib/products.ts` (prices use the store's `Rs. 499.00` format).
+- **Product packshots:** `public/images/cut-*.png` sit on the exact card colour `#dce0c5`. For the sharpest result, replace them with high-res product renders on that background (or transparent PNGs). Images are served unoptimised (`next.config.ts`) so the colour stays exact.
 - **Images:** `public/images/`. The current files were cropped from store screenshots and are low resolution — replace them with the original high-res photos **using the same file names** for a much sharper result.
 - **Hero slides:** `components/HeroSlider.tsx` (`slides` array). A full-screen hero needs large images — use at least 2400 px wide photos or a short muted video loop for the best cinematic result.
 - **Customer stories:** `components/CustomerResults.tsx` — set `video: "/videos/clip.mp4"` to play real customer clips.

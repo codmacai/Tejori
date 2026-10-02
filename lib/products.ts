@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image";
-import oilImg from "@/public/images/oil-lifestyle.jpg";
-import shampooImg from "@/public/images/shampoo-lifestyle.jpg";
-import comboImg from "@/public/images/hero-combo.jpg";
+import oilImg from "@/public/images/cut-oil.png";
+import shampooImg from "@/public/images/cut-shampoo.png";
+import comboImg from "@/public/images/cut-combo.png";
 
 export type Concern = "Hair growth" | "Anti dandruff" | "Dry hair";
 
@@ -36,8 +36,8 @@ export const products: Product[] = [
     compareAt: 699,
     badge: { label: "Best seller", tone: "sage" },
     image: oilImg,
-    focus: "28% 50%",
-    tint: "#d9e8e3",
+    focus: "50% 50%",
+    tint: "#dce0c5",
     description:
       "A traditional Neelayamari and coconut hair oil that nourishes from the roots for stronger, shinier hair.",
     benefits: ["100% natural ingredients", "Nourishes hair roots", "Stronger & shinier hair", "For all hair types"],
@@ -53,7 +53,7 @@ export const products: Product[] = [
     badge: { label: "Best seller", tone: "ink" },
     image: shampooImg,
     focus: "50% 50%",
-    tint: "#e4efec",
+    tint: "#dce0c5",
     description:
       "A gentle everyday cleanser that clears flakes while it strengthens roots and nourishes every lock.",
     benefits: ["Removes dandruff", "Strengthens hair roots", "Nourishes hair locks", "100% organic"],
@@ -69,8 +69,8 @@ export const products: Product[] = [
     compareAt: 1098,
     badge: { label: "Best value", tone: "sage" },
     image: comboImg,
-    focus: "48% 60%",
-    tint: "#efeee6",
+    focus: "50% 50%",
+    tint: "#dce0c5",
     description:
       "The complete Neelayamari ritual — oil to nourish, shampoo to cleanse. Everything your scalp needs, together.",
     benefits: ["Oil + shampoo ritual", "Removes dandruff", "Nourishes hair roots", "For all hair types"],
