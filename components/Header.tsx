@@ -6,36 +6,35 @@ import { Logo } from "./Logo";
 import { IconBag, IconClose, IconMenu, IconSearch, IconUser } from "./Icons";
 
 const announcements = [
-  "Free express shipping on orders over ₹999",
-  "Build a 3-step ritual & save 20%",
-  "60-day “love your hair” money-back promise",
+  "Save 29% on Neelayamari Hair Oil — this week only",
+  "Anti-Dandruff Combo: oil + shampoo for Rs. 899",
+  "100% natural ingredients · Suitable for all hair types",
 ];
 
 const nav = [
+  { href: "#top", label: "Home" },
   { href: "#shop", label: "Shop" },
-  { href: "#ritual", label: "Build a ritual" },
-  { href: "#ingredients", label: "Ingredients" },
+  { href: "#concerns", label: "Concerns" },
   { href: "#results", label: "Results" },
-  { href: "#quiz", label: "Hair quiz" },
 ];
 
 export function Header() {
   const { count, open } = useCart();
-  const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
   const [msg, setMsg] = useState(0);
   const [bump, setBump] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const t = setInterval(() => setMsg((m) => (m + 1) % announcements.length), 4500);
+    return () => clearInterval(t);
   }, []);
 
   useEffect(() => {
-    const t = setInterval(() => setMsg((m) => (m + 1) % announcements.length), 4000);
-    return () => clearInterval(t);
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -47,39 +46,34 @@ export function Header() {
 
   return (
     <>
-      <div className="bg-ink-deep text-bone">
-        <div className="container-x flex h-9 items-center justify-center overflow-hidden text-[12px] tracking-wide">
-          <p key={msg} className="animate-[fadeUp_.6s_var(--ease-out-expo)]">
-            {announcements[msg]}
-          </p>
-        </div>
+      <div className="bg-ink text-white">
+        <p
+          key={msg}
+          className="container-x flex h-9 items-center justify-center text-center text-[12px] tracking-[0.04em] animate-[fadeUp_.6s_var(--ease-out-expo)]"
+        >
+          {announcements[msg]}
+        </p>
       </div>
 
       <header
-        className={`sticky top-0 z-40 transition-all duration-500 ${
-          scrolled
-            ? "bg-cream/90 shadow-[0_1px_0_var(--color-line)] backdrop-blur-xl"
-            : "bg-transparent"
+        className={`sticky top-0 z-40 border-b bg-white/95 backdrop-blur-xl transition-shadow duration-500 ${
+          scrolled ? "border-transparent shadow-[0_10px_30px_-20px_rgba(31,47,49,.35)]" : "border-line"
         }`}
       >
-        <div className="container-x flex h-16 items-center justify-between md:h-20">
-          <div className="flex items-center gap-10">
-            <button
-              className="-ml-2 p-2 lg:hidden"
-              aria-label="Open menu"
-              onClick={() => setMenu(true)}
-            >
+        <div className="container-x grid h-16 grid-cols-[1fr_auto_1fr] items-center md:h-[88px]">
+          <div className="flex items-center gap-1 md:gap-7">
+            <button className="-ml-2 p-2 md:hidden" aria-label="Open menu" onClick={() => setMenu(true)}>
               <IconMenu className="h-6 w-6" />
             </button>
-            <a href="#top" aria-label="Tejori home">
-              <Logo className="text-[1.9rem] md:text-[2.2rem]" />
-            </a>
-            <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
+            <button className="hidden p-1 md:block" aria-label="Search">
+              <IconSearch className="h-[22px] w-[22px]" />
+            </button>
+            <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
               {nav.map((n) => (
                 <a
-                  key={n.href}
+                  key={n.label}
                   href={n.href}
-                  className="group relative text-[14px] font-medium text-ink-deep/80 transition-colors hover:text-ink-deep"
+                  className="group relative text-[16px] text-ink transition-colors hover:text-ink-deep"
                 >
                   {n.label}
                   <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-x-100" />
@@ -88,27 +82,25 @@ export function Header() {
             </nav>
           </div>
 
-          <div className="flex items-center gap-1 md:gap-2">
-            <button className="hidden rounded-full p-2.5 transition hover:bg-ink/5 md:inline-flex" aria-label="Search">
-              <IconSearch className="h-5 w-5" />
+          <a href="#top" aria-label="Tejori home" className="justify-self-center">
+            <Logo className="text-[2rem] md:text-[3rem]" />
+          </a>
+
+          <div className="flex items-center justify-end gap-2 md:gap-5">
+            <button className="hidden p-1 md:block" aria-label="Account">
+              <IconUser className="h-[23px] w-[23px]" />
             </button>
-            <button className="hidden rounded-full p-2.5 transition hover:bg-ink/5 md:inline-flex" aria-label="Account">
-              <IconUser className="h-5 w-5" />
-            </button>
-            <button
-              onClick={open}
-              className="relative flex items-center gap-2 rounded-full bg-ink py-2 pl-3.5 pr-4 text-bone transition hover:bg-ink-deep"
-              aria-label={`Open bag, ${count} items`}
-            >
-              <IconBag className="h-[18px] w-[18px]" />
-              <span className="text-[13px] font-semibold">Bag</span>
-              <span
-                className={`grid h-5 min-w-5 place-items-center rounded-full bg-bone px-1 text-[11px] font-bold text-ink transition-transform ${
-                  bump ? "scale-125" : "scale-100"
-                }`}
-              >
-                {count}
-              </span>
+            <button onClick={open} className="relative p-1" aria-label={`Open bag, ${count} items`}>
+              <IconBag className="h-6 w-6" />
+              {count > 0 && (
+                <span
+                  className={`absolute -right-1 -top-0.5 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-ink px-1 text-[10px] font-bold text-white transition-transform ${
+                    bump ? "scale-125" : "scale-100"
+                  }`}
+                >
+                  {count}
+                </span>
+              )}
             </button>
           </div>
         </div>
@@ -116,15 +108,15 @@ export function Header() {
 
       {/* Mobile menu */}
       <div
-        className={`fixed inset-0 z-50 lg:hidden ${menu ? "pointer-events-auto" : "pointer-events-none"}`}
+        className={`fixed inset-0 z-50 md:hidden ${menu ? "pointer-events-auto" : "pointer-events-none"}`}
         aria-hidden={!menu}
       >
         <div
-          className={`absolute inset-0 bg-ink-deep/40 backdrop-blur-sm transition-opacity duration-500 ${menu ? "opacity-100" : "opacity-0"}`}
+          className={`absolute inset-0 bg-ink-deep/30 backdrop-blur-sm transition-opacity duration-500 ${menu ? "opacity-100" : "opacity-0"}`}
           onClick={() => setMenu(false)}
         />
         <div
-          className={`absolute inset-y-0 left-0 flex w-[86%] max-w-sm flex-col bg-cream p-6 transition-transform duration-700 ease-[var(--ease-out-expo)] ${
+          className={`absolute inset-y-0 left-0 flex w-[86%] max-w-sm flex-col bg-white p-6 transition-transform duration-700 ease-[var(--ease-out-expo)] ${
             menu ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -137,17 +129,17 @@ export function Header() {
           <nav className="mt-10 flex flex-col">
             {nav.map((n) => (
               <a
-                key={n.href}
+                key={n.label}
                 href={n.href}
                 onClick={() => setMenu(false)}
-                className="display border-b border-line py-4 text-3xl"
+                className="heading border-b border-line py-4 text-3xl"
               >
                 {n.label}
               </a>
             ))}
           </nav>
-          <a href="#quiz" onClick={() => setMenu(false)} className="btn btn-primary mt-auto">
-            Find my ritual in 60 sec
+          <a href="#shop" onClick={() => setMenu(false)} className="btn btn-ink mt-auto">
+            Shop bestsellers
           </a>
         </div>
       </div>

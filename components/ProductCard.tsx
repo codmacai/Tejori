@@ -1,217 +1,106 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
-import { formatPrice, type Product } from "@/lib/products";
-import { Bottle } from "./Bottle";
-import { IconCheck, IconHeart, IconPlus, Stars } from "./Icons";
+import { formatPrice, savePct, type Product } from "@/lib/products";
+import { IconCheck, IconPlus } from "./Icons";
 
-const isDark = (hex: string) => {
-  const n = parseInt(hex.slice(1), 16);
-  const r = (n >> 16) & 255,
-    g = (n >> 8) & 255,
-    b = n & 255;
-  return 0.299 * r + 0.587 * g + 0.114 * b < 110;
-};
-
-const chipSpots = [
-  "left-[8%] top-[34%]",
-  "right-[7%] top-[24%]",
-  "right-[10%] top-[52%]",
-];
-
-export function ProductCard({ product: p }: { product: Product }) {
+export function ProductCard({ product: p, tab }: { product: Product; tab?: string }) {
   const { add } = useCart();
-  const [sizeIdx, setSizeIdx] = useState(p.sizes.length - 1);
-  const [liked, setLiked] = useState(false);
   const [added, setAdded] = useState(false);
-  const size = p.sizes[sizeIdx];
-  const dark = isDark(p.palette.stage);
-  const save = size.compareAt
-    ? Math.round(((size.compareAt - size.price) / size.compareAt) * 100)
-    : 0;
+  const save = savePct(p);
+  const tabText = tab ?? (save ? `You save ${save}% today` : undefined);
 
   const onAdd = () => {
-    add(p.id, size.label, size.price);
+    add(p.id);
     setAdded(true);
-    setTimeout(() => setAdded(false), 1800);
+    setTimeout(() => setAdded(false), 1600);
   };
 
   return (
-    <article className="product-card group flex h-full w-full flex-col">
-      {/* Stage */}
+    <article id={p.id} className="group flex h-full w-full flex-col scroll-mt-32">
+      {/* top tab */}
       <div
-        className="grain relative aspect-[4/5] overflow-hidden rounded-[28px]"
-        style={{
-          background: `radial-gradient(120% 90% at 50% 100%, ${p.palette.stageDeep} 0%, ${p.palette.stage} 62%)`,
-        }}
+        className={`rounded-t-[30px] px-5 pb-8 pt-3 text-center text-[15px] text-ink ${
+          tabText ? (save ? "bg-mint" : "bg-sage") : "invisible"
+        }`}
       >
-        {/* oversized step numeral */}
-        <span
-          className={`serif-accent pointer-events-none absolute -right-2 -top-6 select-none text-[11rem] leading-none ${
-            dark ? "text-bone/[0.07]" : "text-ink/[0.07]"
-          }`}
-          aria-hidden
-        >
-          {p.step.n}
-        </span>
+        {tabText ?? "—"}
+      </div>
 
-        {/* rotating ring */}
-        <svg
-          className={`stage-ring absolute left-1/2 top-[46%] h-[78%] -translate-x-1/2 -translate-y-1/2 ${
-            dark ? "text-bone/25" : "text-ink/20"
-          }`}
-          viewBox="0 0 200 200"
-          aria-hidden
-        >
-          <circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" strokeWidth="0.6" strokeDasharray="2 5" />
-          <circle cx="100" cy="100" r="74" fill="none" stroke="currentColor" strokeWidth="0.6" />
-          <circle cx="100" cy="4" r="3" fill="currentColor" />
-        </svg>
+      <div className="card-shadow -mt-6 flex flex-1 flex-col rounded-[30px] bg-white p-3 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-translate-y-1.5">
+        {/* image */}
+        <div className="relative aspect-square overflow-hidden rounded-[22px]" style={{ background: p.tint }}>
+          <Image
+            src={p.image}
+            alt={p.name}
+            fill
+            sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 85vw"
+            className="object-cover transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-[1.06]"
+            style={{ objectPosition: p.focus }}
+            placeholder="blur"
+          />
 
-        {/* vertical step label */}
-        <span
-          className={`eyebrow absolute left-5 top-[64%] origin-top-left -rotate-90 whitespace-nowrap text-[10px] ${
-            dark ? "text-bone/60" : "text-ink/55"
-          }`}
-        >
-          Step {p.step.n} — {p.step.name}
-        </span>
-
-        {/* top row */}
-        <div className="absolute inset-x-4 top-4 z-10 flex items-start justify-between">
-          {p.badge ? (
+          {p.badge && (
             <span
-              className={`rounded-full px-3 py-1.5 text-[11px] font-semibold tracking-wide ${
-                dark ? "bg-bone text-ink-deep" : "bg-ink text-bone"
+              className={`absolute left-3 top-3 rounded-full px-4 py-1.5 text-[12px] font-medium uppercase tracking-[0.18em] ${
+                p.badge.tone === "sage" ? "bg-sage text-ink" : "bg-ink text-white"
               }`}
             >
-              {p.badge}
+              {p.badge.label}
             </span>
-          ) : (
-            <span />
           )}
-          <button
-            onClick={() => setLiked((v) => !v)}
-            aria-pressed={liked}
-            aria-label={liked ? "Remove from wishlist" : "Add to wishlist"}
-            className={`grid h-10 w-10 place-items-center rounded-full backdrop-blur transition ${
-              dark ? "bg-bone/15 text-bone hover:bg-bone/25" : "bg-white/50 text-ink hover:bg-white/80"
-            }`}
-          >
-            <IconHeart
-              className={`h-[18px] w-[18px] transition-transform ${liked ? "scale-110 fill-current text-copper" : ""}`}
-            />
-          </button>
-        </div>
 
-        {/* ingredient chips (revealed on hover) */}
-        {p.heroIngredients.map((ing, i) => (
-          <span
-            key={ing}
-            className={`chip-float absolute z-10 rounded-full px-3 py-1.5 text-[11px] font-semibold shadow-sm backdrop-blur ${chipSpots[i]} ${
-              dark ? "bg-bone/90 text-ink-deep" : "bg-white/80 text-ink-deep"
-            }`}
-            style={{ transitionDelay: `${i * 80}ms` }}
-          >
-            + {ing}
-          </span>
-        ))}
-
-        {/* bottle */}
-        <div className="absolute inset-x-0 bottom-[9%] flex flex-col items-center">
-          <div className="bottle-wrap w-[48%]">
-            <Bottle
-              shape={p.shape}
-              {...p.palette}
-              name={p.label}
-              size={size.label}
-              className="w-full drop-shadow-[0_24px_24px_rgba(27,42,44,.28)]"
-            />
-          </div>
-          <div className="bottle-shadow -mt-3 h-4 w-[46%] rounded-[50%] bg-ink-deep/30 blur-md" />
-        </div>
-
-        {/* result + quick add */}
-        <div className="absolute inset-x-4 bottom-4 z-10 flex items-end justify-between">
-          <div
-            className={`rounded-2xl px-3.5 py-2.5 backdrop-blur-md ${
-              dark ? "bg-bone/10 text-bone" : "bg-white/55 text-ink-deep"
-            }`}
-          >
-            <p className="display text-2xl leading-none">{p.result.value}</p>
-            <p className="mt-1 text-[11px] opacity-70">{p.result.copy}</p>
-          </div>
           <button
             onClick={onAdd}
-            aria-label={`Quick add ${p.name}, ${size.label}`}
-            className={`flex h-12 items-center overflow-hidden rounded-full pl-3.5 pr-3.5 transition-all duration-500 ease-[var(--ease-out-expo)] group-hover:pr-5 ${
-              dark ? "bg-bone text-ink-deep" : "bg-ink text-bone"
+            aria-label={`Quick add ${p.name}`}
+            className={`absolute right-3 top-3 grid h-11 w-11 place-items-center rounded-full shadow-sm transition duration-500 hover:scale-110 ${
+              p.badge?.tone === "ink" ? "bg-ink text-white" : "bg-white text-ink"
+            }`}
+          >
+            {added ? <IconCheck className="h-5 w-5 animate-[pop_.4s_ease-out]" /> : <IconPlus className="h-5 w-5" />}
+          </button>
+
+          {/* benefits reveal */}
+          <ul className="absolute inset-x-3 bottom-3 flex flex-wrap gap-1.5">
+            {p.benefits.slice(0, 3).map((b, n) => (
+              <li
+                key={b}
+                className="translate-y-3 rounded-full bg-white/85 px-3 py-1.5 text-[12px] text-ink opacity-0 backdrop-blur transition-all duration-700 ease-[var(--ease-out-expo)] group-hover:translate-y-0 group-hover:opacity-100"
+                style={{ transitionDelay: `${n * 70}ms` }}
+              >
+                {b}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* details */}
+        <div className="flex flex-1 flex-col px-2 pb-2 pt-5">
+          <div className="flex items-start justify-between gap-4">
+            <h3 className="text-[20px] leading-snug tracking-[-0.01em] text-ink md:text-[22px]">{p.name}</h3>
+            <div className="shrink-0 text-right">
+              <p className="text-[20px] font-bold text-ink md:text-[22px]">{formatPrice(p.price)}</p>
+              {p.compareAt && <s className="text-[14px] text-muted">{formatPrice(p.compareAt)}</s>}
+            </div>
+          </div>
+          <p className="mt-2 text-[15px] leading-relaxed text-muted">{p.size} · {p.description}</p>
+
+          <div className="min-h-5 flex-1" />
+          <button
+            onClick={onAdd}
+            className={`flex h-12 w-full items-center justify-center gap-2 rounded-full text-[13px] font-semibold uppercase tracking-[0.18em] transition-all duration-500 ${
+              added ? "bg-ink text-white" : "text-ink shadow-[inset_0_0_0_1px_var(--color-line)] hover:bg-ink hover:text-white"
             }`}
           >
             {added ? (
-              <IconCheck className="h-5 w-5 animate-[pop_.4s_ease-out]" />
+              <>
+                <IconCheck className="h-4 w-4" /> Added to bag
+              </>
             ) : (
-              <IconPlus className="h-5 w-5 transition-transform duration-500 group-hover:rotate-90" />
+              "Add to bag"
             )}
-            <span className="max-w-0 whitespace-nowrap text-[13px] font-semibold opacity-0 transition-all duration-500 ease-[var(--ease-out-expo)] group-hover:ml-2 group-hover:max-w-28 group-hover:opacity-100">
-              {added ? "Added" : "Quick add"}
-            </span>
-          </button>
-        </div>
-      </div>
-
-      {/* Info */}
-      <div className="flex flex-1 flex-col px-1 pt-5">
-        <div className="flex items-center justify-between text-[12px]">
-          <span className="rounded-full border border-line px-2.5 py-1 font-medium text-ink">
-            For {p.concern.toLowerCase()}
-          </span>
-          <span className="flex items-center gap-1.5 text-copper">
-            <Stars value={p.rating} />
-            <span className="font-semibold text-ink-deep">{p.rating}</span>
-            <span className="text-ink-deep/50">({p.reviews.toLocaleString("en-IN")})</span>
-          </span>
-        </div>
-
-        <h3 className="mt-3 display-sm text-[1.38rem] text-ink-deep">{p.name}</h3>
-        <p className="mt-2 text-[14.5px] leading-relaxed text-ink-deep/65">{p.tagline}</p>
-
-        <div className="mt-auto pt-5">
-          <div className="flex items-center gap-2" role="radiogroup" aria-label="Size">
-            {p.sizes.map((s, i) => (
-              <button
-                key={s.label}
-                role="radio"
-                aria-checked={i === sizeIdx}
-                onClick={() => setSizeIdx(i)}
-                className={`rounded-full px-3.5 py-1.5 text-[12.5px] font-medium transition ${
-                  i === sizeIdx
-                    ? "bg-ink-deep text-bone"
-                    : "text-ink-deep/70 shadow-[inset_0_0_0_1px_var(--color-line)] hover:text-ink-deep"
-                }`}
-              >
-                {s.label}
-              </button>
-            ))}
-            {save > 0 && (
-              <span className="ml-auto text-[12px] font-semibold text-copper">Save {save}%</span>
-            )}
-          </div>
-
-          <button
-            onClick={onAdd}
-            className={`mt-4 flex h-[3.25rem] w-full items-center justify-between rounded-full pl-6 pr-2 text-[14px] font-semibold transition-all duration-500 ease-[var(--ease-out-expo)] ${
-              added ? "bg-copper text-bone" : "bg-ink text-bone hover:bg-ink-deep"
-            }`}
-          >
-            <span>{added ? "Added to bag" : "Add to bag"}</span>
-            <span className="flex items-center gap-2 rounded-full bg-bone/10 px-4 py-2">
-              {size.compareAt && (
-                <s className="text-[12px] font-normal opacity-60">{formatPrice(size.compareAt)}</s>
-              )}
-              {formatPrice(size.price)}
-            </span>
           </button>
         </div>
       </div>

@@ -1,32 +1,28 @@
+import { Benefits } from "@/components/Benefits";
 import { CartDrawer } from "@/components/CartDrawer";
-import { Compare } from "@/components/Compare";
+import { Concerns } from "@/components/Concerns";
+import { CustomerResults } from "@/components/CustomerResults";
 import { Faq } from "@/components/Faq";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { Hero } from "@/components/Hero";
-import { Ingredients } from "@/components/Ingredients";
-import { Marquee } from "@/components/Marquee";
-import { Quiz } from "@/components/Quiz";
-import { Results } from "@/components/Results";
-import { Reviews } from "@/components/Reviews";
-import { RitualBuilder } from "@/components/RitualBuilder";
-import { Shop } from "@/components/Shop";
+import { HeroSlider } from "@/components/HeroSlider";
+import { Products } from "@/components/Products";
+import { Ritual } from "@/components/Ritual";
 import { StickyCta } from "@/components/StickyCta";
+import { Testimonials } from "@/components/Testimonials";
 
 export default function Home() {
   return (
     <>
       <Header />
       <main>
-        <Hero />
-        <Marquee />
-        <Shop />
-        <RitualBuilder />
-        <Ingredients />
-        <Results />
-        <Quiz />
-        <Reviews />
-        <Compare />
+        <HeroSlider />
+        <Benefits />
+        <Products />
+        <Concerns />
+        <Ritual />
+        <CustomerResults />
+        <Testimonials />
         <Faq />
       </main>
       <Footer />

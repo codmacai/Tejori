@@ -1,53 +1,43 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Inter_Tight, Instrument_Serif } from "next/font/google";
+import { Inter_Tight, Manrope } from "next/font/google";
 import { CartProvider } from "@/lib/cart";
 import "./globals.css";
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-manrope",
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
+// Used only for the wordmark
 const interTight = Inter_Tight({
   subsets: ["latin"],
   variable: "--font-inter-tight",
-  weight: ["500", "600", "700"],
-  display: "swap",
-});
-
-const instrument = Instrument_Serif({
-  subsets: ["latin"],
-  variable: "--font-instrument",
-  weight: "400",
-  style: ["normal", "italic"],
+  weight: "700",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Tejori — Hair, kept like treasure",
+  title: "Tejori — Neelayamari Hair Care",
   description:
-    "Clinically tested haircare built on India's most treasured botanicals. Shop serums, shampoos, scalp elixirs and masks for hair fall, frizz, dandruff and damage.",
+    "Tejori Neelayamari hair oil and anti-dandruff shampoo. Natural, Ayurveda-inspired hair care for stronger roots and a flake-free scalp.",
   openGraph: {
-    title: "Tejori — Hair, kept like treasure",
-    description:
-      "Ayurvedic botanicals, decoded by modern hair science. Visible results in 8 weeks.",
+    title: "Tejori — Neelayamari Hair Care",
+    description: "Natural Neelayamari hair oil and anti-dandruff shampoo for all hair types.",
     type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#2e4345",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${interTight.variable} ${instrument.variable}`}
-    >
+    <html lang="en" className={`${manrope.variable} ${interTight.variable}`}>
       <body>
         <CartProvider>{children}</CartProvider>
       </body>

@@ -1,213 +1,86 @@
-export type BottleShape = "dropper" | "pump" | "tube" | "jar" | "oil";
+import type { StaticImageData } from "next/image";
+import oilImg from "@/public/images/oil-lifestyle.jpg";
+import shampooImg from "@/public/images/shampoo-lifestyle.jpg";
+import comboImg from "@/public/images/hero-combo.jpg";
 
-export type Concern =
-  | "Hair fall"
-  | "Frizz"
-  | "Dandruff"
-  | "Damage"
-  | "Thinning"
-  | "Dryness";
+export type Concern = "Hair growth" | "Anti dandruff" | "Dry hair";
 
 export type Product = {
   id: string;
   name: string;
-  /** Short name printed on the bottle label */
-  label: string;
-  tagline: string;
-  concern: Concern;
-  step: { n: string; name: "Prep" | "Cleanse" | "Treat" | "Seal" };
-  shape: BottleShape;
-  sizes: { label: string; price: number; compareAt?: number }[];
-  rating: number;
-  reviews: number;
-  badge?: string;
-  result: { value: string; copy: string };
-  heroIngredients: string[];
-  /** Colour story for the card stage + bottle */
-  palette: {
-    stage: string;
-    stageDeep: string;
-    body: string;
-    cap: string;
-    label: string;
-    text: string;
-  };
+  short: string;
+  size: string;
+  price: number;
+  compareAt?: number;
+  badge?: { label: string; tone: "sage" | "ink" };
+  image: StaticImageData;
+  /** object-position for the card crop */
+  focus?: string;
+  /** Background used behind small thumbnails */
+  tint: string;
+  description: string;
+  benefits: string[];
+  concerns: Concern[];
 };
 
 export const products: Product[] = [
   {
-    id: "root-revival-serum",
-    name: "Bhringraj Root Revival Serum",
-    label: "Root Revival",
-    tagline: "A weightless daily serum that wakes up dormant follicles.",
-    concern: "Hair fall",
-    step: { n: "03", name: "Treat" },
-    shape: "dropper",
-    sizes: [
-      { label: "30 ml", price: 1150 },
-      { label: "50 ml", price: 1590, compareAt: 1890 },
-    ],
-    rating: 4.9,
-    reviews: 3182,
-    badge: "Bestseller",
-    result: { value: "−74%", copy: "hair fall in 8 weeks*" },
-    heroIngredients: ["Bhringraj", "Redensyl", "Caffeine"],
-    palette: {
-      stage: "#c9d3c4",
-      stageDeep: "#9fb09a",
-      body: "#2e4345",
-      cap: "#c49a72",
-      label: "#f6f2eb",
-      text: "#2e4345",
-    },
+    id: "neelayamari-hair-oil",
+    name: "Tejori Neelayamari Hair Oil",
+    short: "Neelayamari Hair Oil",
+    size: "200 ml",
+    price: 499,
+    compareAt: 699,
+    badge: { label: "Best seller", tone: "sage" },
+    image: oilImg,
+    focus: "35% 50%",
+    tint: "#d9e8e3",
+    description:
+      "A traditional Neelayamari and coconut hair oil that nourishes from the roots for stronger, shinier hair.",
+    benefits: ["100% natural ingredients", "Nourishes hair roots", "Stronger & shinier hair", "For all hair types"],
+    concerns: ["Hair growth", "Dry hair"],
   },
   {
-    id: "bond-shampoo",
-    name: "Amla & Rice Protein Bond Shampoo",
-    label: "Bond Wash",
-    tagline: "Sulphate-free lather that rebuilds strength wash after wash.",
-    concern: "Damage",
-    step: { n: "02", name: "Cleanse" },
-    shape: "pump",
-    sizes: [
-      { label: "250 ml", price: 895 },
-      { label: "500 ml", price: 1490, compareAt: 1790 },
-    ],
-    rating: 4.8,
-    reviews: 2410,
-    badge: "Editor's pick",
-    result: { value: "3.1×", copy: "stronger strands*" },
-    heroIngredients: ["Amla", "Rice protein", "Ceramides"],
-    palette: {
-      stage: "#ece0cd",
-      stageDeep: "#d9c6a6",
-      body: "#f6f2eb",
-      cap: "#2e4345",
-      label: "#2e4345",
-      text: "#f6f2eb",
-    },
+    id: "neelayamari-anti-dandruff-shampoo",
+    name: "Tejori Neelayamari Anti-Dandruff Shampoo",
+    short: "Anti-Dandruff Shampoo",
+    size: "200 ml",
+    price: 599,
+    badge: { label: "Best seller", tone: "ink" },
+    image: shampooImg,
+    focus: "50% 50%",
+    tint: "#e4efec",
+    description:
+      "A gentle everyday cleanser that clears flakes while it strengthens roots and nourishes every lock.",
+    benefits: ["Removes dandruff", "Strengthens hair roots", "Nourishes hair locks", "100% organic"],
+    concerns: ["Anti dandruff"],
   },
   {
-    id: "rosemary-elixir",
-    name: "Rosemary Scalp Elixir",
-    label: "Scalp Elixir",
-    tagline: "A pre-wash oil ritual for a denser, healthier-looking crown.",
-    concern: "Thinning",
-    step: { n: "01", name: "Prep" },
-    shape: "oil",
-    sizes: [
-      { label: "100 ml", price: 1195 },
-      { label: "200 ml", price: 1995, compareAt: 2390 },
-    ],
-    rating: 4.9,
-    reviews: 1876,
-    badge: "New",
-    result: { value: "+38%", copy: "visible density*" },
-    heroIngredients: ["Rosemary", "Onion seed", "Brahmi"],
-    palette: {
-      stage: "#2e4345",
-      stageDeep: "#1b2a2c",
-      body: "#b8743f",
-      cap: "#1b2a2c",
-      label: "#f6f2eb",
-      text: "#2e4345",
-    },
+    id: "anti-dandruff-combo",
+    name: "Tejori Anti-Dandruff Combo",
+    short: "Anti-Dandruff Combo",
+    size: "Hair Oil + Shampoo",
+    price: 899,
+    compareAt: 1098,
+    badge: { label: "Best value", tone: "sage" },
+    image: comboImg,
+    focus: "48% 60%",
+    tint: "#efeee6",
+    description:
+      "The complete Neelayamari ritual — oil to nourish, shampoo to cleanse. Everything your scalp needs, together.",
+    benefits: ["Oil + shampoo ritual", "Removes dandruff", "Nourishes hair roots", "For all hair types"],
+    concerns: ["Anti dandruff", "Hair growth", "Dry hair"],
   },
-  {
-    id: "silk-conditioner",
-    name: "Hibiscus Silk Conditioner",
-    label: "Silk Seal",
-    tagline: "Melts frizz and seals the cuticle for mirror-like shine.",
-    concern: "Frizz",
-    step: { n: "04", name: "Seal" },
-    shape: "tube",
-    sizes: [
-      { label: "200 ml", price: 845 },
-      { label: "400 ml", price: 1450, compareAt: 1690 },
-    ],
-    rating: 4.8,
-    reviews: 1594,
-    result: { value: "96%", copy: "saw less frizz*" },
-    heroIngredients: ["Hibiscus", "Shea", "Squalane"],
-    palette: {
-      stage: "#efd6cb",
-      stageDeep: "#ddb5a4",
-      body: "#a8673f",
-      cap: "#f6f2eb",
-      label: "#f6f2eb",
-      text: "#a8673f",
-    },
-  },
-  {
-    id: "neem-clarifier",
-    name: "Neem & Tea Tree Scalp Clarifier",
-    label: "Clarify",
-    tagline: "Calms flakes and itch without stripping the scalp barrier.",
-    concern: "Dandruff",
-    step: { n: "02", name: "Cleanse" },
-    shape: "pump",
-    sizes: [
-      { label: "250 ml", price: 925 },
-      { label: "500 ml", price: 1550, compareAt: 1850 },
-    ],
-    rating: 4.7,
-    reviews: 1122,
-    result: { value: "−89%", copy: "visible flakes*" },
-    heroIngredients: ["Neem", "Tea tree", "Piroctone"],
-    palette: {
-      stage: "#dde6e4",
-      stageDeep: "#b8cac6",
-      body: "#4d6466",
-      cap: "#f6f2eb",
-      label: "#f6f2eb",
-      text: "#4d6466",
-    },
-  },
-  {
-    id: "vault-mask",
-    name: "The Vault Overnight Mask",
-    label: "Vault Mask",
-    tagline: "An overnight treasure for parched, over-styled lengths.",
-    concern: "Dryness",
-    step: { n: "04", name: "Seal" },
-    shape: "jar",
-    sizes: [
-      { label: "100 g", price: 995 },
-      { label: "200 g", price: 1695, compareAt: 1990 },
-    ],
-    rating: 4.9,
-    reviews: 2048,
-    badge: "Award winner",
-    result: { value: "12h", copy: "of deep hydration*" },
-    heroIngredients: ["Kokum butter", "Saffron", "Peptides"],
-    palette: {
-      stage: "#f3e6c8",
-      stageDeep: "#e3c98e",
-      body: "#f6f2eb",
-      cap: "#c49a72",
-      label: "#2e4345",
-      text: "#f6f2eb",
-    },
-  },
-];
-
-export const concerns: Concern[] = [
-  "Hair fall",
-  "Thinning",
-  "Damage",
-  "Frizz",
-  "Dandruff",
-  "Dryness",
 ];
 
 export const getProduct = (id: string) => products.find((p) => p.id === id);
 
-const inr = new Intl.NumberFormat("en-IN", {
-  style: "currency",
-  currency: "INR",
-  maximumFractionDigits: 0,
-});
+export const savePct = (p: Pick<Product, "price" | "compareAt">) =>
+  p.compareAt ? Math.round(((p.compareAt - p.price) / p.compareAt) * 100) : 0;
 
-export const formatPrice = (n: number) => inr.format(n);
+/** Matches the store's "Rs. 499.00" format */
+export const formatPrice = (n: number) =>
+  `Rs. ${n.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-export const FREE_SHIPPING_AT = 999;
+/** Set to null to hide the free-shipping progress bar in the bag. Confirm with your store policy. */
+export const FREE_SHIPPING_AT: number | null = 999;

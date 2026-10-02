@@ -7,8 +7,8 @@ export function Logo({
 }) {
   return (
     <span
-      className={`font-display font-bold leading-none tracking-[-0.055em] ${
-        tone === "ink" ? "text-ink" : "text-bone"
+      className={`font-logo font-bold leading-none tracking-[-0.055em] ${
+        tone === "ink" ? "text-ink" : "text-white"
       } ${className}`}
     >
       Tejori

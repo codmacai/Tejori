@@ -83,3 +83,12 @@ export function Stars({ value, className = "" }: { value: number; className?: st
     </span>
   );
 }
+export const IconDrop = (p: P) => (
+  <svg {...base} {...p}><path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11Z" /><path d="M9 14.5a3 3 0 0 0 3 3" /></svg>
+);
+export const IconRoots = (p: P) => (
+  <svg {...base} {...p}><path d="M12 3v9" /><path d="M12 12c0 3-3 4-5 8M12 12c0 3 3 4 5 8M12 12v9" /><path d="M9 6c1 1 2 1.5 3 1.5S14 7 15 6" /></svg>
+);
+export const IconWaves = (p: P) => (
+  <svg {...base} {...p}><path d="M8 3c-2 4 2 6 0 10s2 6 0 8" /><path d="M12.5 3c-2 4 2 6 0 10s2 6 0 8" /><path d="M17 3c-2 4 2 6 0 10s2 6 0 8" /></svg>
+);
