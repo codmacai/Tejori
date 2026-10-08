@@ -75,7 +75,7 @@ const solutions = [
   {
     id: 'international-shipping',
     layout: 'A',
-    photo: { src: 'app-tracking.jpg', position: '42% 30%', positionAr: '30% 30%' },
+    photo: { src: 'app-tracking.jpg', position: '15% 30%', positionAr: '62% 30%' },
     name: t('International Shipping', 'الشحن الدولي'),
     headline: t('Global reach, **local expertise.**', 'انتشار عالمي، **بخبرة محلية.**'),
     body: t(

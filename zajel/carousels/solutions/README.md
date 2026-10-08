@@ -1,6 +1,13 @@
 # Zajel: all solutions carousel
 
-One carousel: an "all solutions" cover followed by one poster-style slide per solution, in English and Arabic (mirrored right-to-left). The layout follows the poster reference (full-bleed photography, extended uppercase headlines with an italic accent word, angled colour blocks, white side bands, small supporting copy). It keeps Zajel's logo and greens, and uses Noto Kufi Arabic for the Arabic slides.
+One carousel: an "all solutions" cover followed by one poster-style slide per solution, in English and Arabic (mirrored right-to-left). The layout follows the poster reference (full-bleed photography, angled colour blocks, white side bands, small supporting copy), refined into a high-end finish:
+
+- Manrope Medium headlines in sentence case, tight tracking; accent words in a light-to-Zajel-green gradient
+- Brand-green gradients on every block (light green → Zajel Green → deep green), ink panels with a green glow
+- Photos toned with deep-green gradients, fine film grain, thin gradient hairlines on the diagonal edges
+- Oversized ExtraLight slide numbers, letter-spaced labels and dot-separated tags
+- Line-art slides: gradient-stroked icons with a soft glow on a green mesh background
+- Noto Kufi Arabic (medium) for the Arabic slides
 
 | # | Slide | Visual |
 |---|---|---|
@@ -23,4 +30,4 @@ Rebuild from `zajel/carousels`: `npm install && npx playwright install chromium`
 
 To add a photo to a line-art slide, put it in `../assets/photos/` and replace `art: {…}` with `photo: { src: 'file.jpg', position: 'x% y%', positionAr: 'x% y%' }` in `src/content.js`.
 
-Headline font: Archivo Expanded (Google Fonts) to match the reference. Swap in Manrope in `src/styles.css` if Zajel wants to stay strictly on the brand typeface.
+The PDFs are assembled from the rendered slides (high-quality JPEG) so they match the PNGs exactly.
