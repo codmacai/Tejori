@@ -20,13 +20,15 @@ const cover = {
   photos: ['courier-van.jpg', 'parcel-doorstep.jpg', 'app-tracking.jpg', 'courier-handover.jpg'],
 };
 
-// Layouts: A = white side band + green base block, B = ink diagonal panel + green block,
-// C = green side wedge + white base strip. `photo` or `art` (a large line icon) fills the frame.
+// Each solution is a stop on one continuous route that runs across the whole carousel.
+// `photo` or `art` (a large line icon) fills the wing-shaped frame; `chip` is the glass icon badge.
+// theme: 'dark' (deep green) or 'green' (bright Zajel green); photo and art slides alternate.
 const solutions = [
   {
     id: 'on-demand-express',
-    layout: 'C',
-    photo: { src: 'courier-van.jpg', position: '80% 50%', positionAr: '58% 50%' },
+    theme: 'dark',
+    chip: 'zap',
+    photo: { src: 'courier-van.jpg', position: '62% 30%', positionAr: '62% 30%' },
     name: t('On Demand Express', 'التوصيل السريع عند الطلب'),
     headline: t('When every **minute** matters.', 'حين تكون كل **دقيقة** مهمة.'),
     body: t(
@@ -37,8 +39,8 @@ const solutions = [
   },
   {
     id: 'freight',
-    layout: 'A',
-    art: { icon: 'container', bg: 'ink' },
+    theme: 'green',
+    art: { icon: 'container' },
     name: t('Freight Solutions', 'حلول الشحن'),
     headline: t('Sea. Air. **Land.**', 'بحراً. جواً. **براً.**'),
     body: t(
@@ -49,8 +51,9 @@ const solutions = [
   },
   {
     id: 'ecommerce',
-    layout: 'B',
-    photo: { src: 'parcel-doorstep.jpg', position: '22% 50%', positionAr: '22% 50%' },
+    theme: 'dark',
+    chip: 'shopping-bag',
+    photo: { src: 'parcel-doorstep.jpg', position: '40% 40%', positionAr: '40% 40%' },
     name: t('Ecommerce', 'التجارة الإلكترونية'),
     headline: t('Every order, **every mile.**', 'كل طلب، في **كل ميل.**'),
     body: t(
@@ -62,8 +65,8 @@ const solutions = [
   },
   {
     id: 'customs-clearance',
-    layout: 'C',
-    art: { icon: 'stamp', bg: 'ink' },
+    theme: 'green',
+    art: { icon: 'stamp' },
     name: t('Customs Clearance', 'التخليص الجمركي'),
     headline: t('Cleared with **precision.**', 'تخليص جمركي **بدقة.**'),
     body: t(
@@ -74,8 +77,9 @@ const solutions = [
   },
   {
     id: 'international-shipping',
-    layout: 'A',
-    photo: { src: 'app-tracking.jpg', position: '15% 30%', positionAr: '62% 30%' },
+    theme: 'dark',
+    chip: 'globe',
+    photo: { src: 'app-tracking.jpg', position: '50% 28%', positionAr: '50% 28%' },
     name: t('International Shipping', 'الشحن الدولي'),
     headline: t('Global reach, **local expertise.**', 'انتشار عالمي، **بخبرة محلية.**'),
     body: t(
@@ -86,8 +90,8 @@ const solutions = [
   },
   {
     id: 'warehousing',
-    layout: 'B',
-    art: { icon: 'warehouse', bg: 'dark' },
+    theme: 'green',
+    art: { icon: 'warehouse' },
     name: t('Warehousing', 'التخزين'),
     headline: t('Stored safe. **Ready to move.**', 'تخزين آمن، **وجاهزية للانطلاق.**'),
     body: t(
@@ -98,8 +102,9 @@ const solutions = [
   },
   {
     id: 'secure-government',
-    layout: 'C',
-    photo: { src: 'courier-handover.jpg', position: '50% 22%', positionAr: '50% 22%' },
+    theme: 'dark',
+    chip: 'shield-check',
+    photo: { src: 'courier-handover.jpg', position: '50% 30%', positionAr: '50% 30%' },
     name: t('Secure & Government', 'الخدمات الآمنة والحكومية'),
     headline: t('Documents in **trusted hands.**', 'وثائقك في **أيدٍ أمينة.**'),
     body: t(

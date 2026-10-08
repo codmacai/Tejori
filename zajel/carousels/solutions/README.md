@@ -1,17 +1,18 @@
 # Zajel: all solutions carousel
 
-One carousel: an "all solutions" cover followed by one poster-style slide per solution, in English and Arabic (mirrored right-to-left). The layout follows the poster reference (full-bleed photography, angled colour blocks, white side bands, small supporting copy), refined into a high-end finish:
+One carousel: an "all solutions" cover followed by one slide per solution, in English and Arabic (mirrored right-to-left).
 
-- Manrope Medium headlines in sentence case, tight tracking; accent words in a light-to-Zajel-green gradient
-- Brand-green gradients on every block (light green → Zajel Green → deep green), ink panels with a green glow
-- Photos toned with deep-green gradients, fine film grain, thin gradient hairlines on the diagonal edges
-- Oversized ExtraLight slide numbers, letter-spaced labels and dot-separated tags
-- Line-art slides: gradient-stroked icons with a soft glow on a green mesh background
-- Noto Kufi Arabic (medium) for the Arabic slides
+**Concept: The Route.** The Zajel symbol is a single continuous line, "logistics as an uninterrupted journey from origin to destination". Here one glowing route line runs along the bottom of every slide at the same height, so it joins up as you swipe, and each solution is a stop on it. The cover is the route map: all seven solutions as stops on one line that bends into the route.
+
+- Wing frames: photos sit in rounded frames with one sweeping corner, taken from the curve of the pigeon's wing
+- Glass icon badge on each photo frame, glass pill tags
+- Rhythm: photo slides on deep green, line-art slides on bright Zajel-green gradients
+- Manrope Medium headlines with gradient accent words; Noto Kufi Arabic for Arabic
+- Fine grain, soft glows, gradient-stroked line icons
 
 | # | Slide | Visual |
 |---|---|---|
-| 00 | Cover: Every solution. One partner. (index of all 7) | 4-photo mosaic |
+| 00 | Cover: Every solution. One partner. (route map of all 7) | 4-photo frame |
 | 01 | On Demand Express | photo |
 | 02 | Freight Solutions | line art, photo to come |
 | 03 | Ecommerce | photo |
