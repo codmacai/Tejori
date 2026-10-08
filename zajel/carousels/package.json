@@ -1,0 +1,12 @@
+{
+  "name": "zajel-carousels",
+  "private": true,
+  "description": "Zajel solution carousels (EN + AR) rendered from HTML to PNG and PDF",
+  "scripts": {
+    "build": "node src/build.js",
+    "html": "node src/build.js --no-render"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}
