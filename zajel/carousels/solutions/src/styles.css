@@ -1,0 +1,135 @@
+/* Zajel "all solutions" carousel: poster style, 1080 × 1350. */
+
+@font-face {
+  font-family: 'Archivo';
+  src: url('../../assets/fonts/archivo.woff2') format('woff2');
+  font-weight: 100 900; font-stretch: 62% 125%; font-style: normal;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo';
+  src: url('../../assets/fonts/archivo-italic.woff2') format('woff2');
+  font-weight: 100 900; font-stretch: 62% 125%; font-style: italic;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url('../../assets/fonts/noto-kufi-arabic.woff2') format('woff2');
+  font-weight: 100 900;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+:root {
+  --green: #36B936;
+  --dark: #064423;
+  --ink: #132818;
+  --white: #FFFFFF;
+  --pad: 88px;
+}
+
+@page { size: 1080px 1350px; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #0b0f0c; }
+body { font-family: 'Archivo', sans-serif; font-stretch: 112%; -webkit-font-smoothing: antialiased; }
+body[dir='rtl'] { font-family: 'Noto Kufi Arabic', 'Archivo', sans-serif; }
+
+.slide { position: relative; width: 1080px; height: 1350px; overflow: hidden; background: var(--ink); color: var(--white); break-after: page; }
+.slide.bg-dark { background: var(--dark); }
+
+.photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.shapes { position: absolute; inset: 0; width: 100%; height: 100%; }
+.shapes .white { fill: var(--white); }
+.shapes .green { fill: var(--green); }
+.shapes .ink { fill: var(--ink); }
+.shade { position: absolute; inset: 0; }
+
+.art { position: absolute; color: var(--green); }
+.art .ico { width: 100%; height: 100%; display: block; }
+
+.logo { display: block; height: 100%; width: auto; }
+.logo .t { fill: var(--white); }
+.logo .s { fill: var(--green); }
+.logo-wrap { position: absolute; top: 76px; height: 54px; z-index: 5; }
+
+/* type */
+.headline {
+  font-family: 'Archivo', sans-serif; font-stretch: 125%; font-weight: 800;
+  text-transform: uppercase; font-size: 82px; line-height: 0.98; letter-spacing: -0.01em; text-wrap: balance;
+}
+.headline em { font-style: italic; color: var(--green); }
+[dir='rtl'] .headline { font-family: 'Noto Kufi Arabic', sans-serif; font-weight: 800; font-size: 74px; line-height: 1.32; letter-spacing: 0; text-transform: none; }
+[dir='rtl'] .headline em { font-style: normal; }
+
+.body-copy { font-size: 24px; line-height: 1.42; font-weight: 400; color: rgba(255, 255, 255, 0.86); max-width: 400px; }
+[dir='rtl'] .body-copy { font-size: 25px; line-height: 1.75; max-width: 440px; }
+
+.label { font-family: 'Archivo', sans-serif; font-stretch: 125%; font-weight: 700; font-size: 17px; letter-spacing: 0.12em; text-transform: uppercase; }
+[dir='rtl'] .label { font-family: 'Noto Kufi Arabic', 'Archivo', sans-serif; font-size: 21px; letter-spacing: 0; font-weight: 600; text-transform: none; }
+.label .num { font-family: 'Archivo', sans-serif; font-stretch: 125%; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 10px 0; }
+.tags span { padding-inline-end: 18px; margin-inline-end: 18px; border-inline-end: 2px solid currentColor; line-height: 1; }
+.tags span:last-child { border: 0; margin: 0; padding: 0; }
+[dir='rtl'] .tags span { line-height: 1.3; }
+
+.vtext {
+  position: absolute; writing-mode: vertical-rl; transform: rotate(180deg); color: var(--ink);
+  font-family: 'Archivo', sans-serif; font-stretch: 125%; font-weight: 700; font-size: 17px; letter-spacing: 0.16em; text-transform: uppercase;
+}
+[dir='rtl'] .vtext.ar { transform: none; font-family: 'Noto Kufi Arabic', sans-serif; letter-spacing: 0; font-size: 21px; font-weight: 600; text-transform: none; }
+
+/* ---------- layout A: white side band + green base block ---------- */
+.lay-A .shade { background: linear-gradient(to top, rgba(10, 22, 14, 0.9) 0%, rgba(10, 22, 14, 0.55) 34%, rgba(10, 22, 14, 0) 62%); }
+.lay-A .vtext { left: 104px; }
+[dir='rtl'] .lay-A .vtext { left: auto; right: 104px; }
+.lay-A .vtext.v1 { top: 250px; }
+.lay-A .vtext.v2 { top: 780px; }
+.lay-A .copy { position: absolute; inset-inline-start: 290px; inset-inline-end: var(--pad); bottom: 290px; z-index: 3; }
+.lay-A .copy .body-copy { margin-bottom: 40px; }
+.lay-A .base { position: absolute; inset-inline-start: 266px; max-width: 600px; bottom: 60px; z-index: 3; color: var(--ink); }
+.lay-A .base .tags { margin-top: 18px; }
+.lay-A .logo-wrap { inset-inline-start: 262px; }
+.lay-A .art { width: 820px; height: 820px; top: 60px; inset-inline-end: -150px; }
+
+/* ---------- layout B: ink diagonal panel + green block ---------- */
+.lay-B .shade { background: linear-gradient(to bottom, rgba(10, 22, 14, 0.55) 0%, rgba(10, 22, 14, 0) 22%); }
+.lay-B .logo-wrap { inset-inline-start: var(--pad); }
+.lay-B .panel-copy { position: absolute; inset-inline-start: 616px; inset-inline-end: 70px; top: 668px; z-index: 3; }
+.lay-B .panel-copy .body-copy { color: var(--green); }
+.lay-B .panel-copy .tags { margin-top: 30px; color: rgba(255, 255, 255, 0.8); }
+.lay-B .block { position: absolute; inset-inline-start: var(--pad); width: 600px; top: 950px; z-index: 3; }
+.lay-B .block .label { display: flex; justify-content: space-between; color: var(--ink); }
+.lay-B .block .headline { margin-top: 34px; font-size: 68px; color: var(--white); }
+.lay-B .block .headline em { color: var(--ink); }
+[dir='rtl'] .lay-B .block .headline { font-size: 64px; }
+.lay-B .art { width: 640px; height: 640px; top: 150px; inset-inline-start: 40px; }
+
+/* ---------- layout C: green side wedge + white base strip ---------- */
+.lay-C .shade { background: linear-gradient(to top, rgba(10, 22, 14, 0.92) 0%, rgba(10, 22, 14, 0.6) 30%, rgba(10, 22, 14, 0) 58%); }
+.lay-C .logo-wrap { inset-inline-end: var(--pad); }
+.lay-C .copy { position: absolute; inset-inline-start: var(--pad); inset-inline-end: 260px; bottom: 222px; z-index: 3; }
+.lay-C .copy .body-copy { margin-bottom: 40px; }
+.lay-C .strip { position: absolute; inset-inline-start: var(--pad); width: 700px; bottom: 56px; z-index: 3; color: var(--ink); }
+.lay-C .strip .row { display: flex; justify-content: space-between; align-items: center; }
+.lay-C .strip .tags { margin-top: 22px; }
+.lay-C .counter { position: absolute; inset-inline-end: 30px; top: 940px; z-index: 3; color: var(--ink); font-family: 'Archivo', sans-serif; font-stretch: 125%; font-weight: 800; font-size: 110px; line-height: 1; letter-spacing: -0.02em; }
+.lay-C .art { width: 680px; height: 680px; top: 50px; inset-inline-start: 150px; }
+
+/* ---------- cover ---------- */
+.cover .tile { position: absolute; width: 540px; height: 400px; object-fit: cover; }
+.cover .shade { background: linear-gradient(to bottom, rgba(10, 22, 14, 0.6) 0%, rgba(10, 22, 14, 0) 26%); }
+.cover .logo-wrap { inset-inline-start: var(--pad); height: 62px; }
+.cover .lead { position: absolute; inset-inline-start: var(--pad); width: 560px; top: 856px; z-index: 3; }
+.cover .lead .label { color: var(--ink); }
+.cover .lead .headline { margin-top: 26px; font-size: 64px; color: var(--white); }
+.cover .lead .headline em { color: var(--ink); }
+[dir='rtl'] .cover .lead .headline { font-size: 66px; }
+.cover .swipe { position: absolute; inset-inline-start: var(--pad); bottom: 64px; z-index: 3; display: flex; align-items: center; gap: 12px; color: var(--ink); }
+.cover .swipe .ico { width: 30px; height: 30px; }
+.cover .index { position: absolute; inset-inline-start: 720px; inset-inline-end: 60px; top: 970px; z-index: 3; list-style: none; }
+.cover .index li { display: flex; gap: 16px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.14); font-size: 19px; line-height: 1.2; }
+.cover .index li:last-child { border-bottom: 0; }
+.cover .index .num { color: var(--green); font-stretch: 125%; font-weight: 700; font-size: 15px; letter-spacing: 0.08em; }
+[dir='rtl'] .cover .index li { font-size: 21px; line-height: 1.45; padding: 7px 0; }
+.cover .note { position: absolute; inset-inline-start: 720px; inset-inline-end: 60px; top: 846px; z-index: 3; color: var(--green); font-size: 19px; line-height: 1.4; }
+[dir='rtl'] .cover .note { font-size: 20px; line-height: 1.7; top: 836px; }
